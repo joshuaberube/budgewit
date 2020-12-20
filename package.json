@@ -2,6 +2,9 @@
   "name": "budget-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
+  "main": "server/index.js",
+  "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.6",

@@ -5,7 +5,7 @@ CREATE TABLE users (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_num VARCHAR(25) NOT NULL,
-    api_key VARCHAR(250) NOT NULL,
+    api_key VARCHAR(250) NOT NULL
 );
 
 
@@ -61,8 +61,8 @@ CREATE TABLE transactions (
 
 CREATE TABLE resource_links (
     resource_id SERIAL PRIMARY KEY,
-    resource_title VARCHAR(250)
-    resource_desc VARCHAR(500)
-    resource_link VARCHAR(500)
+    resource_title VARCHAR(250),
+    resource_desc VARCHAR(500),
+    resource_link VARCHAR(500),
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
