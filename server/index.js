@@ -1,17 +1,30 @@
-import dotenv from "dotenv"
-import express from "express"
-import massive from "massive"
-const app = express()
-dotenv.config()
+import dotenv from "dotenv";
+import express from "express";
+import massive from "massive";
 
-const { SERVER_PORT, CONNECTION_STRING } = process.env
+import { getTransactions, addTransaction } from "./controller.js";
 
-app.use(express.json())
+const app = express();
+dotenv.config();
 
-massive({connectionString: CONNECTION_STRING, ssl: {rejectUnauthorized: false}})
-.then(db => {app.set("db", db); console.log("Connected to database!")})
-.catch(err => console.log(err))
+const { SERVER_PORT, CONNECTION_STRING } = process.env;
 
+app.use(express.json());
 
+massive({
+	connectionString: CONNECTION_STRING,
+	ssl: { rejectUnauthorized: false },
+})
+	.then((db) => {
+		app.set("db", db);
+		console.log("Connected to database!");
+	})
+	.catch((err) => console.log(err));
 
-app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}.`))
+app.get("/api/transactions/get/:id", getTransactions);
+
+app.post("/api/transactions/add", addTransaction);
+
+app.listen(SERVER_PORT, () =>
+	console.log(`Server listening on port ${SERVER_PORT}.`)
+);
