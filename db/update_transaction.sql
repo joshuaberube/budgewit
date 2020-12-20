@@ -6,4 +6,4 @@ SET transaction_amount = $1,
     pending = $5,
     transaction_title = $6,
     transaction_desc = $6
-    where transaction_id = $7;
+    WHERE transaction_id = $7;
