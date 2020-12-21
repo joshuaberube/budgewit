@@ -7,7 +7,14 @@ import {
 	addTransaction,
 	editTransaction,
 	deleteTransaction,
-} from "./controller.js";
+} from "./transactionsController.js";
+
+import {
+	getBudgets,
+	addBudget,
+	editBudget,
+	deleteBudget,
+} from "./budgetController.js";
 
 const app = express();
 dotenv.config();
@@ -26,6 +33,8 @@ massive({
 	})
 	.catch((err) => console.log(err));
 
+// transaction REST calls
+
 app.get("/api/transactions/get/:id", getTransactions);
 
 app.post("/api/transactions/add", addTransaction);
@@ -33,6 +42,16 @@ app.post("/api/transactions/add", addTransaction);
 app.put("/api/transactions/edit/:id", editTransaction);
 
 app.delete("/api/transactions/delete/:id", deleteTransaction);
+
+// budget REST calls
+
+app.get("/api/budgets/get/:id", getBudgets);
+
+app.post("/api/budgets/add", addBudget);
+
+app.put("/api/budgets/edit/:id", editBudget);
+
+app.delete("/api/budgets/delete/:id", deleteBudget);
 
 app.listen(SERVER_PORT, () =>
 	console.log(`Server listening on port ${SERVER_PORT}.`)

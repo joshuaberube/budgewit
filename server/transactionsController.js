@@ -68,7 +68,7 @@ const editTransaction = async (req, res) => {
 			transaction_desc,
 			transaction_id,
 		]);
-		res.status(200).send("record deleted");
+		res.status(200).send("transaction updated");
 	} catch (err) {
 		console.log(err);
 	}

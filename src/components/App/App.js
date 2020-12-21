@@ -1,5 +1,3 @@
-git;
-
 const App = () => {
 	return <div>App</div>;
 };
