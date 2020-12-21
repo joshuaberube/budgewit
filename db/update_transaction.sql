@@ -5,5 +5,6 @@ SET transaction_amount = $1,
     iso_currency_code = $4,
     pending = $5,
     transaction_title = $6,
-    transaction_desc = $6
-    WHERE transaction_id = $7;
+    transaction_desc = $7
+    WHERE transaction_id = $8
+    RETURNING *;

@@ -3,4 +3,5 @@ UPDATE budgets
     budget_category = $2,
     budget_max = $3,
     budget_current = $4
-    WHERE budget_id = $5;
+    WHERE budget_id = $5
+    RETURNING *;
