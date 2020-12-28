@@ -44,6 +44,7 @@ const Resources = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     editResource();
+    setEdit(false);
   };
 
   const mappedResources = resources.map((resource) => {
@@ -84,6 +85,12 @@ const Resources = () => {
               <li>{resource.source}</li>
               <li>{resource.description}</li>
             </ul>
+            <button onClick={() => setEdit(true)}>
+                Edit
+            </button>
+            <button onClick={() => deleteResource()}>
+                Delete
+            </button>
           </div>
         )}
         )
