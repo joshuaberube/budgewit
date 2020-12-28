@@ -7,7 +7,7 @@ const Resources = () => {
     const [source, setSource] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [Edit, setEdit] = useState(false);
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         const getMyResources = async () => {
@@ -30,11 +30,10 @@ const Resources = () => {
     };
     const editResource = async () => {
         try {
-            const res = await axios.put(`/api/resource/${resourceId}`, { title, sourceLink, description });
+            const res = await axios.put(`/api/data/resource/${resourceId}`, { title, sourceLink, description });
             setTitle(res.data.title);
             setSource(res.data.sourceLink)
-            setContent(res.data.description);
-            setEdit(false);
+            setDescription(res.data.description);
         } catch (err) {
             console.log(err)
         }
