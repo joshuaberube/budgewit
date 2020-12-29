@@ -73,7 +73,7 @@ const Auth = (props) => {
               placeholder="Phone Number"
               type="text"
               value={phoneNumber}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </>
         )}
