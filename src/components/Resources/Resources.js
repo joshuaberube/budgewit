@@ -4,6 +4,7 @@ import axios from "axios";
 const Resources = () => {
   const [resources, setResources] = useState([]);
   const [source, setSource] = useState("");
+  const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [edit, setEdit] = useState(false);
@@ -33,10 +34,12 @@ const Resources = () => {
         title,
         source,
         description,
+        category
       });
       setTitle(res.data.title);
       setSource(res.data.source);
       setDescription(res.data.description);
+      setCategory(res.data.category);
     } catch (err) {
       console.log(err);
     }
@@ -76,6 +79,14 @@ const Resources = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </label>
+            <label>
+              Category:
+              <input
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </label>
             <input type="submit" value="Submit" />
           </form>
         ) : (
@@ -84,13 +95,10 @@ const Resources = () => {
               <li>{resource.title}</li>
               <li>{resource.source}</li>
               <li>{resource.description}</li>
+              <li>{resource.category}</li>
             </ul>
-            <button onClick={() => setEdit(true)}>
-                Edit
-            </button>
-            <button onClick={() => deleteResource()}>
-                Delete
-            </button>
+            <button onClick={() => setEdit(true)}>Edit</button>
+            <button onClick={() => deleteResource()}>Delete</button>
           </div>
         )}
         )
