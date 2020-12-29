@@ -40,14 +40,14 @@ const Auth = (props) => {
         <h1>{toggle ? "Login " : "Register"}</h1>
         <input
           name="login"
-          placeholder="email"
+          placeholder="Email"
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           name="password"
-          placeholder="password"
+          placeholder="Password"
           type="text"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
