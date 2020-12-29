@@ -1,109 +1,53 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { changeIsLoggingIn, login, selectIsLoggingIn } from "../../redux/slices/userSlice";
 
-const Auth = (props) => {
-  const [toggle, setToggle] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+const Auth = () => {
+    const [authState, setAuthState] = useState({email: "", password: "", firstName: "", lastName: "", phoneNumber: ""})
+    const isLoggingIn = useSelector(selectIsLoggingIn)
+    const dispatch = useDispatch()
 
-  const login = async (e) => {
-    e.preventDefault();
-    try {
-      const user = await axios.post("/api/login", { email, password });
-      props.loginUser(user.data);
-      history.push("/Dashboard");
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
-  const register = async (e) => {
-    e.preventDefault();
-    try {
-      const user = await axios.post("/api/register", { email, password, firstName, lastName, phoneNumber });
-      props.loginUser(user.data);
-      history.push("/Dashboard");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    const inputsArr = [
+      //# login inputs
+      {label: "Email", type: "email", name: "email"},
+      {label: "Password", type: "password", name: "password"},
 
-  return (
-    <>
-      <div className="">
-        <img src="" alt="" />
-        <h1>{toggle ? "Login " : "Register"}</h1>
-        <input
-          name="login"
-          placeholder="Email"
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+      //# register inputs
+      {label: "First Name", type: "text", name: "FirstName"},
+      {label: "Last Name", type: "text", name: "lastName"},
+      {label: "Phone Number", type: "tel", name: "phoneNumber", pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"},
+    ]
+
+    const inputsCheck = isLoggingIn ? inputsArr.slice(0, 2) : inputsArr
+
+    const inputsMapped = inputsCheck.map(input => (
+      <label>
+        {input.label}
+        <input 
+          type={input.type} 
+          name={input.name} 
+          onChange={e => setAuthState({...authState, [e.target.name]: e.target.value})} 
+          pattern={input.type === "tel" ? input.pattern : ""}
         />
-        <input
-          name="password"
-          placeholder="Password"
-          type="text"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {toggle ? ( null ) : (
-          <>
-            <input
-              name="firstName"
-              placeholder="First Name"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <input
-              name="lastName"
-              placeholder="Last Name"
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <input
-              name="phoneNumber"
-              placeholder="Phone Number"
-              type="text"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </>
-        )}
+      </label>
+    ))
 
-        {toggle ? (
-          <div className="">
-            <button onClick={login}>Login</button>
-            <button
-              onClick={() => {
-                setToggle(!toggle);
-              }}
-            >
-              Register
-            </button>
+    return (
+      <div >
+        <form onSubmit={() => dispatch(login(authState))}>
+          {inputsMapped}
+          <div>
+            <input 
+              type="button" 
+              onClick={() => dispatch(changeIsLoggingIn())} 
+              value={isLoggingIn ? "Create An Account?" : "Already Have an Account?"}
+            />
+            <button type="submit">{isLoggingIn ? "Login" : "Create Account"}</button>
           </div>
-        ) : (
-          <div className="">
-            <button onClick={register}>Register</button>
-            <button
-              onClick={() => {
-                setToggle(!toggle);
-              }}
-            >
-              Back to Login
-            </button>
-          </div>
-        )}
+        </form>
       </div>
-    </>
-  );
-};
+    )
+}
 
-export default Auth;
+export default Auth
