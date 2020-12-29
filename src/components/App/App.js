@@ -1,11 +1,11 @@
-import './App.scss'
-
+import Link from "../../components/Link/Link";
 const App = () => {
-  return (
-    <div>
-      App
-    </div>
-  )
-}
+	return (
+		<div>
+			App link
+			<Link />
+		</div>
+	);
+};
 
-export default App
+export default App;
