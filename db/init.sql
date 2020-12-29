@@ -13,7 +13,7 @@ CREATE TABLE goals (
     goal_id SERIAL PRIMARY KEY,
     goal_amount INT NOT NULL,
     goal_progress INT DEFAULT 0,
-    goal_status BOOLEAN NOT NULL DEFAULT FALSE,
+    goal_status BOOLEAN DEFAULT FALSE,
     goal_created DATE DEFAULT CURRENT_DATE,
     goal_last_edited DATE DEFAULT CURRENT_DATE,
     goal_end_date DATE NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE transactions (
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-
+--CHANGE resource_id TO resource_link_id
 CREATE TABLE resource_links (
     resource_id SERIAL PRIMARY KEY,
     resource_title VARCHAR(250),
@@ -66,3 +66,6 @@ CREATE TABLE resource_links (
     resource_link VARCHAR(500),
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+INSERT INTO users (email, password, first_name, last_name, phone_num, api_key)
+VALUES ('test@test.com', 'test', 'test', 'testt', '1+801-742-1223', 'apiTestKey');
