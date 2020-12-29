@@ -1,70 +1,85 @@
-import { useState, useEffect } from "react"
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const Auth = (props) => {
   const [toggle, setToggle] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
-
-  const handleEmailInput = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordInput = (event) => {
-    setPassword(event.target.value);
-  };
 
   const login = async (e) => {
     e.preventDefault();
     try {
-        const user = await axios.post('/api/login', { email, password })
-        props.loginUser(user.data)
-        history.push('/Dashboard')
+      const user = await axios.post("/api/login", { email, password });
+      props.loginUser(user.data);
+      history.push("/Dashboard");
+    } catch (err) {
+      console.log(err);
     }
-    catch (err) {
-        console.log(err)
-    }
-};
+  };
 
-const register = async (e) => {
+  const register = async (e) => {
     e.preventDefault();
     try {
-        const user = await axios.post('/api/register', {email, password})
-        props.loginUser(user.data)
-        history.push('/Dashboard')
+      const user = await axios.post("/api/register", { email, password, firstName, lastName, phoneNumber });
+      props.loginUser(user.data);
+      history.push("/Dashboard");
+    } catch (err) {
+      console.log(err);
     }
-    catch (err) {
-        console.log(err)
-    }
-};
+  };
 
   return (
-    <div className="auth-major">
-      <div className="auth-box">
-        <img src="logo.png" alt ='' />
+    <>
+      <div className="">
+        <img src="" alt="" />
         <h1>{toggle ? "Login " : "Register"}</h1>
         <input
-          name="email"
+          name="login"
           placeholder="email"
-          type="email"
-          value={emailInput}
-          onChange={handleEmailInput}
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           name="password"
           placeholder="password"
-          type="password"
-          value={passwordInput}
-          onChange={handlePasswordInput}
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
+        {toggle ? ( null ) : (
+          <>
+            <input
+              name="firstName"
+              placeholder="First Name"
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <input
+              name="lastName"
+              placeholder="Last Name"
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <input
+              name="phoneNumber"
+              placeholder="Phone Number"
+              type="text"
+              value={phoneNumber}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </>
+        )}
+
         {toggle ? (
-          <div className="login-button">
+          <div className="">
             <button onClick={login}>Login</button>
             <button
               onClick={() => {
@@ -75,7 +90,7 @@ const register = async (e) => {
             </button>
           </div>
         ) : (
-          <div className="login-button">
+          <div className="">
             <button onClick={register}>Register</button>
             <button
               onClick={() => {
@@ -87,10 +102,8 @@ const register = async (e) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
-const mapStateToProps = (state) => state;
-
-export default connect(mapStateToProps, { loginUser })(Auth)
+export default Auth;
