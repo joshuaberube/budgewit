@@ -1,11 +1,11 @@
-import Link from "../../components/Link/Link";
-const App = () => {
-	return (
-		<div>
-			App link
-			<Link />
-		</div>
-	);
-};
+import './App.css'
 
-export default App;
+const App = () => {
+  return (
+    <div>
+      App
+    </div>
+  )
+}
+
+export default App
