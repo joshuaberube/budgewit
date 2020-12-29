@@ -8,9 +8,6 @@
     "ignore": "src/",
     "ext": "js, json, sql"
   },
-
-
-
   "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
