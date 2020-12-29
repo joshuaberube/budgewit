@@ -1,4 +1,4 @@
 DO $$
 BEGIN
-    EXECUTE 'SELECT * FROM' || $1 || 'WHERE userId =' || $2 ||
+    EXECUTE 'SELECT * FROM' || $2 || 'WHERE user_id =' || $1;
 END $$;
