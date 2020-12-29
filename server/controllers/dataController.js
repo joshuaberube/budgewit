@@ -28,10 +28,10 @@ const editData = async (req, res) => {
     // const { userId } = req.session.user
     const userId = 1
 
-    await db.data.edit_data([userId, tableName, req.body, dataId])
+    const test = await db.data.edit_data([userId, tableName, req.body, dataId])
     .catch(err => {console.log(err); res.status(500).send(err)})
 
-    res.sendStatus(200)
+    res.status(200).send(test)
 }
 
 const deleteData = async (req, res) => {
