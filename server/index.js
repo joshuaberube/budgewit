@@ -4,8 +4,9 @@ import massive from "massive"
 import session from "express-session"
 import moment from "moment"
 import plaid from "plaid"
-import { loginUser, registerUser } from "./controllers/authController.js"
+import { getUserSession, loginUser, logoutUser, registerUser } from "./controllers/authController.js"
 import { getData, addData, deleteData, editData } from "./controllers/dataController.js"
+import { camelToSnake, checkSession } from "./middleware.js"
 const app = express()
 dotenv.config()
 
@@ -35,13 +36,15 @@ massive({connectionString: CONNECTION_STRING, ssl: {rejectUnauthorized: false}})
 
 //# Data endpoints
 app.get("/api/data/:tableName", getData)
-app.post("/api/data/:tableName", addData)
-app.put("/api/data/:tableName/:dataId", editData)
+app.post("/api/data/:tableName", camelToSnake, addData)
+app.put("/api/data/:tableName/:dataId", camelToSnake, editData)
 app.delete("/api/data/:tableName/:dataId", deleteData)
 
 //# Auth endpoints
 app.post("/api/user/register", registerUser)
 app.post("/api/user/login", loginUser)
+app.post("/api/user/logout", checkSession, logoutUser)
+app.post("/api/user/session", checkSession, getUserSession)
 
 
 
