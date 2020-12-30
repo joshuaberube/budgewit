@@ -1,9 +1,14 @@
-import './App.css'
+import { Route, Switch } from 'react-router'
+import Auth from '../Auth/Auth'
+import './App.scss'
 
 const App = () => {
   return (
     <div>
-      App
+      <Switch>
+        <Route path="/auth"> <Auth /> </Route>
+
+      </Switch>
     </div>
   )
 }

@@ -23,6 +23,7 @@ massive({connectionString: CONNECTION_STRING, ssl: {rejectUnauthorized: false}})
 .then(db => {app.set("db", db); console.log("Connected to database!")})
 .catch(err => console.log(err))
 
+//# Data endpoints
 app.get("/api/data/:tableName", getData)
 app.post("/api/data/:tableName", addData)
 app.put("/api/data/:tableName/:dataId", editData)
