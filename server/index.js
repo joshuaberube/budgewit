@@ -3,6 +3,7 @@ import express from "express"
 import massive from "massive"
 import moment from "moment"
 import plaid from "plaid"
+import emailController from './controllers/emailController'
 import { getData, addData, deleteData, editData } from "./controllers/dataController.js"
 const app = express()
 dotenv.config()
@@ -28,6 +29,9 @@ app.get("/api/data/:tableName", getData)
 app.post("/api/data/:tableName", addData)
 app.put("/api/data/:tableName/:dataId", editData)
 app.delete("/api/data/:tableName/:dataId", deleteData)
+
+//#Auth endpoints
+app.post('/api/email',ctrl.email)
 
 
 
