@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App/App'
+
 import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 import store from './redux/store'
@@ -8,6 +9,7 @@ import store from './redux/store'
 import history from "./history"
 
 // store.dispatch(getUserSession())
+
 
 ReactDOM.render(
 	<React.StrictMode>
