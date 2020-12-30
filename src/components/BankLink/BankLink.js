@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { PlaidLink } from "react-plaid-link";
 import axios from "axios";
 
-class Link extends Component {
+class BankLink extends Component {
 	constructor() {
 		super();
 
 		this.state = {
 			accounts: [],
 			transactions: [],
+			rtransactions: [],
 			categories: [],
 			linkToken: {
 				expiration: "",
@@ -23,6 +24,7 @@ class Link extends Component {
 		this.handleClick = this.handleClick.bind(this);
 		this.handleOnSuccess = this.handleOnSuccess.bind(this);
 		this.compareValues = this.compareValues.bind(this);
+		this.transformer = this.transformer.bind(this);
 	}
 
 	async componentDidMount() {
@@ -55,6 +57,24 @@ class Link extends Component {
 			}
 			return order === "desc" ? comparison * -1 : comparison;
 		};
+	}
+
+	transformer(source_transaction, user_id) {
+		let target_transaction = {};
+		target_transaction["transaction_id"] = source_transaction["transaction_id"];
+
+		target_transaction["transaction_amount"] = source_transaction["amount"];
+
+		target_transaction["transaction_category"] =
+			source_transaction["category"][0];
+		target_transaction["transaction_date"] = source_transaction["date"];
+		target_transaction["iso_currency_code"] =
+			source_transaction["iso_currency_code"];
+		target_transaction["pending"] = source_transaction["pending"];
+		target_transaction["transaction_title"] = source_transaction["name"];
+		target_transaction["transaction_desc"] = source_transaction["category"][1];
+		target_transaction["user_id"] = user_id;
+		return target_transaction;
 	}
 
 	getCategories(transactions) {
@@ -94,15 +114,24 @@ class Link extends Component {
 	async handleClick(res) {
 		let ACCESS_TOKEN = this.state.access_token;
 		res = await axios.get(`/api/plaid/transactions/${ACCESS_TOKEN}`);
-
+		//****************temporary code***********************
+		let user_id = 1;
+		//****************temporary code***********************
 		let sortedTransactions = [...res.data.transactions];
-
+		let reformatTransactions = [];
+		for (let i = 0; i < res.data.transactions.length; i++) {
+			reformatTransactions.push(
+				this.transformer(res.data.transactions[i], user_id)
+			);
+		}
+		console.log("reformatTransactions: ", reformatTransactions);
 		sortedTransactions.sort(this.compareValues("category"));
 		let categories = this.getCategories(sortedTransactions);
 		this.setState({
 			accounts: res.data.accounts,
 			transactions: res.data.transactions,
 			categories: categories,
+			rtransactions: reformatTransactions,
 		});
 	}
 
@@ -164,4 +193,4 @@ class Link extends Component {
 	}
 }
 
-export default Link;
+export default BankLink;
