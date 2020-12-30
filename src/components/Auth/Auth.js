@@ -27,7 +27,7 @@ const Auth = () => {
         <input 
           type={input.type} 
           name={input.name} 
-          onChange={e => setAuthState({...authState, [e.target.name]: e.target.value})} 
+          onChange={e => setAuthState({...authState, [e.target.name]: e.target.value})}
           pattern={input.type === "tel" ? input.pattern : ""}
         />
       </label>
