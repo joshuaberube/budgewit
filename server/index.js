@@ -1,8 +1,10 @@
 import dotenv from "dotenv"
 import express from "express"
 import massive from "massive"
+import session from "express-session"
 import moment from "moment"
 import plaid from "plaid"
+import { loginUser, registerUser } from "./controllers/authController.js"
 import { getData, addData, deleteData, editData } from "./controllers/dataController.js"
 const app = express()
 dotenv.config()
@@ -10,6 +12,7 @@ dotenv.config()
 const {
 	SERVER_PORT,
 	CONNECTION_STRING,
+	SESSION_SECRET,
 	PLAID_CLIENT_ID,
 	PLAID_SECRET,
 	PLAID_REDIRECT_URI,
@@ -17,7 +20,14 @@ const {
 
 
 app.use(express.json())
-// app.use(session())
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: SESSION_SECRET,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}))
 
 massive({connectionString: CONNECTION_STRING, ssl: {rejectUnauthorized: false}})
 .then(db => {app.set("db", db); console.log("Connected to database!")})
@@ -28,6 +38,10 @@ app.get("/api/data/:tableName", getData)
 app.post("/api/data/:tableName", addData)
 app.put("/api/data/:tableName/:dataId", editData)
 app.delete("/api/data/:tableName/:dataId", deleteData)
+
+//# Auth endpoints
+app.post("/api/user/register", registerUser)
+app.post("/api/user/login", loginUser)
 
 
 
