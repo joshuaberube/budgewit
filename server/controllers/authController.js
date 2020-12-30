@@ -4,7 +4,7 @@ const registerUser = async (req, res) => {
     const db = req.app.get('db')
     const {email, password} = req.body
 
-    const [foundEmail] = await db.user.check_user(email)
+    const [foundEmail] = await db.user.check_email(email)
     if (foundEmail) res.status(401).send("Email already in use")
 
     const salt = genSaltSync(10)
@@ -23,7 +23,7 @@ const loginUser = async (req, res) => {
     const db = req.app.get('db')
     const {email, password} = req.body
 
-    const [foundUser] = await db.user.check_user(email)
+    const [foundUser] = await db.user.check_email(email)
     if (!foundUser) res.status(401).send("Invalid email or password")
 
     const passwordCheck = compareSync(password, foundUser.password)
@@ -43,7 +43,7 @@ const getUserSession = async (req, res) => {
     const db = req.app.get("db")
     const {user_id} = req.session.user
 
-    const [currentUser] = await db.auth.check_user(user_id)
+    const [currentUser] = await db.auth.check_user_id(user_id)
 
     currentUser ? res.status(200).send(req.session.user)
     : res.status(404).send("Please login")
