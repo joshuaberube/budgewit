@@ -6,7 +6,9 @@ const App = () => {
   return (
     <div>
       <Switch>
-        <Route path="/auth"> <Auth /> </Route>
+      <Route Exact path = '/'> <Overview/> </Route>
+      <Route path="/auth"> <Auth /> </Route>
+    
 
       </Switch>
     </div>
