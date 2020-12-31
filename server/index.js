@@ -4,7 +4,7 @@ import massive from "massive"
 import session from "express-session"
 import moment from "moment"
 import plaid from "plaid"
-import { getUserSession, loginUser, logoutUser, registerUser } from "./controllers/authController.js"
+import { getUserSession, loginUser, logoutUser, registerUser, email } from "./controllers/authController.js"
 import { getData, addData, deleteData, editData } from "./controllers/dataController.js"
 import { camelToSnake, checkSession } from "./middleware.js"
 const app = express()
