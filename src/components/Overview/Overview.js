@@ -1,19 +1,12 @@
-import Link from "../Link/Link"
+import BankLink from "../BankLink/BankLink";
 
 const Overview = () => {
-    return(
-        <>
-        <Link/>
-        //Transactions Summary
-        //Goals Summary
-        //Bills Summary     
-        //Budget Summary
-                
-        
-        </>
-
-    )
-
+	return (
+		<>
+			<BankLink />
+			//Transactions Summary //Goals Summary //Bills Summary //Budget Summary
+		</>
+	);
 };
 
-export default Overview
+export default Overview;
