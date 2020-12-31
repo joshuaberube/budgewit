@@ -1,19 +1,17 @@
-import { Route, Switch } from "react-router";
-import Auth from "../Auth/Auth";
-import Overview from "../Overview/Overview";
-import "./App.scss";
+import { Route, Switch } from "react-router"
+import Auth from "../Auth/Auth"
+import Overview from '../Overview/Overview'
+import "./App.scss"
 
 const App = () => {
 	return (
 		<div>
 			<Switch>
 				<Route path="/auth">
-					{" "}
-					<Auth />{" "}
+					<Auth />
 				</Route>
 				<Route exact path="/">
-					{" "}
-					<Overview />{" "}
+					<Overview />
 				</Route>
 			</Switch>
 		</div>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snowball or Avalanche?</title>
+    <meta name='description'
+          content='calculates payment plans based off of loan information to become debt free.'/>
+    <meta name='keywords'
+          content='loan, loan calculator, debt free, web application, personal finance/>
+
+    <link rel="icon" href="assets/src/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/src/img/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+</head>
+<body>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="center">To view your loans later, simply copy the link in the
+                address bar. You can paste it in to your address bar later to view your loans.</p>
+                <p class="center"><a href="https://www.reddit.com/message/compose/?to=frycicle"> Send a message to /u/frycicle on reddit for any questions or bugs.<a/> </p> 
+        </div>
+    </div>
+    <hr>
+
+    <div id="loan-inputs"></div>
+
+
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-0">
+            <button class="btn btn-success btn-block" id="add-loan">+ add loan</button>
+        </div>
+
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-sm-2">
+            <h4>monthly payment</h4>
+            <input class="form-control" id="monthly-payment" placeholder="0">
+        </div>
+        <div class="col-sm-4 col-sm-offset-1">
+            <h4>payment type
+                <a data-toggle="modal" data-target="#paymentTypeHelpModal" href="#">
+                    <span class="question">?</span>
+                </a>
+            </h4>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <button id="avalanche-btn" class="btn btn-primary  btn-block">avalanche</button>
+                </div>
+                <div class="col-sm-6">
+                    <button id="snowball-btn" class="btn btn-default btn-block">snowball</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-sm-offset-1">
+            <h4>&nbsp;</h4>
+            <button id="calculate" class="btn btn-default btn-block">calculate</button>
+
+        </div>
+    </div>
+    <hr>
+    <br>
+
+    <div class="row">
+        <div id="graph" class="col-sm-12">
+
+        </div>
+    </div>
+
+
+    <br>
+
+    <div id="all-loan-results">
+        <div id="total-results"></div>
+        <div id="loan-results"></div>
+    </div>
+
+    <br><br>
+
+</div>
+
+<!-- Modals -->
+
+<div class="modal fade" id="paymentTypeHelpModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Payment Type</h4>
+            </div>
+            <div class="modal-body">
+
+                <p><strong>Avalanche</strong>: Paying off loans with the <strong>highest interest</strong> rate first.</p>
+                <p><strong>Snowball</strong>: Paying off loans with the <strong>lowest balance</strong> first.</p>
+                <p>While <strong>avalanche</strong> results in paying less interest, as well as being debt free sooner, <strong>snowball</strong> pays off individual loans faster, which can be motivating!</p>
+                <p>Depending on your loans, the outcome may be the same regardless of the method used.</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="helpModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Help</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+
+                   This is a loan calculator designed to help you get debt-free as fast as possible. Once your
+                    loan information is entered, you may set the total amount you're able to put towards loans in a
+                    month. If this amount is greater than the minimum you are able to pay on loans, the extra money is
+                    put towards one loan every month to eliminate it. Once a loan is paid off, the money that was
+                    previously going towards that loan is now put towards the next loan, and so forth.
+                </p>
+
+                <p>
+                    The order of which loans are paid off first is either highest-to-lowest interest rate (Avalanche),
+                    or lowest-to-highest remaining principal (Snowball), depending on which you choose.
+                </p>
+
+                <p>
+                    Put just an extra $100 a month towards your loans and see how much time and interest paid you save!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="aboutModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">About</h4>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<!-- Templates -->
+<script id="loan-input-template" type="text/x-handlebars-template">
+    <div id="loan{{id}}" class="loan row">
+        <div class="col-sm-3">
+            <p>loan name</p>
+            <input id="loan-name-{{id}}" class="form-control input-error" name="loan-name" type="text"
+                   placeholder="loan {{id}}">
+        </div>
+        <div class="col-sm-3">
+            <p>current balance</p>
+            <input id="current-balance-{{id}}" class="form-control input-error" name="current-balance" placeholder="$0">
+        </div>
+        <div class="col-sm-3">
+            <p>minimum payment</p>
+            <input id="minimum-payment-{{id}}" class="form-control input-error" name="minimum-payment" placeholder="$0">
+        </div>
+        <div class="col-sm-2">
+            <p>interest rate</p>
+            <input id="interest-rate-{{id}}" class="form-control input-error" name="interest-rate" placeholder="0%">
+
+        </div>
+        <div class="col-sm-1">
+            <a id="destroy-button-{{id}}" class="destroy-button">&times;</a>
+        </div>
+    </div>
+    <hr>
+</script>
+
+<script id="total-results-template" type="text/x-handlebars-template">
+    <hr>
+    <div class="row text-center">
+        <div class="col-sm-4">
+            <h4>loan total</h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>debt free by {{total_date}}</h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>total interest paid: ${{total_interest_paid}}</h4>
+
+        </div>
+    </div>
+
+    <hr>
+</script>
+
+<script id="loan-results-template" type="text/x-handlebars-template">
+    {{#each loans}}
+    <div id="loan-results-{{id}}" class="loan-results">
+        <div class="row text-center" id="loan-head-{{id}}">
+            <div class="col-sm-1">
+                <a><span class="glyphicon glyphicon-chevron-right arrow" aria-hidden="true"></span></a>
+            </div>
+            <div class="col-sm-4">
+                <h4>{{loan_name}}</h4>
+            </div>
+            <div class="col-sm-4">
+                <h4>paid off by {{total_date}}</h4>
+            </div>
+            <div class="col-sm-3">
+                <h4>interest paid: ${{total_interest_paid}}</h4>
+            </div>
+        </div>
+        <br>
+
+        <div class="row" style="display: none;">
+
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-striped text-center">
+                        <tbody id="tbody-{{id}}">
+                        <tr>
+                            <td>Month</td>
+                            <td>Payment</td>
+                            <td>Principal Paid</td>
+                            <td>Interest Paid</td>
+                            <td>Principal Remaining</td>
+                        </tr>
+                        {{#each rows}}
+                        {{> row }}
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <hr>
+    {{/each}}
+</script>
+
+<script id="loan-table-row-partial" type="text/x-handlebars-template">
+
+    <tr>
+        <td>{{date}}</td>
+        <td>${{payment}}</td>
+        <td>${{principal_paid}}</td>
+        <td>${{interest_paid}}</td>
+        <td>${{balance_remaining}}</td>
+    </tr>
+</script>
+
+
+<!-- Libraries -->
+<script src="javascripts/lib/jquery-2.1.1.min.js"></script>
+<script src="javascripts/lib/bootstrap_3.1.1.js"></script>
+<script src="javascripts/lib/handlebars.js_2.0.0-alpha.2.js"></script>
+<script src="javascripts/lib/amplifyjs_1.1.0.js"></script>
+<script src="javascripts/lib/Chart.js_0.2.0.js"></script>
+
+<!-- My Javascript -->
+
+<script src="javascripts/loan_calculator/application_controller.js"></script>
+
+<script src="javascripts/lib/moment.js"></script>
+<script src="javascripts/loan_calculator/graph_controller.js"></script>
+<script src="javascripts/loan_calculator/loan.js"></script>
+<script src="javascripts/loan_calculator/loan_controller.js"></script>
+<script src="javascripts/loan_calculator/responsive_chart.js"></script>
+<script src="javascripts/loan_calculator/results_controller.js"></script>
+<script src="javascripts/loan_calculator/router.js"></script>
+<script src="javascripts/loan_calculator/init.js"></script>
+<script src="javascripts/lib/google_analytics.js"></script>
+
+
+</body>
+</html>
+
+
