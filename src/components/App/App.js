@@ -1,3 +1,4 @@
+
 import { Route, Switch } from 'react-router'
 import Auth from '../Auth/Auth'
 import Header from '../Header/Header'
@@ -10,9 +11,12 @@ const App = () => {
       <Switch>
         <Route path="/auth"> <Auth /> </Route>
 
-      </Switch>
-    </>
-  )
-}
+				<Route exact path="/">
+					<Overview />
+				</Route>
+			</Switch>
+		</>
+	);
+};
 
-export default App
+export default App;
