@@ -1,3 +1,5 @@
+--UPDATE TO USE FORMAT
+
 DO $$
     DECLARE set_values VARCHAR(5000);
 

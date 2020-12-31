@@ -5,7 +5,7 @@ const getData = async (req, res) => {
     // const { userId } = req.session.user
     const userId = 5
 
-    const data = await db.data.get_data(userId, tableName)
+    const data = await db.data.get_data([userId, tableName])
     .catch(err => {console.log(err); res.status(500).send(err)})
     console.log(data)
 
