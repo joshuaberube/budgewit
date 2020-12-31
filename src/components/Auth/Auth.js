@@ -4,13 +4,13 @@ import { changeIsLoggingIn, login, selectIsLoggingIn } from "../../redux/slices/
 
 const inputsArr = [
   // login inputs
-  {label: "Email", type: "email", name: "email"},
+  {label: "Email", type: "text", name: "email"},
   {label: "Password", type: "password", name: "password"},
 
   // register inputs
   {label: "First Name", type: "text", name: "FirstName"},
   {label: "Last Name", type: "text", name: "lastName"},
-  {label: "Phone Number", type: "tel", name: "phoneNumber", pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"},
+  {label: "Phone Number", type: "tel", name: "phoneNumber",} // pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"}
 ]
 
 const Auth = () => {
@@ -28,7 +28,7 @@ const Auth = () => {
           type={input.type} 
           name={input.name} 
           onChange={e => setAuthState({...authState, [e.target.name]: e.target.value})}
-          pattern={input.type === "tel" ? input.pattern : ""}
+          // pattern={input.type === "tel" ? input.pattern : ""}
         />
       </label>
     ))
