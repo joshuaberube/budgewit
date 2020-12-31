@@ -2,7 +2,7 @@ import {compareSync, genSaltSync, hashSync} from 'bcrypt'
 
 const registerUser = async (req, res) => {
     const db = req.app.get('db')
-    const {email, password} = req.body
+    const { email, password } = req.body
 
     const [foundEmail] = await db.user.check_email(email)
     if (foundEmail) res.status(401).send("Email already in use")
@@ -20,7 +20,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const db = req.app.get('db')
-    const {email, password} = req.body
+    const { email, password } = req.body
 
     const [foundUser] = await db.user.check_email(email)
     if (!foundUser) res.status(401).send("Invalid email or password")
@@ -33,6 +33,18 @@ const loginUser = async (req, res) => {
     return res.status(200).send(req.session.user)
 }
 
+const editUser = async (req, res) => {
+    const db = req.app.get('db')
+    const { user_id } = req.session.user
+
+    req.body.user_id = user_id
+    const [updatedUser] = await db.user.edit_user(req.body)
+    .catch(err => {console.log(err); res.sendStatus(400)})
+
+    req.session.user = updatedUser
+    res.status(200).send(req.session.user)
+}
+
 const logoutUser = async (req, res) => {
     req.session.destroy()
     res.sendStatus(200)
@@ -40,7 +52,7 @@ const logoutUser = async (req, res) => {
 
 const getUserSession = async (req, res) => {
     const db = req.app.get("db")
-    const {user_id} = req.session.user
+    const { user_id } = req.session.user
 
     const [currentUser] = await db.auth.check_user_id(user_id)
 
@@ -48,4 +60,4 @@ const getUserSession = async (req, res) => {
     : res.status(404).send("Please login")
 }
 
-export {registerUser, loginUser, logoutUser, getUserSession}
+export {registerUser, loginUser, editUser, logoutUser, getUserSession}
