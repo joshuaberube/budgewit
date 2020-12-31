@@ -13,7 +13,6 @@ const AddTransactions = () => {
 
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
-		console.log("displaying amount from handlesubmit:", transaction_amount);
 		try {
 			let response = axios.post("/api/data/transactions", {
 				transaction_amount,
