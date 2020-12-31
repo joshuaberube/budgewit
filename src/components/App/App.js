@@ -1,15 +1,17 @@
 import { Route, Switch } from 'react-router'
 import Auth from '../Auth/Auth'
+import Header from '../Header/Header'
 import './App.scss'
 
 const App = () => {
   return (
-    <div>
+    <>
+      <Header />
       <Switch>
         <Route path="/auth"> <Auth /> </Route>
 
       </Switch>
-    </div>
+    </>
   )
 }
 
