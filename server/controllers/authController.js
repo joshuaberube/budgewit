@@ -56,7 +56,8 @@ const getUserSession = async (req, res) => {
 const { authEmailer, authEmailerPassword } = process.env
 
 const email = async (req, res) => {
-    const { firstName, lastName, email, } = req.body  //user variables from the front end  
+    const { firstName, lastName, email, } = req.body  //user variables from the front end 
+    let passwordResetUrl = '' 
     //icebox add conditional mailer for verify user.
 
     try {
@@ -76,7 +77,8 @@ const email = async (req, res) => {
         subject: 'Your Budgewit Account', //This will show on the subject of the email
         text: `Hello ${firstName} ${lastName},
         We see you are having some trouble with your account.
-        Use the link below to reset it.`, //for clients with plaintext support only
+        Use the link below to reset it.
+        ${passwordResetUrl}`, //for clients with plaintext support only
         html: `<div>${message}<div>`, 
               //<img src="cid:budgewit@gmail.com"/>`,  if we want to include a logo or attachments later.
         /*attachments: [
