@@ -15,7 +15,6 @@ const registerUser = async (req, res) => {
     .catch(err => {console.log(err); res.sendStatus(400)})
 
     req.session.user = newUser
-
     return res.status(200).send(req.session.user)
 }
 

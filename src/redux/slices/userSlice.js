@@ -12,7 +12,7 @@ const initialState = {
 export const login = createAsyncThunk("user/login", async (userCredentials, thunkAPI) => {
     const {isLoggingIn} = thunkAPI.getState().user
     try {
-        const user = await axios.post(`/api/${isLoggingIn ? "login" : "register"}`, userCredentials)
+        const user = await axios.post(`/api/user/${isLoggingIn ? "login" : "register"}`, userCredentials)
         return user.data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.request.response)
@@ -20,12 +20,12 @@ export const login = createAsyncThunk("user/login", async (userCredentials, thun
 })
 
 export const getUserSession = createAsyncThunk("user/getUserSession", async () => {
-    const user = await axios.get("/api/user-session")
+    const user = await axios.get("/api/user/session")
     return user.data
 })
 
 export const logout = createAsyncThunk("user/logout", async () => {
-    await axios.post("/api/logout")
+    await axios.post("/api/user/logout")
 })
 
 export const userSlice = createSlice({
