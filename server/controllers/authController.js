@@ -14,14 +14,7 @@ const registerUser = async (req, res) => {
     const [newUser] = await db.user.register_user(req.body)
     .catch(err => {console.log(err); res.sendStatus(400)})
 
-    req.session.user = {
-        userId: newUser.user_id,
-        email: newUser.email,
-        firstName: newUser.first_name,
-        lastName: newUser.last_name,
-        phoneNum: newUser.phone_num
-    }
-
+    req.session.user = newUser
     return res.status(200).send(req.session.user)
 }
 

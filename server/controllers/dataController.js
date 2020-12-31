@@ -1,13 +1,10 @@
-//# getData is currently not working
 const getData = async (req, res) => {
     const db = req.app.get('db')
     const { tableName } = req.params
-    // const { userId } = req.session.user
-    const userId = 5
+    const { user_id } = req.session.user
 
-    const data = await db.data.get_data([userId, tableName])
+    const data = await db[tableName].where("user_id=$1", [user_id])
     .catch(err => {console.log(err); res.status(500).send(err)})
-    console.log(data)
 
     res.status(200).send(data)
 }
@@ -15,10 +12,9 @@ const getData = async (req, res) => {
 const addData = async (req, res) => {
     const db = req.app.get('db')
     const { tableName } = req.params
-    // const { userId } = req.session.user
-    const userId = 5
+    const { user_id } = req.session.user
 
-    await db.data.add_data([userId, tableName, req.body])
+    await db.data.add_data([user_id, tableName, req.body])
     .catch(err => {console.log(err); res.status(500).send(err)})
 
     res.sendStatus(200)
@@ -27,10 +23,9 @@ const addData = async (req, res) => {
 const editData = async (req, res) => {
     const db = req.app.get('db')
     const { tableName, dataId } = req.params
-    // const { userId } = req.session.user
-    const userId = 5
+    const { user_id } = req.session.user
 
-    await db.data.edit_data([userId, tableName, req.body, dataId])
+    await db.data.edit_data([user_id, tableName, req.body, dataId])
     .catch(err => {console.log(err); res.status(500).send(err)})
 
     res.sendStatus(200)
@@ -39,10 +34,9 @@ const editData = async (req, res) => {
 const deleteData = async (req, res) => {
     const db = req.app.get('db')
     const { tableName, dataId } = req.params
-    // const { userId } = req.session.user
-    const userId = 5
+    const { user_id } = req.session.user
 
-    await db.data.delete_data([userId, tableName, dataId])
+    await db.data.delete_data([user_id, tableName, dataId])
     .catch(err => {console.log(err); res.status(500).send(err)})
 
     res.sendStatus(200)
