@@ -14,16 +14,20 @@ const AddTransactions = () => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		console.log("displaying amount from handlesubmit:", transaction_amount);
-
-		let response = axios.post("/api/data/transactions", {
-			transaction_amount,
-			transaction_category,
-			transaction_date,
-			iso_currency_code,
-			pending,
-			transaction_title,
-			transaction_desc,
-		});
+		try {
+			let response = axios.post("/api/data/transactions", {
+				transaction_amount,
+				transaction_category,
+				transaction_date,
+				iso_currency_code,
+				pending,
+				transaction_title,
+				transaction_desc,
+			});
+			console.log(response);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return (
