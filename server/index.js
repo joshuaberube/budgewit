@@ -1,4 +1,5 @@
 import dotenv from "dotenv"
+import crypto from 'crypto';
 import express from "express"
 import massive from "massive"
 import session from "express-session"
@@ -45,6 +46,7 @@ app.post("/api/user/register", registerUser)
 app.post("/api/user/login", loginUser)
 app.post("/api/user/logout", checkSession, logoutUser)
 app.post("/api/user/session", checkSession, getUserSession)
+app.post("/api/user/forgotpassword", email)
 
 
 

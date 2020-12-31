@@ -1,5 +1,6 @@
 import {compareSync, genSaltSync, hashSync} from 'bcrypt';
 import nodemailer from 'nodemailer';
+import crypto from "crypto";
 
 
 
@@ -75,23 +76,13 @@ const email = async (req, res) => {
         from: `'The Budgewit Team' <${authEmailer}>`, //From field with our name.
         to: email, //user's email address
         subject: 'Your Budgewit Account', //This will show on the subject of the email
-        text: `Hello ${firstName} ${lastName},
-        We see you are having some trouble with your account.
-        Use the link below to reset it.
-        ${passwordResetUrl}`, //for clients with plaintext support only
-        html: `<div>${message}<div>`, 
-              //<img src="cid:budgewit@gmail.com"/>`,  if we want to include a logo or attachments later.
-        /*attachments: [
-          { //this is the attachment of the document
-            filename: '',
-            path: ''
-          },
-          { //this is the embedded image
-            cid: 'budgewit@gmail.com', 
-            path:''
-          }
-        ]*/
-      }, (err, res) => {
+        text:
+          `Dear ${firstName} ${lastName},`
+        + 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
+        + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
+        + `http://localhost:3000/reset/${token}\n\n`
+        + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+    }, (err, res) => {
         if (err) {
           console.log('err', err)
         } else {
@@ -103,7 +94,11 @@ const email = async (req, res) => {
       console.log(err)
       res.sendStatus(500)
     }
-
+    // const token = crypto.randomBytes(20).toString('hex');  convert to massive DB
+    // user.update({
+    //   resetPasswordToken: token,
+    //   resetPasswordExpires: Date.now() + 3600000,
+    // });
     
   }
 
