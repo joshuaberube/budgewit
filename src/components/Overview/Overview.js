@@ -1,9 +1,9 @@
-import Link from "../Link/Link"
+import BankLink from "../BankLink/BankLink"
 
 const Overview = () => {
     return(
         <>
-        <Link/>
+        <BankLink/>
         //Transactions Summary
         //Goals Summary
         //Bills Summary     
