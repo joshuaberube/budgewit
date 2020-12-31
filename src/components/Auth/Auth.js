@@ -21,6 +21,7 @@ const Auth = () => {
     //checks whether the state is logging in, and if it is, it takes only the email and password components
     const inputsCheck = isLoggingIn ? inputsArr.slice(0, 2) : inputsArr
 
+    //maps over inputsArr to provide a label and an input
     const inputsMapped = inputsCheck.map(input => (
       <label key={input.name}>
         {input.label}
