@@ -61,7 +61,7 @@ const getUserSession = async (req, res) => {
 //import environment variables nodemailer
 const { authEmailer, authEmailerPassword } = process.env; //nodemailer credentials
 
-const email = async (req, res) => {
+const emailUser = async (req, res) => {
   const { email } = req.body;
   const db = req.app.get("db");
   const [foundUser] = await db.user.check_email(email);
@@ -122,4 +122,4 @@ const email = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, logoutUser, getUserSession, email };
+export { registerUser, loginUser, logoutUser, getUserSession, emailUser };
