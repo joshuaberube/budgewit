@@ -8,6 +8,17 @@ const [passState, setPassState] = useState({password: null, match: null})
 const [passwordsMatch, setPasswordsMatch] = useState(false)
 
 
+const handleButton = async () => {
+    e.preventDefault();
+   try {
+    const response = await axios.post("api/user/reset", { password: passState.password });
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 useEffect(() => {
   const {password, match} = passState  
 
@@ -34,7 +45,7 @@ useEffect(() => {
           value={passState.match}
           onChange={(e) => setPassState({...passState, match: e.target.value})}
         ></input>
-        {passwordsMatch ? <button>Reset Password</button> : <p>Passwords must match.</p>}
+        {passwordsMatch ? <button onClick = {handleButton} >Reset Password</button> : <p>Passwords must match.</p>}
       </form>
     </>
   )

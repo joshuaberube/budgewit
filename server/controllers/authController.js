@@ -28,10 +28,10 @@ const loginUser = async (req, res) => {
     const {email, password} = req.body
 
     const [foundUser] = await db.user.check_email(email)
-    if (!foundUser) res.status(401).send("Invalid email or password")
+    if (!foundUser) {return res.status(401).send("Invalid email or password")}
 
     const passwordCheck = compareSync(password, foundUser.password)
-    if (!passwordCheck) return res.status(401).send("Invalid email or password.")
+    if (!passwordCheck) {return res.status(401).send("Invalid email or password.")}
 
     delete foundUser.password
     req.session.user = foundUser
@@ -54,13 +54,21 @@ const getUserSession = async (req, res) => {
 }
 
 //import environment variables nodemailer
-const { authEmailer, authEmailerPassword } = process.env
+const { authEmailer, authEmailerPassword } = process.env  //nodemailer credentials
+
 
 const email = async (req, res) => {
-    const { firstName, lastName, email, } = req.body  //user variables from the front end 
-    let passwordResetUrl = '' 
-    //icebox add conditional mailer for verify user.
-
+     const { email } = req.body  
+     const db = req.app.get('db')
+     const [foundUser] = await db.user.check_email(email)
+    if (!foundUser) {res.sendStatus(500)}
+    
+    const token = crypto.randomBytes(20).toString('hex');   
+    const tokenContainer = {resetPasswordToken: token, resetPasswordExpires: Date.now() + 3600000*24}
+    
+    const [insertContainer] = await db.user.insert_reset_token(email, tokenContainer.resetPasswordToken, tokenContainer.resetPasswordExpires)
+    .catch(err => {console.log(err); res.sendStatus(400)})
+  
     try {
       //invoke the createTransport function passing in your email information. 
       let transporter = nodemailer.createTransport({
@@ -94,11 +102,7 @@ const email = async (req, res) => {
       console.log(err)
       res.sendStatus(500)
     }
-    // const token = crypto.randomBytes(20).toString('hex');  convert to massive DB
-    // user.update({
-    //   resetPasswordToken: token,
-    //   resetPasswordExpires: Date.now() + 3600000,
-    // });
+   
     
   }
 
