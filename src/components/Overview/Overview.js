@@ -1,9 +1,9 @@
-import Link from "../Link/Link"
+// import Link from "../Link/Link"
 
 const Overview = () => {
     return(
         <>
-        <Link/>
+        {/* <Link/> */}
         //Transactions Summary
         //Goals Summary
         //Bills Summary     

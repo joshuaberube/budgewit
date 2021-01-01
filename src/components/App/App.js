@@ -9,7 +9,7 @@ const App = () => {
     <div>
       <Switch>
         <Route path="/auth"> <Auth /> </Route>
-        <Route exact path = '/'> <Overview/> </Route>
+        {/* <Route exact path = '/'> <Overview/> </Route> */}
       </Switch>
 		</div>
 	)
