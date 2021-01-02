@@ -51,13 +51,37 @@ const getUserSession = async (req, res) => {
   const db = req.app.get("db");
   const { user_id } = req.session.user;
 
-  const [currentUser] = await db.auth.check_user_id(user_id);
+  const [currentUser] = await db.user.check_user_id(user_id);
 
   currentUser
     ? res.status(200).send(req.session.user)
     : res.status(404).send("Please login");
 };
 
+const resetUserPassword = async (req, res) => {
+    const db = req.app.get("db");
+    const {password, resetPasswordToken } = req.body; 
+    
+    const [tokenValidator] = await db.user.check_user_reset_token(resetPasswordToken);
+    if (!tokenValidator) {
+        return res.status(401).send("This link is invalid or expired."); 
+    }
+    else if (Date.now() > tokenValidator.resetPasswordExpires) {
+        return res.status(401).send("This link is expired.")
+    }
+    else {
+        const salt = genSaltSync(10);
+        const hash = hashSync(password, salt);
+        req.body.password = hash;
+        
+        const [updatedUser] = await db.user.reset_password(password, resetPasswordToken).catch((err) => {
+            console.log(err);
+            res.sendStatus(400);
+        return res.status(200).send({success: true})  
+        });
+        
+    }
+}
 //import environment variables nodemailer
 const { authEmailer, authEmailerPassword } = process.env; //nodemailer credentials
 
@@ -104,7 +128,7 @@ const emailUser = async (req, res) => {
           `Dear ${firstName} ${lastName},` +
           "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
           "Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n" +
-          `http://localhost:3000/reset/${token}\n\n` +
+          `http://localhost:3000/reset/:${resetPasswordToken}\n\n` +
           "If you did not request this, please ignore this email and your password will remain unchanged.\n",
       },
       (err, res) => {
@@ -122,4 +146,4 @@ const emailUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, logoutUser, getUserSession, emailUser };
+export { registerUser, loginUser, logoutUser, getUserSession, emailUser, resetUserPassword };

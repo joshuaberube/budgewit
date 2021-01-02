@@ -10,6 +10,7 @@ import {
   logoutUser,
   registerUser,
   emailUser,
+  resetUserPassword
 } from "./controllers/authController.js";
 import {
   getData,
@@ -64,6 +65,7 @@ app.post("/api/user/login", loginUser);
 app.post("/api/user/logout", checkSession, logoutUser);
 app.post("/api/user/session", checkSession, getUserSession);
 app.post("/api/user/forgotpassword", emailUser);
+app.put("/api/user/reset/:resetPasswordToken", resetUserPassword);
 
 // PLAID_PRODUCTS is a comma-separated list of products to use when initializing
 // Link. Note that this list must contain 'assets' in order for the app to be

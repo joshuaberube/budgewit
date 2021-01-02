@@ -16,6 +16,7 @@ const ForgotPassword = () => {
         console.error(error.response.data);
       }
     }
+    alert('If a user account with this email exists it will receive an email with instructions.')
   };
 
   return (
@@ -29,7 +30,7 @@ const ForgotPassword = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         ></input>
-        <button>Reset Password</button>
+        <button type="submit">Reset Password</button>
       </form>
     </>
   );
