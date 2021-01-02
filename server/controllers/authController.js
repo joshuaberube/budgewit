@@ -125,7 +125,7 @@ const emailUser = async (req, res) => {
         to: email, //user's email address
         subject: "Your Budgewit Account", //This will show on the subject of the email
         text:
-          `Dear ${firstName} ${lastName},` +
+          `Dear ${foundUser.firstName} ${foundUser.lastName},` +
           "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
           "Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n" +
           `http://localhost:3000/reset/:${resetPasswordToken}\n\n` +
