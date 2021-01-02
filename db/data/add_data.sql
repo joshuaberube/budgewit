@@ -14,8 +14,7 @@ DO $$
         INTO key_values, insert_values_var
         FROM json_each_text($3);
 
-        EXECUTE 'INSERT INTO ' || $2 || ' (' || regexp_replace(key_values, '"', '') || ', user_id)
-        VALUES (' || insert_values_var || ', ' || $1 || ')
-        RETURNING *';
+        EXECUTE format('INSERT INTO %I (%s, user_id) VALUES (%s, %L)', 
+            $2, regexp_replace(key_values, '"', ''), insert_values_var, $1);
     END;
 $$;

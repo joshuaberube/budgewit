@@ -21,21 +21,24 @@ const Auth = () => {
     //checks whether the state is logging in, and if it is, it takes only the email and password components
     const inputsCheck = isLoggingIn ? inputsArr.slice(0, 2) : inputsArr
 
+    //maps over inputsArr to provide a label and an input
     const inputsMapped = inputsCheck.map(input => (
-      <label>
+      <label key={input.name}>
         {input.label}
         <input 
           type={input.type} 
           name={input.name} 
           onChange={e => setAuthState({...authState, [e.target.name]: e.target.value})}
-          // pattern={input.type === "tel" ? input.pattern : ""}
+
+          pattern={input.type === "tel" ? input.pattern : null}
+
         />
       </label>
     ))
 
     return (
       <div>
-        <form onSubmit={() => dispatch(login(authState))}>
+        <form onSubmit={e => { dispatch(login(authState)); e.preventDefault() }}>
           {inputsMapped}
           <div>
             <input 

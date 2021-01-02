@@ -1,3 +1,4 @@
+
 import dotenv from "dotenv";
 import express from "express";
 import massive from "massive";
@@ -54,18 +55,23 @@ massive({
   .catch((err) => console.log(err));
 
 //# Data endpoints
-app.get("/api/data/:tableName", getData);
-app.post("/api/data/:tableName", camelToSnake, addData);
-app.put("/api/data/:tableName/:dataId", camelToSnake, editData);
-app.delete("/api/data/:tableName/:dataId", deleteData);
 
-//# Auth endpoints
-app.post("/api/user/register", registerUser);
-app.post("/api/user/login", loginUser);
-app.post("/api/user/logout", checkSession, logoutUser);
-app.post("/api/user/session", checkSession, getUserSession);
+app.get("/api/data/:tableName", getData)
+app.post("/api/data/:tableName", checkSession, addData)
+app.put("/api/data/:tableName/:dataId", checkSession, editData)
+app.delete("/api/data/:tableName/:dataId", checkSession, deleteData)
+
+//# User endpoints
+app.post("/api/user/register", registerUser)
+app.post("/api/user/login", loginUser)
+app.put("/api/user/update", checkSession, editUser)
+app.post("/api/user/logout", checkSession, logoutUser)
+app.post("/api/user/session", checkSession, getUserSession)
 app.post("/api/user/forgotpassword", emailUser);
 app.put("/api/user/reset/:resetPasswordToken", resetUserPassword);
+
+
+
 
 // PLAID_PRODUCTS is a comma-separated list of products to use when initializing
 // Link. Note that this list must contain 'assets' in order for the app to be

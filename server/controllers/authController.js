@@ -3,8 +3,9 @@ import nodemailer from "nodemailer";
 import crypto from "crypto";
 
 const registerUser = async (req, res) => {
-  const db = req.app.get("db");
-  const { email, password } = req.body;
+  const db = req.app.get('db')
+  const { email, password } = req.body
+
 
   const [foundEmail] = await db.user.check_email(email);
   if (foundEmail) res.status(401).send("Email already in use");
@@ -18,6 +19,7 @@ const registerUser = async (req, res) => {
     res.sendStatus(400);
   });
 
+
   req.session.user = newUser;
 
   return res.status(200).send(req.session.user);
@@ -26,6 +28,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const db = req.app.get("db");
   const { email, password } = req.body;
+
 
   const [foundUser] = await db.user.check_email(email);
   if (!foundUser) {
@@ -42,12 +45,25 @@ const loginUser = async (req, res) => {
   return res.status(200).send(req.session.user);
 };
 
+const editUser = async (req, res) => {
+    const db = req.app.get('db')
+    const { user_id } = req.session.user
+
+    req.body.user_id = user_id
+    const [updatedUser] = await db.user.edit_user(req.body)
+    .catch(err => {console.log(err); res.sendStatus(400)})
+
+    req.session.user = updatedUser
+    res.status(200).send(req.session.user)
+}
+
 const logoutUser = async (req, res) => {
   req.session.destroy();
   res.sendStatus(200);
 };
 
 const getUserSession = async (req, res) => {
+
   const db = req.app.get("db");
   const { user_id } = req.session.user;
 
@@ -146,4 +162,6 @@ const emailUser = async (req, res) => {
   }
 };
 
+
 export { registerUser, loginUser, logoutUser, getUserSession, emailUser, resetUserPassword };
+
