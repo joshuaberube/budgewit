@@ -6,10 +6,13 @@ const ResetPassword = () => {
   const [passState, setPassState] = useState({ password: null, match: null });
   const [passwordsMatch, setPasswordsMatch] = useState(false); //if true reset password button will render
   const [resetState, setResetState] = useState(false);
-  const resetPasswordToken = window.location.href.split("/").push(); // grab token from url.
-
+  const resetPasswordToken = window.location.href.split("/").pop('').substring(1); // grab token from url
+  
+  
+  
   const handleButton = async (e) => {
     e.preventDefault();
+ 
     const { password } = passState;
     try {
       const response = await axios.put("/api/user/reset/:resetPasswordToken", {

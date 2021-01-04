@@ -78,10 +78,14 @@ const getUserSession = async (req, res) => {
 const resetUserPassword = async (req, res) => {
   const db = req.app.get("db");
   const { password, resetPasswordToken } = req.body;
+  console.log(resetPasswordToken)
 
   const [tokenValidator] = await db.user.check_user_reset_token(
-    resetPasswordToken
-  );
+    [resetPasswordToken]
+  ).catch(err => {
+    console.log(err, 'error in tokenValidator');
+    res.sendStatus(400);
+  })
   if (!tokenValidator) {
     return res.status(401).send("This link is invalid or expired.");
   } else if (Date.now() > tokenValidator.resetPasswordExpires) {
@@ -92,12 +96,12 @@ const resetUserPassword = async (req, res) => {
     req.body.password = hash;
 
     const [updatedUser] = await db.user
-      .reset_password(password, resetPasswordToken)
+      .reset_password({password, resetPasswordToken})
       .catch((err) => {
-        console.log(err);
+        console.log(err, 'Error in updatedUser');
         res.sendStatus(400);
-        return res.status(200).send({ success: true });
-      });
+        });
+        res.status(200).send({ success: true });  
   }
 };
 //import environment variables nodemailer
