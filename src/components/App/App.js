@@ -4,7 +4,7 @@ import Overview from "../Overview/Overview";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import ResetPassword from "../ResetPassword/ResetPassword";
 // import Transactions from '../Transaction/Transaction'
-// import Calculators from '../Calculators/Calculators'
+// import Financial_Independence from '../Calculators/Financial_Independence'
 import Header from "../Header/Header";
 import "./App.scss";
 
