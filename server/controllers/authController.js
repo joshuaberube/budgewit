@@ -7,7 +7,7 @@ dotenv.config();
 
 const registerUser = async (req, res) => {
   const db = req.app.get("db");
-  const { email, password, firstName, lastName, phoneNum } = req.body;
+  const { email, password} = req.body;
 
   const [foundEmail] = await db.user.check_email(email);
   if (foundEmail) res.status(401).send("Email already in use");
