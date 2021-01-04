@@ -77,7 +77,7 @@ const getUserSession = async (req, res) => {
 
 const resetUserPassword = async (req, res) => {
   const db = req.app.get("db");
-  const { password, resetPasswordToken } = req.body;
+  let { password, resetPasswordToken } = req.body;
   console.log(resetPasswordToken)
 
   const [tokenValidator] = await db.user.check_user_reset_token(
@@ -93,7 +93,7 @@ const resetUserPassword = async (req, res) => {
   } else {
     const salt = genSaltSync(10);
     const hash = hashSync(password, salt);
-    req.body.password = hash;
+    password = hash;
 
     const [updatedUser] = await db.user
       .reset_password({password, resetPasswordToken})
