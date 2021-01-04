@@ -44,7 +44,7 @@ const Resources = () => {
       console.log(err);
     }
   };
-  const handleSubmit = (e) => {
+  const handleButton = (e) => {
     e.preventDefault();
     editResource();
     setEdit(false);
@@ -54,7 +54,8 @@ const Resources = () => {
     return (
       <>
         {edit ? (
-          <form onSubmit={handleSubmit}>
+          <>
+          <form>
             <label>
               Title:
               <input
@@ -87,8 +88,10 @@ const Resources = () => {
                 onChange={(e) => setCategory(e.target.value)}
               />
             </label>
-            <input type="submit" value="Submit" />
+            <button type = 'submit' name = 'submitbutton' onClick={handleButton}></button>
           </form>
+          
+          </>
         ) : (
           <div key={resource.id}>
             <ul>

@@ -9,13 +9,13 @@ const inputsArr = [
   {label: "Password", type: "password", name: "password"},
 
   // register inputs
-  {label: "First Name", type: "text", name: "FirstName"},
+  {label: "First Name", type: "text", name: "firstName"},
   {label: "Last Name", type: "text", name: "lastName"},
-  {label: "Phone Number", type: "tel", name: "phoneNumber",} // pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"}
+  {label: "Phone Number", type: "tel", name: "phoneNum",} // pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"}
 ]
 
 const Auth = () => {
-    const [authState, setAuthState] = useState({email: "", password: "", firstName: "", lastName: "", phoneNumber: ""})
+    const [authState, setAuthState] = useState({email: "", password: "", firstName: "", lastName: "", phoneNum: ""})
     const isLoggingIn = useSelector(selectIsLoggingIn)
     const dispatch = useDispatch()
 

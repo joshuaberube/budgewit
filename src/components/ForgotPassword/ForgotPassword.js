@@ -7,14 +7,14 @@ const ForgotPassword = () => {
 
   const sendEmail = async (e) => {
     e.preventDefault();
-    if ((email = "")) {
+    if ((email === "")) {
       return alert("The email field must be filled in.");
     } else {
       try {
-        const response = await axios.post("api/user/forgotpassword", { email });
+        const response = await axios.post("/api/user/forgotpassword", { email: email });
         console.log(response.data);
       } catch (error) {
-        console.error(error.response.data);
+        console.log(error);
       }
     }
     alert('If a user account with this email exists it will receive an email with instructions.')
@@ -23,7 +23,7 @@ const ForgotPassword = () => {
   return (
     <>
       <h1>Password Reset Form</h1>
-      <form className="" onSubmit={sendEmail}>
+      <form className="" >
         <input
           type="text"
           name="email"
@@ -31,7 +31,7 @@ const ForgotPassword = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         ></input>
-        <button type="submit">Reset Password</button>
+        <button onClick={sendEmail} type="submit">Reset Password</button>
       </form>
       <Link to="/auth">Return to Login</Link>
     </>

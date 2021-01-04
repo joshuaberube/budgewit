@@ -1,3 +1,4 @@
+
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     email VARCHAR(250) NOT NULL,
@@ -7,7 +8,7 @@ CREATE TABLE users (
     phone_num VARCHAR(25) NOT NULL,
     api_key VARCHAR(250),
     reset_password_token VARCHAR(250),
-    reset_password_expires INT
+    reset_password_expires BIGINT
 
 );
 
