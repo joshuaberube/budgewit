@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { PlaidLink } from "react-plaid-link";
 import axios from "axios";
+import Transactions from "../Transaction/Transactions";
 
 class BankLink extends Component {
 	constructor() {
@@ -174,6 +175,8 @@ class BankLink extends Component {
 								{transaction.merchant_name}
 							</div>
 						))}
+						<h2>Our transactions</h2>
+						<Transactions />
 						<h2>Money spent by categories</h2>
 						{Object.keys(this.state.categories).map((key, i) => (
 							<p key={i}>
