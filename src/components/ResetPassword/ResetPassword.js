@@ -55,6 +55,7 @@ useEffect(() => {
         ></input>
         {passwordsMatch ? <button type="submit" onClick = {handleButton} >Reset Password</button> : <p>Passwords must match.</p>}
       </form>
+      <Link to="/auth">Return to Login</Link>
       </>
     ) : (
       <>

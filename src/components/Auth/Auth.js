@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeIsLoggingIn, login, selectIsLoggingIn } from "../../redux/slices/userSlice";
+import { Link } from 'react-router-dom';
 
 const inputsArr = [
   // login inputs
@@ -49,6 +50,7 @@ const Auth = () => {
             <button type="submit">{isLoggingIn ? "Login" : "Create Account"}</button>
           </div>
         </form>
+        <Link to="/forgotpassword">Forgot your password?</Link>  
       </div>
     )
 }

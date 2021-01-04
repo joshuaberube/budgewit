@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -32,7 +33,9 @@ const ForgotPassword = () => {
         ></input>
         <button type="submit">Reset Password</button>
       </form>
+      <Link to="/auth">Return to Login</Link>
     </>
+
   );
 };
 
