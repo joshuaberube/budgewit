@@ -9,7 +9,7 @@ const inputsArr = [
   {label: "Password", type: "password", name: "password"},
 
   // register inputs
-  {label: "First Name", type: "text", name: "FirstName"},
+  {label: "First Name", type: "text", name: "firstName"},
   {label: "Last Name", type: "text", name: "lastName"},
   {label: "Phone Number", type: "tel", name: "phoneNum",} // pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"}
 ]
