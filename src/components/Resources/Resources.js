@@ -88,8 +88,9 @@ const Resources = () => {
                 onChange={(e) => setCategory(e.target.value)}
               />
             </label>
+            <button type = 'submit' name = 'submitbutton' onClick={handleButton}></button>
           </form>
-          <button type = 'submit' name = 'submitbutton' onClick={handleButton}></button>
+          
           </>
         ) : (
           <div key={resource.id}>

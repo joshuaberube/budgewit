@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom"
+import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/slices/userSlice"
 
 const Header = () => {
