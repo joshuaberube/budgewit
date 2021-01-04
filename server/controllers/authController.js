@@ -110,7 +110,7 @@ const emailUser = async (req, res) => {
   }
 
   const resetPasswordToken = crypto.randomBytes(20).toString("hex");
-  const resetPasswordExpires = Date.now() + 3600000 * 24,
+  const resetPasswordExpires = Date.now() + 3600000 * 24, // 1 day
 
 
   const [insertContainer] = await db.user
