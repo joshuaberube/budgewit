@@ -20,6 +20,7 @@ const registerUser = async (req, res) => {
     console.log(err);
     res.sendStatus(400);
   });
+  const [resourceDefaults] = await db.user.insert_default_resources(newUser.user_id)
 
   req.session.user = newUser;
 

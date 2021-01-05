@@ -68,6 +68,7 @@ CREATE TABLE resource_links (
     resource_title VARCHAR(250),
     resource_desc VARCHAR(500),
     resource_link VARCHAR(500),
+    resource_category VARCHAR(100)
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
 

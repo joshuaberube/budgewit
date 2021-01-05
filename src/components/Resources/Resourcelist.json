@@ -1,0 +1,108 @@
+[{
+    "resource_title": "Annual Credit Report",
+    "resource_desc": "AnnualCreditReport.com is a website jointly operated by the three major U.S. credit reporting agencies, Equifax, Experian, and TransUnion. The site was created in order to comply with their obligations under the Fair and Accurate Credit Transactions Act (FACTA) to provide a mechanism for American consumers to receive up to three free credit reports per year.",
+    "resource_link": "https://www.annualcreditreport.com/",
+    "resource_category": "Credit Report"
+},
+{
+    "resource_title": "MyMoney.gov",
+    "resource_desc": "This website is a product of the Congressionally chartered Federal Financial Literacy and Education Commission, which is made up of more than 20 Federal entities that are coordinating and collaborating to strengthen financial capability and increase access to financial services for all Americans. The Commission was established by the Financial Literacy and Education Improvement Act, Title V of the Fair and Accurate Credit Transactions Act of 2003 (P.L. 108-159).",
+    "resource_link": "https://www.mymoney.gov/Pages/default.aspx",
+    "resource_category": "Government resources for consumers"
+},
+{
+    "resource_title": "FTC Resource Topics: Credit and Loans",
+    "resource_desc": "Decisions about credit and loans involve lots of factors, including how much money you need, what terms you’re offered, and who is behind the offer. If you are choosing a credit card or wondering whether offers of credit and loans are on the up and up, these tips can help.  The FTC works to prevent fraudulent, deceptive and unfair business practices in the marketplace and to provide information to help consumers spot, stop and avoid them.",
+    "resource_link": "https://www.consumer.ftc.gov/topics/credit-and-loans",
+    "resource_category": "Government resources for consumers"
+},
+{
+    "resource_title": "Money Smart",
+    "resource_desc": "The FDIC's Money Smart financial education program can help people of all ages enhance their financial skills and create positive banking relationships. Learn here about Money Smart tools and strategies that you can use to teach others, as well as tools you can use to learn on your own. First released in 2001 and regularly updated since then, Money Smart has a long track record of success.",
+    "resource_link": "https://www.fdic.gov/consumers/consumer/moneysmart/index.html",
+    "resource_category": "Government resources for consumers"
+},
+{
+    "resource_title": "Consumer.gov",
+    "resource_desc": "",
+    "resource_link": "https://www.consumer.gov/",
+    "resource_category": ""
+},
+{
+    "resource_title": "",
+    "resource_desc": "",
+    "resource_link": "https://",
+    "resource_category": ""
+},
+{
+    "resource_title": "",
+    "resource_desc": "",
+    "resource_link": "https://",
+    "resource_category": ""
+},
+{
+    "resource_title": "",
+    "resource_desc": "",
+    "resource_link": "https://",
+    "resource_category": ""
+}
+]
+
+
+
+
+CREATE TABLE resource_links (
+    resource_link_id SERIAL PRIMARY KEY,
+    resource_title VARCHAR(250),
+    resource_desc VARCHAR(500),
+    resource_link VARCHAR(500),
+    resource_category VARCHAR (100)
+    user_id INT REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+
+Credit Report
+https://www.annualcreditreport.com/
+
+General Govt Consumer Information
+https://www.mymoney.gov/Pages/default.aspx
+https://www.consumer.ftc.gov/topics/credit-and-loans
+https://www.fdic.gov/consumers/consumer/moneysmart/index.html
+https://www.consumerfinance.gov/consumer-tools/  -CFPB
+https://www.consumer.gov/
+https://helpwithmybank.gov/
+https://www.benefits.gov/
+
+
+For Students  #may want to pair down a bit
+https://studentaid.gov/resources/prepare-for-college/students/budgeting
+https://studentaid.gov/h/apply-for-aid/fafsa
+https://bigfuture.collegeboard.org/scholarship-search
+https://www.accreditedschoolsonline.org/resources/low-income-students/
+http://www.collegescholarships.org/grants/
+
+Preparing for the worst  #add snap stuff?
+https://www.wisebread.com/figuring-the-size-of-your-emergency-fund	
+https://www.disasterassistance.gov/
+https://www.consumer.ftc.gov/features/scam-alerts
+https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources
+https://www.nerdwallet.com/blog/finance/covid-19-financial-assistance/
+https://www.hud.gov/coronavirus/renters
+
+Mortgage 
+https://www.consumerfinance.gov/owning-a-home/ #Basic Info
+https://www.nytimes.com/interactive/2014/upshot/buy-rent-calculator.html  #RENT OR BUY?
+https://www.investopedia.com/mortgage/mortgage-guide/down-payment/  #down payment
+https://www.consumerfinance.gov/ask-cfpb/what-is-private-mortgage-insurance-en-122/  #PMI
+  
+
+Veterans
+https://www.militaryconsumer.gov/
+https://www.tsp.gov/PlanParticipation/AboutTheTSP/benefits/index.html
+https://www.facebook.com/DoDFINRED/   #DOD financial readiness network
+https://militarysaves.org/
+https://www.sba.gov/business-guide/grow-your-business/veteran-owned-businesses#section-header-0
+
+Retirement  #should expand
+https://www.irs.gov/retirement-plans/401k-plans
+https://www.aarp.org/retirement/planning-for-retirement/
