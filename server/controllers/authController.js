@@ -7,7 +7,7 @@ dotenv.config();
 
 const registerUser = async (req, res) => {
   const db = req.app.get("db");
-  const { email, password} = req.body;
+  const { email, password } = req.body;
 
   const [foundEmail] = await db.user.check_email(email);
   if (foundEmail) res.status(401).send("Email already in use");
@@ -20,7 +20,12 @@ const registerUser = async (req, res) => {
     console.log(err);
     res.sendStatus(400);
   });
-  const [resourceDefaults] = await db.user.insert_default_resources(newUser.user_id)
+  const [resourceDefaults] = await db.user
+    .insert_default_resources(newUser.user_id)
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("err in resource defaults", err);
+    });
 
   req.session.user = newUser;
 
@@ -79,14 +84,14 @@ const getUserSession = async (req, res) => {
 const resetUserPassword = async (req, res) => {
   const db = req.app.get("db");
   let { password, resetPasswordToken } = req.body;
-  console.log(resetPasswordToken)
+  console.log(resetPasswordToken);
 
-  const [tokenValidator] = await db.user.check_user_reset_token(
-    [resetPasswordToken]
-  ).catch(err => {
-    console.log(err, 'error in tokenValidator');
-    res.sendStatus(400);
-  })
+  const [tokenValidator] = await db.user
+    .check_user_reset_token([resetPasswordToken])
+    .catch((err) => {
+      console.log(err, "error in tokenValidator");
+      res.sendStatus(400);
+    });
   if (!tokenValidator) {
     return res.status(401).send("This link is invalid or expired.");
   } else if (Date.now() > tokenValidator.resetPasswordExpires) {
@@ -97,12 +102,12 @@ const resetUserPassword = async (req, res) => {
     password = hash;
 
     const [updatedUser] = await db.user
-      .reset_password({password, resetPasswordToken})
+      .reset_password({ password, resetPasswordToken })
       .catch((err) => {
-        console.log(err, 'Error in updatedUser');
+        console.log(err, "Error in updatedUser");
         res.sendStatus(400);
-        });
-        res.status(200).send({ success: true });  
+      });
+    res.status(200).send({ success: true });
   }
 };
 //import environment variables nodemailer
@@ -146,7 +151,7 @@ const emailUser = async (req, res) => {
           `Dear User,\n\n` +
           "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
           "Please click on the following link, or paste this into your browser to complete the process within one day of receiving it:\n\n" +
-          `http://localhost:3000/reset/:${resetPasswordToken}\n\n` +
+          `http://localhost:3000/reset/${resetPasswordToken}\n\n` +
           "If you did not request this, please ignore this email and your password will remain unchanged.\n",
       },
       (err, res) => {
@@ -162,7 +167,7 @@ const emailUser = async (req, res) => {
     console.log(err);
     res.sendStatus(500);
   }
-  res.sendStatus(200)
+  res.sendStatus(200);
 };
 
 export {
