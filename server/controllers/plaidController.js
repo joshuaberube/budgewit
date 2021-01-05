@@ -93,4 +93,11 @@ const getPlaidTransactions = async (req, res) => {
     }
 }
 
-export { createPlaidLinkToken, createAccessToken, getPlaidTransactions }
+const getCategories = async (req, res) => {
+    const { categories } = await client.getCategories()
+    .catch(err => {console.log(err); res.sendStatus(500)})
+
+    res.status(200).send(categories)
+}
+
+export { createPlaidLinkToken, createAccessToken, getPlaidTransactions, getCategories }

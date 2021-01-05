@@ -1,8 +1,7 @@
 import { hash, compare } from 'bcrypt'
-import dotenv from "dotenv";
-import nodemailer from "nodemailer";
-import crypto from "crypto";
-import { send } from "process";
+import dotenv from "dotenv"
+import nodemailer from "nodemailer"
+import crypto from "crypto"
 dotenv.config();
 
 const registerUser = async (req, res) => {
@@ -12,43 +11,39 @@ const registerUser = async (req, res) => {
   const [foundEmail] = await db.user.check_email(email);
   if (foundEmail) res.status(401).send("Email already in use");
 
+  const hashedPass = await hash(password, 10)
+  req.body.password = hashedPass
 
-    const hashedPass = await hash(password, 10)
-    req.body.password = hashedPass
+  const [newUser] = await db.user.register_user(req.body)
+  .catch((err) => { console.log(err); res.sendStatus(400)})
 
-  const [newUser] = await db.user.register_user(req.body).catch((err) => {
-    console.log(err);
-    res.sendStatus(400);
-  });
-  const [resourceDefaults] = await db.user
-    .insert_default_resources(newUser.user_id)
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send("err in resource defaults", err);
-    });
+  await db.user.insert_default_resources(newUser.user_id)
+  .catch((err) => {
+    console.log(err)
+    res.status(400).send("err in resource defaults", err)
+  })
 
-  req.session.user = newUser;
+  req.session.user = newUser
 
-  return res.status(200).send(req.session.user);
-};
+  return res.status(200).send(req.session.user)
+}
 
 const loginUser = async (req, res) => {
   const db = req.app.get("db");
   const { email, password } = req.body;
 
   const [foundUser] = await db.user.check_email(email);
-  if (!foundUser) {
-    return res.status(401).send("Invalid email or password");
-  }
+  if (!foundUser) return res.status(401).send("Invalid email or password");
 
-    const passwordCheck = await compare(password, foundUser.password)
-    if (!passwordCheck) return res.status(401).send("Invalid email or password.")
 
-    delete foundUser.password
-    foundUser.api_key = foundUser.api_key ? true : false
+  const passwordCheck = await compare(password, foundUser.password)
+  if (!passwordCheck) return res.status(401).send("Invalid email or password.")
 
-    req.session.user = foundUser
-    return res.status(200).send(req.session.user)
+  delete foundUser.password
+  foundUser.api_key = foundUser.api_key ? true : false
+
+  req.session.user = foundUser
+  return res.status(200).send(req.session.user)
 }
 
 const editUser = async (req, res) => {
@@ -56,7 +51,8 @@ const editUser = async (req, res) => {
   const { user_id } = req.session.user;
 
   req.body.user_id = user_id;
-  const [updatedUser] = await db.user.edit_user(req.body).catch((err) => {
+  const [updatedUser] = await db.user.edit_user(req.body)
+  .catch((err) => {
     console.log(err);
     res.sendStatus(400);
   });
@@ -71,40 +67,36 @@ const logoutUser = async (req, res) => {
 };
 
 const getUserSession = async (req, res) => {
+  const db = req.app.get("db")
+  const { user_id } = req.session.user
 
-    const db = req.app.get("db")
-    const { user_id } = req.session.user
+  const [currentUser] = await db.user.check_user_id(user_id)
 
-    const [currentUser] = await db.user.check_user_id(user_id)
-
-    currentUser ? res.status(200).send(req.session.user)
-    : res.status(404).send("Please login")
+  currentUser ? res.status(200).send(req.session.user)
+  : res.status(404).send("Please login")
 }
-
-export {registerUser, loginUser, editUser, logoutUser, getUserSession}
 
 const resetUserPassword = async (req, res) => {
   const db = req.app.get("db");
   let { password, resetPasswordToken } = req.body;
-  console.log(resetPasswordToken);
 
   const [tokenValidator] = await db.user
     .check_user_reset_token([resetPasswordToken])
     .catch((err) => {
       console.log(err, "error in tokenValidator");
       res.sendStatus(400);
-    });
+    })
+
   if (!tokenValidator) {
     return res.status(401).send("This link is invalid or expired.");
   } else if (Date.now() > tokenValidator.resetPasswordExpires) {
     return res.status(401).send("This link is expired.");
   } else {
-    const salt = genSaltSync(10);
-    const hash = hashSync(password, salt);
-    password = hash;
 
-    const [updatedUser] = await db.user
-      .reset_password({ password, resetPasswordToken })
+    const hashed = await hash(password, 10)
+    password = hashed
+
+    await db.user.reset_password({ password, resetPasswordToken })
       .catch((err) => {
         console.log(err, "Error in updatedUser");
         res.sendStatus(400);
@@ -112,13 +104,14 @@ const resetUserPassword = async (req, res) => {
     res.status(200).send({ success: true });
   }
 };
+
 //import environment variables nodemailer
 const { authEmailer, authEmailerPassword } = process.env; //nodemailer credentials
 
 const emailUser = async (req, res) => {
-  const db = req.app.get("db");
-  const { email } = req.body;
-  const [foundUser] = await db.user.check_email(email);
+  const db = req.app.get("db")
+  const { email } = req.body
+  const [foundUser] = await db.user.check_email(email)
   if (!foundUser) {
     res.sendStatus(500);
   }
@@ -126,8 +119,7 @@ const emailUser = async (req, res) => {
   const resetPasswordToken = crypto.randomBytes(20).toString("hex");
   const resetPasswordExpires = Date.now() + 3600000 * 24; // 1 day
 
-  const [insertContainer] = await db.user
-    .insert_reset_token([resetPasswordToken, resetPasswordExpires, email])
+  await db.user.insert_reset_token([resetPasswordToken, resetPasswordExpires, email])
     .catch((err) => {
       console.log(err);
       res.status(500).send(err);
@@ -144,7 +136,7 @@ const emailUser = async (req, res) => {
     });
 
     //invoke the sendMail function with the info in the email
-    let resetPasswordEmail = await transporter.sendMail(
+    await transporter.sendMail(
       {
         from: `'The Budgewit Team' <${authEmailer}>`, //From field with our name.
         to: email, //user's email address
@@ -158,25 +150,26 @@ const emailUser = async (req, res) => {
       },
       (err, res) => {
         if (err) {
-          console.log("err", err);
+          console.log("err", err)
         } else {
-          console.log("res", res);
-          res.status(200).send(res);
+          console.log("res", res)
+          res.status(200).send(res)
         }
       }
     );
   } catch (err) {
     console.log(err);
-    res.sendStatus(500);
+    res.sendStatus(500)
   }
-  res.sendStatus(200);
-};
+  res.sendStatus(200)
+}
 
 export {
   registerUser,
   loginUser,
   logoutUser,
   getUserSession,
+  editUser,
   emailUser,
   resetUserPassword,
-};
+}

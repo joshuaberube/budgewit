@@ -33,8 +33,8 @@ const App = () => {
 				<Route exact path="/"> <Overview /> </Route>
 				<Route path="/auth"> <Auth /> </Route>
 				<Route path="/transactions"> <Transactions /> </Route>
-        <Route path="/forgotpassword"><ForgotPassword /></Route>
-        <Route path="/reset/:resetPasswordToken"><ResetPassword /></Route>
+				<Route path="/forgotpassword"><ForgotPassword /></Route>
+				<Route path="/reset/:resetPasswordToken"><ResetPassword /></Route>
 				<Route path="*"> <PageNotFound /> </Route>
 			</Switch>
 		</>

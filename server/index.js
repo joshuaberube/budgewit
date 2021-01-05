@@ -5,7 +5,7 @@ import massive from "massive"
 import session from "express-session"
 import { editUser, getUserSession, loginUser, logoutUser, registerUser, emailUser, resetUserPassword } from "./controllers/authController.js"
 import { getData, addData, deleteData, editData } from "./controllers/dataController.js"
-import { createPlaidLinkToken, getPlaidTransactions, createAccessToken } from "./controllers/plaidController.js"
+import { createPlaidLinkToken, getPlaidTransactions, createAccessToken, getCategories } from "./controllers/plaidController.js"
 import { checkSession } from "./middleware.js"
 const app = express()
 dotenv.config()
@@ -36,7 +36,7 @@ massive({
 
 //# Data endpoints
 
-app.get("/api/data/:tableName", getData)
+app.get("/api/data/:tableName", checkSession, getData)
 app.post("/api/data/:tableName", checkSession, addData)
 app.put("/api/data/:tableName/:dataId", checkSession, editData)
 app.delete("/api/data/:tableName/:dataId", checkSession, deleteData)
@@ -54,5 +54,6 @@ app.put("/api/user/reset/:resetPasswordToken", resetUserPassword);
 app.post("/api/plaid/create-link-token", checkSession, createPlaidLinkToken)
 app.post("/api/plaid/create-access-token", checkSession, createAccessToken)
 app.post("/api/plaid/transactions", checkSession, getPlaidTransactions)
+app.get("/api/plaid/categories", checkSession, getCategories)
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}.`))
