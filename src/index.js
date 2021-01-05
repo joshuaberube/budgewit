@@ -6,6 +6,7 @@ import { Router } from 'react-router-dom'
 import { getUserSession } from './redux/slices/userSlice'
 import store from './redux/store'
 import history from "./history"
+import "./index.css"
 
 store.dispatch(getUserSession())
 
