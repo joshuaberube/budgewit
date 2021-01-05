@@ -27,7 +27,7 @@ const ForgotPassword = () => {
         <input
           type="text"
           name="email"
-          placeholder="Insert email address here to reset your password."
+          placeholder="Insert email address."
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         ></input>
