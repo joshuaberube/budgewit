@@ -11,6 +11,7 @@ import Transactions from '../Transactions/Transactions'
 import { selectIsLoggedIn } from '../../redux/slices/userSlice'
 import { getTransactions } from '../../redux/slices/plaidSlice'
 import './App.scss'
+import Budget from '../Budget/Budget'
 
 const App = () => {
 	const location = useLocation()
@@ -32,6 +33,7 @@ const App = () => {
 				<Route exact path="/"> <Overview /> </Route>
 				<Route path="/auth"> <Auth /> </Route>
 				<Route path="/transactions"> <Transactions /> </Route>
+				<Route path="/budget"> <Budget /> </Route>
 				<Route path="*"> <PageNotFound /> </Route>
 			</Switch>
 		</>
