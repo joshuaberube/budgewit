@@ -1,19 +1,16 @@
-// import Link from "../Link/Link"
+import PlaidBankLink from "../PlaidBankLink/PlaidBankLink"
+
 
 const Overview = () => {
     return(
         <>
-        {/* <Link/> */}
-        //Transactions Summary
-        //Goals Summary
-        //Bills Summary     
-        //Budget Summary
-                
-        
+         <PlaidBankLink />
+          {/* //Transactions Summary
+          //Goals Summary
+          //Bills Summary     
+          //Budget Summary  */}
         </>
-
     )
-
-};
+}
 
 export default Overview

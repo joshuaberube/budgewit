@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { PlaidLink } from "react-plaid-link";
 import axios from "axios";
+import Transactions from "../Transaction/Transactions";
 
 class BankLink extends Component {
 	constructor() {
@@ -148,6 +149,7 @@ class BankLink extends Component {
 				>
 					Open Link and connect your bank!
 				</PlaidLink>
+
 				<div>
 					<button onClick={this.handleClick}>
 						Get Accounts and Transactions
@@ -157,8 +159,9 @@ class BankLink extends Component {
 						{this.state.accounts.map((account, index) => (
 							<div key={index}>
 								{" "}
-								{account.name} avail bal {account.balances.available} curr bal{" "}
-								{account.balances.current}
+								{account.name} avail bal $
+								{parseFloat(account.balances.available, 10).toFixed(2)} curr bal{" "}
+								${parseFloat(account.balances.current, 10).toFixed(2)}
 							</div>
 						))}
 						<h2>Transactions</h2>
@@ -166,11 +169,14 @@ class BankLink extends Component {
 							<div key={index}>
 								{" "}
 								<b>date: </b>
-								{transaction.date} <b>amount:</b>
-								{transaction.amount} <b>category:</b> {transaction.category[0]}{" "}
-								<b>merchant:</b> {transaction.merchant_name}
+								{transaction.date} <b>amount:</b>$
+								{parseFloat(transaction.amount, 10).toFixed(2)} <b>category:</b>{" "}
+								{transaction.category[0]} <b>merchant:</b>{" "}
+								{transaction.merchant_name}
 							</div>
 						))}
+						<h2>Our transactions</h2>
+						<Transactions />
 						<h2>Money spent by categories</h2>
 						{Object.keys(this.state.categories).map((key, i) => (
 							<p key={i}>
@@ -181,7 +187,8 @@ class BankLink extends Component {
 								</span>
 								<span>
 									{" "}
-									<b>Amount spent:</b> {this.state.categories[key]}
+									<b>Amount spent:</b> $
+									{parseFloat(this.state.categories[key], 10).toFixed(2)}
 								</span>
 							</p>
 						))}{" "}

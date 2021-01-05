@@ -1,29 +1,18 @@
-import { Link, NavLink } from "react-router-dom"
-import { selectIsLoggedIn } from "../../redux/slices/userSlice"
+
+import { NavLink } from "react-router-dom"
+
 
 const Header = () => {
-    const isLoggedIn = useSelector(selectIsLoggedIn)
-
     return (
         <header>
             <nav>
                 <NavLink to="/">Overview</NavLink>
                 <NavLink to="/transactions">Transactions</NavLink>
-                //*this piece is combined with the Calculations piece*//
-                <NavLink to="/goals">Goals</NavLink> 
+                <NavLink to="/goals">Goals</NavLink>  //*this piece is combined with the Calculations piece*//
                 <NavLink to="/bills">Bills</NavLink>
-                <NavLink to="/budgets">Budgets</NavLink>
+                <NavLink to="/budget">Budget</NavLink>
                 <NavLink to="/resources">Resources</NavLink>
             </nav>
-            <div>
-                {isLoggedIn ? (
-                    //Profile
-                    <>
-                    </>
-                ) : (
-                    <Link to="/auth">Login/Sign in</Link>
-                )}
-            </div>
         </header>
     )
 }
