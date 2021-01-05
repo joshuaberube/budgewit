@@ -103,6 +103,7 @@ function Calculator() {
     <div className='calculator'>
       <div className='form'>
         <h1>Mortgage Calculator</h1>
+        <h2> Buying a home can improve your credit, improve your investment portfolio, as well as decreasing your annual tax load and long-term buills. If you eventually pay off your home, it is yours, and typically that investment only gains in value. This calculator will help you figure out if you can afford to buy a home right now.</h2>
         {/* Display the error when it exists */}
         <p className='error'>{error}</p>
         <form onSubmit={handleSubmitValues}>

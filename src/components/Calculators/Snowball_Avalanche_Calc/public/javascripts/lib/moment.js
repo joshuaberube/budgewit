@@ -1,14 +1,7 @@
-//! moment.js
-//! version : 2.8.3
-//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
-//! license : MIT
-//! momentjs.com
+
 
 (function (undefined) {
-    /************************************
-     Constants
-     ************************************/
-
+ 
     var moment,
         VERSION = '2.8.3',
     // the global-scope this is NOT the global object in Node.js
@@ -1947,9 +1940,7 @@
         }
     );
 
-    // This function will load locale and then set the global locale.  If
-    // no arguments are passed in, it will simply return the current global
-    // locale key.
+    
     moment.locale = function (key, values) {
         var data;
         if (key) {
@@ -2056,10 +2047,6 @@
     moment.parseTwoDigitYear = function (input) {
         return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
     };
-
-    /************************************
-     Moment Prototype
-     ************************************/
 
 
     extend(moment.fn = Moment.prototype, {
@@ -2324,16 +2311,6 @@
             }
         ),
 
-        // keepLocalTime = true means only change the timezone, without
-        // affecting the local hour. So 5:31:26 +0300 --[zone(2, true)]-->
-        // 5:31:26 +0200 It is possible that 5:31:26 doesn't exist int zone
-        // +0200, so we adjust the time as needed, to be valid.
-        //
-        // Keeping the time actually adds/subtracts (one hour)
-        // from the actual represented time. That is why we call updateOffset
-        // a second time. In case it wants us to change the offset again
-        // _changeInProgress == true case, then we have to adjust, because
-        // there is no such time in the given timezone.
         zone : function (input, keepLocalTime) {
             var offset = this._offset || 0,
                 localAdjust;
@@ -2504,11 +2481,8 @@
 
     function rawMonthSetter(mom, value) {
         var dayOfMonth;
-
-        // TODO: Move this out of here!
         if (typeof value === 'string') {
             value = mom.localeData().monthsParse(value);
-            // TODO: Another silent failure?
             if (typeof value !== 'number') {
                 return mom;
             }
