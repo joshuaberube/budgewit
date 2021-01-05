@@ -1,7 +1,10 @@
 const checkSession = (req, res, next) => {
-    req.session.user.user_id ? next() 
-    : res.status(403).send("No user logged in")
+    try {
+        if (req.session.user.user_id) next()
+    } catch (err) {
+        res.status(403).send("No user logged in")
+    } 
 }
 
-export {checkSession}
+export { checkSession }
 

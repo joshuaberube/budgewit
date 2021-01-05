@@ -1,5 +1,5 @@
+import { hash, compare } from 'bcrypt'
 import dotenv from "dotenv";
-import { compareSync, genSaltSync, hashSync } from "bcrypt";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
 import { send } from "process";
@@ -12,9 +12,9 @@ const registerUser = async (req, res) => {
   const [foundEmail] = await db.user.check_email(email);
   if (foundEmail) res.status(401).send("Email already in use");
 
-  const salt = genSaltSync(10);
-  const hash = hashSync(password, salt);
-  req.body.password = hash;
+
+    const hashedPass = await hash(password, 10)
+    req.body.password = hashedPass
 
   const [newUser] = await db.user.register_user(req.body).catch((err) => {
     console.log(err);
@@ -35,15 +35,15 @@ const loginUser = async (req, res) => {
     return res.status(401).send("Invalid email or password");
   }
 
-  const passwordCheck = compareSync(password, foundUser.password);
-  if (!passwordCheck) {
-    return res.status(401).send("Invalid email or password.");
-  }
+    const passwordCheck = await compare(password, foundUser.password)
+    if (!passwordCheck) return res.status(401).send("Invalid email or password.")
 
-  delete foundUser.password;
-  req.session.user = foundUser;
-  return res.status(200).send(req.session.user);
-};
+    delete foundUser.password
+    foundUser.api_key = foundUser.api_key ? true : false
+
+    req.session.user = foundUser
+    return res.status(200).send(req.session.user)
+}
 
 const editUser = async (req, res) => {
   const db = req.app.get("db");
@@ -65,15 +65,17 @@ const logoutUser = async (req, res) => {
 };
 
 const getUserSession = async (req, res) => {
-  const db = req.app.get("db");
-  const { user_id } = req.session.user;
 
-  const [currentUser] = await db.user.check_user_id(user_id);
+    const db = req.app.get("db")
+    const { user_id } = req.session.user
 
-  currentUser
-    ? res.status(200).send(req.session.user)
-    : res.status(404).send("Please login");
-};
+    const [currentUser] = await db.user.check_user_id(user_id)
+
+    currentUser ? res.status(200).send(req.session.user)
+    : res.status(404).send("Please login")
+}
+
+export {registerUser, loginUser, editUser, logoutUser, getUserSession}
 
 const resetUserPassword = async (req, res) => {
   const db = req.app.get("db");
