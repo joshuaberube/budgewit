@@ -13,15 +13,22 @@ export const login = createAsyncThunk("user/login", async (userCredentials, thun
     const {isLoggingIn} = thunkAPI.getState().user
     try {
         const user = await axios.post(`/api/user/${isLoggingIn ? "login" : "register"}`, userCredentials)
+        history.push("/")
         return user.data
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.request.response)
+    } catch (err) {
+        return thunkAPI.rejectWithValue(err.response.request.response)
     }
 })
 
-export const getUserSession = createAsyncThunk("user/getUserSession", async () => {
-    const user = await axios.get("/api/user/session")
-    return user.data
+export const getUserSession = createAsyncThunk("user/getUserSession", async (_, thunkAPI) => {
+    try {
+        const user = await axios.post("/api/user/session")
+        history.push("/")
+        return user.data
+    } catch (err) {
+        history.push("/auth")
+        return thunkAPI.rejectWithValue(err.response.request.response)
+    }
 })
 
 export const logout = createAsyncThunk("user/logout", async () => {
@@ -40,7 +47,6 @@ export const userSlice = createSlice({
         [login.fulfilled]: (state, action) => {
             state.isLoggedIn = true
             state.user = action.payload
-            history.push("/")
         },
         [login.rejected]: (state, action) => {
             state.error = action.payload
@@ -54,7 +60,7 @@ export const userSlice = createSlice({
     }
 })
 
-export const {changeIsLoggingIn} = userSlice.actions
+export const { changeIsLoggingIn } = userSlice.actions
 
 export const selectUser = state => state.user.user
 export const selectError = state => state.user.error

@@ -1,9 +1,6 @@
-import { Link, NavLink } from "react-router-dom"
-import { selectIsLoggedIn } from "../../redux/slices/userSlice"
+import { NavLink } from "react-router-dom"
 
 const Header = () => {
-    const isLoggedIn = useSelector(selectIsLoggedIn)
-
     return (
         <header>
             <nav>
@@ -15,15 +12,6 @@ const Header = () => {
                 <NavLink to="/calculations">Calculations</NavLink>
                 <NavLink to="/resources">Resources</NavLink>
             </nav>
-            <div>
-                {isLoggedIn ? (
-                    //Profile
-                    <>
-                    </>
-                ) : (
-                    <Link to="/auth">Login/Sign in</Link>
-                )}
-            </div>
         </header>
     )
 }

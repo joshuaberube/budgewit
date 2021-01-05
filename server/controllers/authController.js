@@ -1,4 +1,4 @@
-import {compareSync, genSaltSync, hashSync} from 'bcrypt'
+import { hash, compare } from 'bcrypt'
 
 const registerUser = async (req, res) => {
     const db = req.app.get('db')
@@ -7,9 +7,8 @@ const registerUser = async (req, res) => {
     const [foundEmail] = await db.user.check_email(email)
     if (foundEmail) res.status(401).send("Email already in use")
 
-    const salt = genSaltSync(10)
-    const hash = hashSync(password, salt)
-    req.body.password = hash
+    const hashedPass = await hash(password, 10)
+    req.body.password = hashedPass
 
     const [newUser] = await db.user.register_user(req.body)
     .catch(err => {console.log(err); res.sendStatus(400)})
@@ -25,10 +24,12 @@ const loginUser = async (req, res) => {
     const [foundUser] = await db.user.check_email(email)
     if (!foundUser) res.status(401).send("Invalid email or password")
 
-    const passwordCheck = compareSync(password, foundUser.password)
+    const passwordCheck = await compare(password, foundUser.password)
     if (!passwordCheck) return res.status(401).send("Invalid email or password.")
 
     delete foundUser.password
+    foundUser.api_key = foundUser.api_key ? true : false
+
     req.session.user = foundUser
     return res.status(200).send(req.session.user)
 }
@@ -54,7 +55,7 @@ const getUserSession = async (req, res) => {
     const db = req.app.get("db")
     const { user_id } = req.session.user
 
-    const [currentUser] = await db.auth.check_user_id(user_id)
+    const [currentUser] = await db.user.check_user_id(user_id)
 
     currentUser ? res.status(200).send(req.session.user)
     : res.status(404).send("Please login")

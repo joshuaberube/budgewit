@@ -1,16 +1,15 @@
-
-import BankLink from "../BankLink/BankLink"
+import PlaidBankLink from "../PlaidBankLink/PlaidBankLink"
 
 const Overview = () => {
     return(
         <>
-          <BankLink/>
-          //Transactions Summary
+          <PlaidBankLink />
+          {/* //Transactions Summary
           //Goals Summary
           //Bills Summary     
-          //Budget Summary 
+          //Budget Summary  */}
         </>
     )
 }
 
-export default Overview;
+export default Overview
