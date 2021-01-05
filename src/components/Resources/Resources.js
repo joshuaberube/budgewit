@@ -12,7 +12,7 @@ const Resources = () => {
   useEffect(() => {
     const getMyResources = async () => {
       try {
-        const res = await axios.get(`/api/data/resource/${id}`);
+        const res = await axios.get(`/api/data/resource_links`);
         setResources(res.data);
       } catch (err) {
         console.log(err);
@@ -21,16 +21,16 @@ const Resources = () => {
     getMyResources();
   }, []);
 
-  const deleteResource = async (id) => {
+  const deleteResource = async (resource_link_id) => {
     try {
-      await axios.delete(`/api/data/resource/${id}`);
+      await axios.delete(`/api/data/resource_links/${resource_link_id}`);
     } catch (err) {
       console.log(err);
     }
   };
-  const editResource = async () => {
+  const editResource = async (resource_link_id) => {
     try {
-      const res = await axios.put(`/api/data/resource/${resourceId}`, {
+      const res = await axios.put(`/api/data/resource_links/${resource_link_id}`, {
         title,
         source,
         description,
