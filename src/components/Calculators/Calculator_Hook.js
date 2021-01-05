@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 function CalculatorHookForm() {
-  // Initialise the hook
+  // Initialize the hook
   // Register your input into the hook by invoking the 'register' function
   // Handle-Submit will validate your input before invoking 'onSubmit'
   // Errors is an object provided by Hook Form you can use to show errors while validating inputs
