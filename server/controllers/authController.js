@@ -2,69 +2,70 @@ import { hash, compare } from 'bcrypt'
 import dotenv from "dotenv"
 import nodemailer from "nodemailer"
 import crypto from "crypto"
-dotenv.config();
+dotenv.config()
 
 const registerUser = async (req, res) => {
-  const db = req.app.get("db");
-  const { email, password } = req.body;
+  try {
+    const db = req.app.get("db")
+    const { email, password } = req.body
 
-  const [foundEmail] = await db.user.check_email(email);
-  if (foundEmail) res.status(401).send("Email already in use");
+    const [foundEmail] = await db.user.check_email(email)
+    if (foundEmail) return res.status(401).send("Email already in use")
 
-  const hashedPass = await hash(password, 10)
-  req.body.password = hashedPass
+    const hashedPass = await hash(password, 10)
+    req.body.password = hashedPass
 
-  const [newUser] = await db.user.register_user(req.body)
-  .catch((err) => { console.log(err); res.sendStatus(400)})
+    const [newUser] = await db.user.register_user(req.body)
+    await db.user.insert_default_resources(newUser.user_id)
 
-  await db.user.insert_default_resources(newUser.user_id)
-  .catch((err) => {
+    newUser.api_key = false
+    req.session.user = newUser
+
+    return res.status(200).send(req.session.user)
+  } catch (err) {
     console.log(err)
-    res.status(400).send("err in resource defaults", err)
-  })
-
-  req.session.user = newUser
-
-  return res.status(200).send(req.session.user)
+    res.sendStatus(500)
+  }
 }
 
 const loginUser = async (req, res) => {
-  const db = req.app.get("db");
-  const { email, password } = req.body;
-
-  const [foundUser] = await db.user.check_email(email);
-  if (!foundUser) return res.status(401).send("Invalid email or password");
-
-
-  const passwordCheck = await compare(password, foundUser.password)
-  if (!passwordCheck) return res.status(401).send("Invalid email or password.")
-
-  delete foundUser.password
-  foundUser.api_key = foundUser.api_key ? true : false
-
-  req.session.user = foundUser
-  return res.status(200).send(req.session.user)
+  try {
+    const db = req.app.get("db")
+    const { email, password } = req.body
+  
+    const [foundUser] = await db.user.check_email(email);
+    if (!foundUser) return res.status(401).send("Invalid email or password");
+  
+    const passwordCheck = await compare(password, foundUser.password)
+    if (!passwordCheck) return res.status(401).send("Invalid email or password.")
+  
+    delete foundUser.password
+    foundUser.api_key = foundUser.api_key ? true : false
+  
+    req.session.user = foundUser
+    return res.status(200).send(req.session.user)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
 }
 
 const editUser = async (req, res) => {
-  const db = req.app.get("db");
-  const { user_id } = req.session.user;
+  const db = req.app.get("db")
+  const { user_id } = req.session.user
 
-  req.body.user_id = user_id;
+  req.body.user_id = user_id
   const [updatedUser] = await db.user.edit_user(req.body)
-  .catch((err) => {
-    console.log(err);
-    res.sendStatus(400);
-  });
+  .catch((err) => {console.log(err); res.sendStatus(400) })
 
   req.session.user = updatedUser;
   res.status(200).send(req.session.user);
-};
+}
 
 const logoutUser = async (req, res) => {
-  req.session.destroy();
-  res.sendStatus(200);
-};
+  req.session.destroy()
+  res.sendStatus(200)
+}
 
 const getUserSession = async (req, res) => {
   const db = req.app.get("db")
@@ -109,23 +110,17 @@ const resetUserPassword = async (req, res) => {
 const { authEmailer, authEmailerPassword } = process.env; //nodemailer credentials
 
 const emailUser = async (req, res) => {
-  const db = req.app.get("db")
-  const { email } = req.body
-  const [foundUser] = await db.user.check_email(email)
-  if (!foundUser) {
-    res.sendStatus(500);
-  }
-
-  const resetPasswordToken = crypto.randomBytes(20).toString("hex");
-  const resetPasswordExpires = Date.now() + 3600000 * 24; // 1 day
-
-  await db.user.insert_reset_token([resetPasswordToken, resetPasswordExpires, email])
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send(err);
-    });
-
   try {
+    const db = req.app.get("db")
+    const { email } = req.body
+    const [foundUser] = await db.user.check_email(email)
+    if (!foundUser) return res.sendStatus(500)
+
+    const resetPasswordToken = crypto.randomBytes(20).toString("hex");
+    const resetPasswordExpires = Date.now() + 3600000 * 24; // 1 day
+  
+    await db.user.insert_reset_token([resetPasswordToken, resetPasswordExpires, email])
+
     //invoke the createTransport function passing in your email information.
     let transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -156,12 +151,13 @@ const emailUser = async (req, res) => {
           res.status(200).send(res)
         }
       }
-    );
+    )
+    
+    res.sendStatus(200)
   } catch (err) {
     console.log(err);
     res.sendStatus(500)
   }
-  res.sendStatus(200)
 }
 
 export {

@@ -9,7 +9,6 @@ CREATE TABLE users (
     api_key VARCHAR(250),
     reset_password_token VARCHAR(250),
     reset_password_expires BIGINT
-
 );
 
 

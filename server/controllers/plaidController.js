@@ -78,11 +78,10 @@ const getPlaidTransactions = async (req, res) => {
         const { user_id } = req.session.user
     
         const [{api_key}] = await db.user.get_access_token(user_id)
-
         const decrypted = decrypt(api_key)
 
-        let startDate = moment().subtract(60, "days").format("YYYY-MM-DD")
-        let endDate = moment().format("YYYY-MM-DD")
+        const startDate = moment().subtract(60, "days").format("YYYY-MM-DD")
+        const endDate = moment().format("YYYY-MM-DD")
         
         const response = await client.getTransactions(decrypted, startDate, endDate)
 

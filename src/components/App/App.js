@@ -1,7 +1,6 @@
-import { Route, Switch, useLocation } from 'react-router'
+import { Route, Switch, useLocation, useRouteMatch } from 'react-router'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { Redirect } from 'react-router'
 import Auth from '../Auth/Auth'
 import Header from '../Header/Header'
 import Overview from '../Overview/Overview'
@@ -10,24 +9,26 @@ import Resources from '../Resources/Resources'
 import Transactions from '../Transactions/Transactions'
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import ResetPassword from "../ResetPassword/ResetPassword";
-import { selectIsLoggedIn } from '../../redux/slices/userSlice'
+import { selectUserState } from '../../redux/slices/userSlice'
 import { getTransactions } from '../../redux/slices/plaidSlice'
-import './App.scss'
 import Budget from '../Budget/Budget'
+import history from "../../history"
+import './App.scss'
 
 const App = () => {
 
 	const location = useLocation()
-	const isLoggedIn = useSelector(selectIsLoggedIn)
+	const { isLoggedIn, user: { api_key }, status} = useSelector(selectUserState)
 	const dispatch = useDispatch()
+	const match = useRouteMatch("/reset/:resetPasswordToken")
 
 	useEffect(() => {
-		if (!isLoggedIn) {
-			<Redirect to="/auth" />
-		} else {
+		if (isLoggedIn && api_key) {
 			dispatch(getTransactions())
+		} else if (!isLoggedIn && status !== "pending" && location.pathname !== "/forgotpassword" && !match) {
+			history.push("/auth")
 		}
-	}, [isLoggedIn, dispatch])
+	}, [isLoggedIn, dispatch, location.pathname, match, api_key, status])
 
   	return (
 		<>
@@ -36,12 +37,11 @@ const App = () => {
 				<Route exact path="/"> <Overview /> </Route>
 				<Route path="/auth"> <Auth /> </Route>
 				<Route path="/transactions"> <Transactions /> </Route>
-        <Route path="/resources"><Resources/></Route>
+				<Route path="/resources"><Resources/></Route>
 				<Route path="/budget"> <Budget /> </Route>
-        <Route path="/forgotpassword"><ForgotPassword /></Route>
-        <Route path="/reset/:resetPasswordToken"><ResetPassword /></Route>
-
-				<Route path="*"> <PageNotFound /> </Route>
+				<Route path="/forgotpassword"><ForgotPassword /></Route>
+				<Route path="/reset/:resetPasswordToken"><ResetPassword /></Route>
+				<Route> <PageNotFound /> </Route>
 			</Switch>
 		</>
 	)
