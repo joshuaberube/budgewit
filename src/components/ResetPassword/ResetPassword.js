@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ResetPassword = () => {
   const [passState, setPassState] = useState({ password: null, match: null });
   const [passwordsMatch, setPasswordsMatch] = useState(false); //if true reset password button will render
   const [resetState, setResetState] = useState(false);
-  const resetPasswordToken = window.location.href.split("/").pop('').substring(1); // grab token from url
+  const resetPasswordToken = useParams()
+  
   
   
   
