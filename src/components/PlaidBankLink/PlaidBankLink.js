@@ -25,10 +25,12 @@ const PlaidBankLink = () => {
 
     useEffect(() => {
         const createToken = async () => {
-            const response = await axios.post("/api/plaid/create-link-token")
-            .catch(err => console.log(err))
-
-            setToken(response.data)
+            try {
+                const response = await axios.post("/api/plaid/create-link-token")
+                setToken(response.data)
+            } catch (err) {
+                console.log(err)
+            }
         }
 
         if (isLoggedIn) createToken()

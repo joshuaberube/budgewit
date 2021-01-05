@@ -33,5 +33,5 @@ VALUES
 ('U.S. Small Business Administration: Veteran Owned Businesses','The SBA offers support for veterans as they enter the world of business ownership. Look for funding programs, training, and federal contracting opportunities.','https://www.sba.gov/business-guide/grow-your-business/veteran-owned-businesses#section-header-0','Military & Veterans', $1),
 --Retirement
 ('IRS 401k Page','The IRS primer page for explaining a 401k retirement account and how it differs from your other options for tax treatment.','https://www.irs.gov/retirement-plans/401k-plans','Retirement',$1),
-('IRS IRA Page','The IRS primer page for explaining Individual Retirement Arrangements and the difference between a traditional and Roth IRA.','https://www.irs.gov/retirement-plans/individual-retirement-arrangements-iras','Retirement',$1)
-('AARP: Retirement','It’s Time For A New Conversation About Your Retirement Priorities.','https://www.aarp.org/retirement/planning-for-retirement/','Retirement',$1)
+('IRS IRA Page','The IRS primer page for explaining Individual Retirement Arrangements and the difference between a traditional and Roth IRA.','https://www.irs.gov/retirement-plans/individual-retirement-arrangements-iras','Retirement',$1),
+('AARP: Retirement','It’s Time For A New Conversation About Your Retirement Priorities.','https://www.aarp.org/retirement/planning-for-retirement/','Retirement',$1);

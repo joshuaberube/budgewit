@@ -33,7 +33,7 @@ export const plaidSlice = createSlice({
             state.status = "pending"
         },
         [getTransactions.rejected]: (state, action) => {
-            state.error = action.error
+            state.error = action.error.message
             state.status = "failed"
         }
     }

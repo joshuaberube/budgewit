@@ -46,20 +46,18 @@ const ResetPassword = () => {
               type="password"
               name="password"
               placeholder="Insert your new password"
-              value={passState.password}
               onChange={(e) =>
                 setPassState({ ...passState, password: e.target.value })
               }
-            ></input>
+            />
             <input
               type="password"
               name="passwordmatch"
               placeholder="Type in your password again"
-              value={passState.match}
               onChange={(e) =>
                 setPassState({ ...passState, match: e.target.value })
               }
-            ></input>
+            />
             {passwordsMatch ? (
               <button type="submit" onClick={handleButton}>
                 Reset Password

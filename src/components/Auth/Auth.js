@@ -11,7 +11,7 @@ const inputsArr = [
   // register inputs
   {label: "First Name", type: "text", name: "firstName"},
   {label: "Last Name", type: "text", name: "lastName"},
-  {label: "Phone Number", type: "tel", name: "phoneNum",} // pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"}
+  {label: "Phone Number", type: "tel", name: "phoneNum", pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"} 
 ]
 
 const Auth = () => {

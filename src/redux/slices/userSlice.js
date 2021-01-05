@@ -6,6 +6,7 @@ const initialState = {
     isLoggingIn : true,
     isLoggedIn: false,
     user: {},
+    status: "idle",
     error: null
 }
 
@@ -26,7 +27,6 @@ export const getUserSession = createAsyncThunk("user/getUserSession", async (_, 
         history.push("/")
         return user.data
     } catch (err) {
-        history.push("/auth")
         return thunkAPI.rejectWithValue(err.response.request.response)
     }
 })
@@ -46,7 +46,11 @@ export const userSlice = createSlice({
     extraReducers: {
         [login.fulfilled]: (state, action) => {
             state.isLoggedIn = true
+            state.status = "success"
             state.user = action.payload
+        },
+        [login.pending]: state => {
+            state.status = "pending"
         },
         [login.rejected]: (state, action) => {
             state.error = action.payload
@@ -54,7 +58,11 @@ export const userSlice = createSlice({
         [logout.fulfilled]: () => initialState,
         [getUserSession.fulfilled]: (state, action) => {
             state.isLoggedIn = true
+            state.status = "success"
             state.user = action.payload
+        },
+        [getUserSession.pending]: state => {
+            state.status = "pending"
         },
         [getUserSession.rejected]: () => initialState
     }
