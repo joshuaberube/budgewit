@@ -1,3 +1,4 @@
+
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     email VARCHAR(250) NOT NULL,
@@ -5,7 +6,10 @@ CREATE TABLE users (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_num VARCHAR(25) NOT NULL,
-    api_key VARCHAR(250)
+    api_key VARCHAR(250),
+    reset_password_token VARCHAR(250),
+    reset_password_expires BIGINT
+
 );
 
 
@@ -64,6 +68,7 @@ CREATE TABLE resource_links (
     resource_title VARCHAR(250),
     resource_desc VARCHAR(500),
     resource_link VARCHAR(500),
+    resource_category VARCHAR(100),
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
 

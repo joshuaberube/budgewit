@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeIsLoggingIn, login, selectIsLoggingIn } from "../../redux/slices/userSlice";
+import { Link } from 'react-router-dom';
 
 const inputsArr = [
   // login inputs
@@ -8,13 +9,13 @@ const inputsArr = [
   {label: "Password", type: "password", name: "password"},
 
   // register inputs
-  {label: "First Name", type: "text", name: "FirstName"},
+  {label: "First Name", type: "text", name: "firstName"},
   {label: "Last Name", type: "text", name: "lastName"},
-  {label: "Phone Number", type: "tel", name: "phoneNumber",} // pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"}
+  {label: "Phone Number", type: "tel", name: "phoneNum",} // pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"}
 ]
 
 const Auth = () => {
-    const [authState, setAuthState] = useState({email: "", password: "", firstName: "", lastName: "", phoneNumber: ""})
+    const [authState, setAuthState] = useState({email: "", password: "", firstName: "", lastName: "", phoneNum: ""})
     const isLoggingIn = useSelector(selectIsLoggingIn)
     const dispatch = useDispatch()
 
@@ -47,6 +48,7 @@ const Auth = () => {
             <button type="submit">{isLoggingIn ? "Login" : "Create Account"}</button>
           </div>
         </form>
+        <Link to="/forgotpassword">Forgot your password?</Link>  
       </div>
     )
 }

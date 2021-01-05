@@ -1,5 +1,5 @@
 {
-  "name": "budget-app",
+  "name": "budgewit",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:4673",
