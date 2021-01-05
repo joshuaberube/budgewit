@@ -26,11 +26,11 @@ VALUES
 ('Investopedia: What is a Down Payment?','When you buy a home, one of the biggest up-front expenses is the down payment. Not to be confused with closing costs, the down payment is the portion of the purchase price that you pay up front at closing. Generally, if you put less money down on a home at closing, you’ll pay more in fees and interest over the loan’s lifetime (and vice versa).','https://www.investopedia.com/mortgage/mortgage-guide/down-payment/','Housing',$1),  
 ('Ask the CFBP: PMI','Private mortgage insurance, also called PMI, is a type of mortgage insurance you might be required to pay for if you have a conventional loan. Like other kinds of mortgage insurance, PMI protects the lender—not you—if you stop making payments on your loan.','https://www.consumerfinance.gov/ask-cfpb/what-is-private-mortgage-insurance-en-122/', 'Housing', $1),  
 --Military and Veterans  
-('','','https://www.militaryconsumer.gov/','Military & Veterans', $1),
-('','','https://www.tsp.gov/PlanParticipation/AboutTheTSP/benefits/index.html','Military & Veterans', $1), 
-('','','https://www.facebook.com/DoDFINRED/','Military & Veterans', $1),
-('','','https://militarysaves.org/','Military & Veterans', $1),
-('','','https://www.sba.gov/business-guide/grow-your-business/veteran-owned-businesses#section-header-0','Military & Veterans', $1),
+('MilitaryConsumer.gov','Defend yourself against fraud and stay financially secure with tools and resources for servicemembers, veterans and families.','https://www.militaryconsumer.gov/','Military & Veterans', $1),
+('Thrift Savings Plan (TSP)','The Thrift Savings Plan (TSP) is a retirement savings plan for Service members that is similar to 401(k) plans offered to private sector employees. In addition to service members, employees covered by the Federal Employees Retirement System (FERS) or the Civil Service Retirement System (CSRS) may also be eligible for TSP. Civilians in certain other categories of federal service including some congressional positions and some justices and judges may also be eligible.','https://www.tsp.gov/account-basics/','Military & Veterans', $1), 
+('Department of Defense Office of Financial Readiness','We provide resources, education and support to service members and their families to create a financially secure and mission ready force.','https://finred.usalearning.gov/','Military & Veterans', $1),
+('Military Saves','Military Saves, a component of America Saves, and a participant in the Department of Defense Financial Readiness Network seeks to motivate, support, and encourage the entire military community to save money, reduce debt, and build wealth.','https://militarysaves.org/','Military & Veterans', $1),
+('U.S. Small Business Administration: Veteran Owned Businesses','The SBA offers support for veterans as they enter the world of business ownership. Look for funding programs, training, and federal contracting opportunities.','https://www.sba.gov/business-guide/grow-your-business/veteran-owned-businesses#section-header-0','Military & Veterans', $1),
 --Retirement
-('','','https://www.irs.gov/retirement-plans/401k-plans','Retirement',$1),
-('','','https://www.aarp.org/retirement/planning-for-retirement/','Retirement',$1)
+('IRS 401k Page','The IRS primer page for explaining a 401k retirement account and how it differs from your other options for tax treatment.','https://www.irs.gov/retirement-plans/401k-plans','Retirement',$1),
+('IRS IRA Page','The IRS primer page for explaining Individual Retirement Arrangements and the difference between a traditional and Roth IRA.','https://www.aarp.org/retirement/planning-for-retirement/','Retirement',$1)
