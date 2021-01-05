@@ -7,10 +7,10 @@ import Auth from '../Auth/Auth'
 import Header from '../Header/Header'
 import Overview from '../Overview/Overview'
 import PageNotFound from '../shared/PageNotFound/PageNotFound'
-import Transactions from '../Transaction/Transactions'
-import './App.scss'
+import Transactions from '../Transactions/Transactions'
 import { selectIsLoggedIn } from '../../redux/slices/userSlice'
 import { getTransactions } from '../../redux/slices/plaidSlice'
+import './App.scss'
 
 const App = () => {
 	const location = useLocation()

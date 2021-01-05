@@ -65,7 +65,7 @@ const createAccessToken = async (req, res) => {
         
         await db.user.add_access_token([user_id, encryptedKey])
 
-        res.sendStatus(200)
+        res.status(200).send(true)
     } catch (err) {
         res.sendStatus(500) 
         console.log(err)
