@@ -16,6 +16,7 @@ import './App.scss'
 import Budget from '../Budget/Budget'
 
 const App = () => {
+
 	const location = useLocation()
 	const isLoggedIn = useSelector(selectIsLoggedIn)
 	const dispatch = useDispatch()
