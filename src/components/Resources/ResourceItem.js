@@ -17,7 +17,7 @@ export default function ({ resource }) {
 
   const deleteResource = async () => {
     try {
-      await axios.delete(`/api/data/resource_links/${resource.resource_link_id}`);
+      await axios.delete(`/api/data/resources/${resource.resource_id}`);
     } catch (err) {
       console.log(err);
     }
@@ -25,7 +25,7 @@ export default function ({ resource }) {
   const editResource = async () => {
     try {
       const res = await axios.put(
-        `/api/data/resource_links/${resource.resource_link_id}`,
+        `/api/data/resources/${resource.resource_id}`,
         {
           resource_title: resourceState.title,
           resource_desc: resourceState.description,

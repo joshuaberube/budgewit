@@ -6,7 +6,7 @@ const Resources = () => {
   useEffect(() => {
     const getMyResources = async () => {
       try {
-        const res = await axios.get(`/api/data/resource_links`);
+        const res = await axios.get(`/api/data/resources`);
         setResources(res.data);
       } catch (err) {
         console.log(err);
