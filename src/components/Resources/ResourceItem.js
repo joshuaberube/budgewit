@@ -114,7 +114,7 @@ export default function ({ resource }) {
             <li>{resourceState.category}</li>
           </ul>
           <button onClick={() => setEdit(true)}>Edit</button>
-          <button onClick={(e) => deleteResource(e.target.value)}>Delete</button>
+          <button onClick={(e) => deleteResource()}>Delete</button>
         </div>
       )}
       </>

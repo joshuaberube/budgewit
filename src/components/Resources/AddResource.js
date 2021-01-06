@@ -1,21 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const AddResources = () => {
+const AddResources = (props) => {
   const [resourceState, setResourceState] = useState({
-    title: resource.resource_title,
-    description: resource.resource_desc,
-    source: resource.resource_link,
-    category: resource.resource_category,
+    title: '',
+    description: '',
+    source: '',
+    category: '',
   });
   const handleButton = (e) => {
     e.preventDefault();
     try {
-      let response = axios.post("/api/data/resources", {});
+      let response = axios.post("/api/data/resources", {
+        resource_title: resourceState.title,
+        resource_desc: resourceState.description,
+        resource_link: resourceState.source,
+        resource_category: resourceState.category
+      });
       console.log(response);
     } catch (err) {
       console.log(err);
     }
+    console.log(props)
+    props.toggler(false)
   };
 
   return (
