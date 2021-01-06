@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import axios from "axios";
+
 const AddBill = () => {
 	const [bill_name, setName] = useState("");
 	const [bill_amount, setAmount] = useState(0);
@@ -72,7 +75,7 @@ const AddBill = () => {
 			<label>
 				Bill due:
 				<input
-					type="number"
+					type="date"
 					value={bill_due}
 					onChange={(e) => setDue(e.target.value)}
 				/>
