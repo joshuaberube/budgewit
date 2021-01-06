@@ -14,6 +14,7 @@ import { getTransactions } from '../../redux/slices/plaidSlice'
 import Budget from '../Budget/Budget'
 import history from "../../history"
 import './App.scss'
+import Calculator from "../../components/Calculators/Mortgage_Calculator"
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
 				<Route exact path="/"> <Overview /> </Route>
 				<Route path="/auth"> <Auth /> </Route>
 				<Route path="/transactions"> <Transactions /> </Route>
+				<Route path="/goals"> <Calculator /> </Route>
 				<Route path="/resources"><Resources/></Route>
 				<Route path="/budget"> <Budget /> </Route>
 				<Route path="/forgotpassword"><ForgotPassword /></Route>
