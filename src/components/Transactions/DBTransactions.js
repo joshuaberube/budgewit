@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AddTransactions from "./AddTransactions";
 import axios from "axios";
 
 const DBTransactions = () => {
@@ -27,6 +28,7 @@ const DBTransactions = () => {
 					{transaction.transaction_desc}
 				</div>
 			))}
+			<AddTransactions />
 		</div>
 	);
 };

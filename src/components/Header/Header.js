@@ -6,7 +6,6 @@ const Header = () => {
 			<nav>
 				<NavLink to="/">Overview</NavLink>
 				<NavLink to="/transactions">Transactions</NavLink>
-				<NavLink to="/adddbtransactions">Add Transactions</NavLink>
 				<NavLink to="/dbtransactions">App Transactions</NavLink>
 				<NavLink to="/goals">Goals</NavLink> //*this piece is combined with the
 				Calculations piece*//
