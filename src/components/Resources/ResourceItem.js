@@ -15,17 +15,17 @@ export default function ({ resource }) {
     setEdit(false);
   };
 
-  const deleteResource = async (resource_link_id) => {
+  const deleteResource = async () => {
     try {
-      await axios.delete(`/api/data/resource_links/${resource_link_id}`);
+      await axios.delete(`/api/data/resource_links/${resource.resource_link_id}`);
     } catch (err) {
       console.log(err);
     }
   };
-  const editResource = async (resource_link_id) => {
+  const editResource = async () => {
     try {
       const res = await axios.put(
-        `/api/data/resource_links/${resource_link_id}`,
+        `/api/data/resource_links/${resource.resource_link_id}`,
         {
           resource_title: resourceState.title,
           resource_desc: resourceState.description,
@@ -33,13 +33,6 @@ export default function ({ resource }) {
           resource_category: resourceState.category
         }
       );
-
-      setResourceState({
-        title: res.data.resource_title,
-        description: res.data.resource_desc,
-        source: res.data.resource_link,
-        category: res.data.resource_category,
-      });
     } catch (err) {
       console.log(err);
     }
@@ -113,7 +106,7 @@ export default function ({ resource }) {
           </form>
         </>
       ) : (
-        <div key={resource.resource_link_id}>
+        <div >
           <ul>
             <li>{resourceState.title}</li>
             <li>{resourceState.description}</li>

@@ -17,8 +17,8 @@ const Resources = () => {
 
   return (
     <div>
-      {resources &&
-        resources.map((resource) => <ResourceItem resource={resource} />)}
+      { (resources !== []) &&
+        resources.map((resource) => <ResourceItem key={resource.resource_link_id} resource={resource} />)}
     </div>
   );
 };
