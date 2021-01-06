@@ -7,8 +7,8 @@ import Overview from '../Overview/Overview'
 import PageNotFound from '../shared/PageNotFound/PageNotFound'
 import Resources from '../Resources/Resources'
 import Transactions from '../Transactions/Transactions'
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import ResetPassword from "../ResetPassword/ResetPassword";
+import ForgotPassword from "../Auth/ForgotPassword/ForgotPassword";
+import ResetPassword from "../Auth/ResetPassword/ResetPassword";
 import { selectUserState } from '../../redux/slices/userSlice'
 import { getTransactions } from '../../redux/slices/plaidSlice'
 import Budget from '../Budget/Budget'
