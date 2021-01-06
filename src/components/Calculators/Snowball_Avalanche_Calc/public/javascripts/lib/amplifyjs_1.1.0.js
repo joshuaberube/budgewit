@@ -583,12 +583,12 @@
                     } catch( e ) {}
                 });
                 // Playbook returns "HTTP/1.1 200 OK"
-                // TODO: something also returns "OK", what?
+            
                 if ( /OK$/.test( ampXHR.statusText ) ) {
                     ampXHR.statusText = "success";
                 }
                 if ( data === undefined ) {
-                    // TODO: add support for ajax errors with data
+               
                     data = null;
                 }
                 if ( aborted ) {
@@ -599,9 +599,7 @@
                 } else {
                     ampXHR.success( data, status );
                 }
-                // avoid handling a response multiple times
-                // this can happen if a request is aborted
-                // TODO: figure out if this breaks polling or multi-part responses
+             
                 handleResponse = $.noop;
             }
     
