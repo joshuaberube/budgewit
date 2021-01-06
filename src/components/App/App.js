@@ -8,6 +8,7 @@ import PageNotFound from "../shared/PageNotFound/PageNotFound";
 import Resources from "../Resources/Resources";
 import Transactions from "../Transactions/Transactions";
 import AddTransactions from "../Transactions/AddTransactions";
+import DBTransactions from "../Transactions/DBTransactions";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import ResetPassword from "../ResetPassword/ResetPassword";
 import { selectUserState } from "../../redux/slices/userSlice";
@@ -57,6 +58,9 @@ const App = () => {
 				</Route>
 				<Route path="/adddbtransactions">
 					<AddTransactions />
+				</Route>
+				<Route path="/dbtransactions">
+					<DBTransactions />
 				</Route>
 				<Route path="/resources">
 					<Resources />
