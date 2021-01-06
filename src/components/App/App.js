@@ -12,11 +12,13 @@ import DBTransactions from "../Transactions/DBTransactions";
 import Bills from "../Bills/Bills";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import ResetPassword from "../ResetPassword/ResetPassword";
-import { selectUserState } from "../../redux/slices/userSlice";
-import { getTransactions } from "../../redux/slices/plaidSlice";
-import Budget from "../Budget/Budget";
-import history from "../../history";
-import "./App.scss";
+import { selectUserState } from '../../redux/slices/userSlice'
+import { getTransactions } from '../../redux/slices/plaidSlice'
+import Budget from '../Budget/Budget'
+import history from "../../history"
+import './App.scss'
+import Calculator from "../../components/Calculators/Mortgage_Calculator"
+
 
 const App = () => {
 	const location = useLocation()
@@ -36,10 +38,12 @@ const App = () => {
 		<>
 			{location.pathname !== "/auth" ? <Header /> : null}
 			<Switch>
+
 				<Route exact path="/"><Overview /></Route>
 				<Route path="/auth"><Auth /></Route>
 				<Route path="/transactions"><Transactions /></Route>
 				<Route path="/apptransactions"><DBTransactions /></Route>
+        <Route path="/goals"> <Calculator /> </Route>
 				<Route path="/resources"><Resources /></Route>
 				<Route path="/budget"><Budget /></Route>
 				<Route path="/bills"><Bills /></Route>
