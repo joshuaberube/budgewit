@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Transactions = () => {
@@ -9,9 +9,11 @@ const Transactions = () => {
 			const response = await axios.get("/api/data/transactions");
 			setDBTransactions(response.data);
 			console.log(response.data);
-		} catch (err) {}
-	});
-	return <div></div>;
-};
+		} catch (err) {
+      console.log(err)
+    }
+	}, [])
+	return <div></div>
+}
 
-export default Transactions;
+export default Transactions
