@@ -3,7 +3,7 @@ import axios from "axios";
 
 const AddTransactions = () => {
 	const [transaction_amount, setAmount] = useState(0);
-	const [transaction_category, setCategory] = useState("");
+	const [transaction_category, setCategory] = useState([]);
 
 	const [transaction_date, setDate] = useState("");
 	const [iso_currency_code, setCurrencyCode] = useState("USD");
@@ -43,7 +43,7 @@ const AddTransactions = () => {
 				Category:
 				<input
 					type="text"
-					value={transaction_category}
+					value={[transaction_category]}
 					onChange={(e) => setCategory(e.target.value)}
 				/>
 			</label>
