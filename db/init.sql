@@ -63,6 +63,7 @@ CREATE TABLE transactions (
 );
 
 
+
 CREATE TABLE resources (
     resource_id SERIAL PRIMARY KEY,
     resource_title VARCHAR(250),

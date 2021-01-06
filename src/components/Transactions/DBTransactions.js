@@ -1,36 +1,19 @@
-import React, { useState, useEffect } from "react";
-import AddTransactions from "./AddTransactions";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-const DBTransactions = () => {
+const Transactions = () => {
 	const [dbTransactions, setDBTransactions] = useState([]);
 
 	useEffect(async () => {
 		try {
 			const response = await axios.get("/api/data/transactions");
-			console.log("response", response);
 			setDBTransactions(response.data);
+			console.log(response.data);
 		} catch (err) {
-			console.log(err);
-		}
-	});
+      console.log(err)
+    }
+	}, [])
+	return <div></div>
+}
 
-	return (
-		<div>
-			{dbTransactions.map((transaction, index) => (
-				<div key={index}>
-					{" "}
-					{transaction.transaction_date.slice(0, 10)} <b>Amount:</b> $
-					{parseFloat(transaction.transaction_amount, 10).toFixed(2)}
-					<b> category: </b>
-					{transaction.transaction_category} title:{" "}
-					{transaction.transaction_title} <b>description:</b>{" "}
-					{transaction.transaction_desc}
-				</div>
-			))}
-			<AddTransactions />
-		</div>
-	);
-};
-
-export default DBTransactions;
+export default Transactions

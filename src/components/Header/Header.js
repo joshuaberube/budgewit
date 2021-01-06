@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"
 
 const Header = () => {
 	return (
@@ -6,7 +6,7 @@ const Header = () => {
 			<nav>
 				<NavLink to="/">Overview</NavLink>
 				<NavLink to="/transactions">Transactions</NavLink>
-				<NavLink to="/dbtransactions">App Transactions</NavLink>
+				<NavLink to="/apptransactions">App Transactions</NavLink>
 				<NavLink to="/goals">Goals</NavLink>
 				<NavLink to="/bills">Bills</NavLink>
 				<NavLink to="/budget">Budget</NavLink>
@@ -16,4 +16,4 @@ const Header = () => {
 	)
 }
 
-export default Header;
+export default Header
