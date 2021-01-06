@@ -49,10 +49,11 @@ CREATE TABLE budgets (
 );
 
 
+
 CREATE TABLE transactions (
     transaction_id SERIAL PRIMARY KEY,
     transaction_amount INT NOT NULL,
-    transaction_category TEXT ARRAY NOT NULL,
+    transaction_category TEXT NOT NULL,
     transaction_date DATE DEFAULT CURRENT_DATE,
     iso_currency_code VARCHAR(50) NOT NULL,
     pending BOOLEAN NOT NULL,
@@ -62,8 +63,9 @@ CREATE TABLE transactions (
 );
 
 
-CREATE TABLE resource_links (
-    resource_link_id SERIAL PRIMARY KEY,
+
+CREATE TABLE resources (
+    resource_id SERIAL PRIMARY KEY,
     resource_title VARCHAR(250),
     resource_desc VARCHAR(500),
     resource_link VARCHAR(500),
