@@ -12,7 +12,7 @@ const Resources = () => {
   useEffect(() => {
     const getMyResources = async () => {
       try {
-        const res = await axios.get(`/api/data/resource_links`);
+        const res = await axios.get('/api/data/resource_links');
         setResources(res.data);
       } catch (err) {
         console.log(err);
@@ -60,23 +60,23 @@ const Resources = () => {
               Title:
               <input
                 type="text"
-                value={title}
+                value={resource.resource_title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </label>
             <label>
-              Source:
+            Description:
               <input
                 type="text"
-                value={source}
+                value={resource.resource_desc}
                 onChange={(e) => setSource(e.target.value)}
               />
             </label>
             <label>
-              Description:
+            Source:  
               <input
                 type="text"
-                value={description}
+                value={resource.resource_link}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </label>
@@ -84,27 +84,27 @@ const Resources = () => {
               Category:
               <input
                 type="text"
-                value={category}
+                value={resource.resource_category}
                 onChange={(e) => setCategory(e.target.value)}
               />
             </label>
-            <button type = 'submit' name = 'submitbutton' onClick={handleButton}></button>
+            <button type = 'submit' name = 'submitbutton' onClick={handleButton}>Submit</button>
           </form>
           
           </>
         ) : (
-          <div key={resource.id}>
+          <div key={resource.resource_link_id}>
             <ul>
-              <li>{resource.title}</li>
-              <li>{resource.source}</li>
-              <li>{resource.description}</li>
-              <li>{resource.category}</li>
+              <li>{resource.resource_title}</li>
+              <li>{resource.resource_desc}</li>
+              <li>{resource.resource_link}</li>
+              <li>{resource.resource_category}</li>
             </ul>
             <button onClick={() => setEdit(true)}>Edit</button>
-            <button onClick={() => deleteResource()}>Delete</button>
+            <button onClick={(e) => deleteResource(e.target.value)}>Delete</button>
           </div>
         )}
-        )
+        
       </>
     );
   });
