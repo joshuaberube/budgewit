@@ -3,10 +3,10 @@ import axios from "axios";
 export default function ({ resource }) {
   const [edit, setEdit] = useState(false);
   const [resourceState, setResourceState] = useState({
-    source: "",
-    category: "",
-    title: "",
-    description: "",
+    title: resource.resource_title,
+    description: resource.resource_desc,
+    source: resource.resource_link,
+    category: resource.resource_category,
   });
 
   const handleButton = (e) => {
@@ -35,10 +35,10 @@ export default function ({ resource }) {
       );
 
       setResourceState({
-        source: res.data.source,
-        category: res.data.category,
-        title: res.data.title,
-        description: res.data.description,
+        title: res.data.resource_title,
+        description: res.data.resource_desc,
+        source: res.data.resource_link,
+        category: res.data.resource_category,
       });
     } catch (err) {
       console.log(err);
@@ -109,22 +109,21 @@ export default function ({ resource }) {
               type="submit"
               name="submitbutton"
               onClick={handleButton}
-            ></button>
+            >Submit Changes</button>
           </form>
         </>
       ) : (
-        <div key={resource.id}>
+        <div key={resource.resource_link_id}>
           <ul>
-            <li>{resource.resource_title}</li>
-            <li>{resource.resource_desc}</li>
-            <li>{resource.resource_link}</li>
-            <li>{resource.resource_category}</li>
+            <li>{resourceState.title}</li>
+            <li>{resourceState.description}</li>
+            <li>{resourceState.source}</li>
+            <li>{resourceState.category}</li>
           </ul>
           <button onClick={() => setEdit(true)}>Edit</button>
-          <button onClick={() => deleteResource()}>Delete</button>
+          <button onClick={(e) => deleteResource(e.target.value)}>Delete</button>
         </div>
       )}
-      )
-    </>
+      </>
   );
 }
