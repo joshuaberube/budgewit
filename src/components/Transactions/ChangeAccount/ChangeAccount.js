@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { changeSelectedAccount } from "../../../redux/slices/plaidSlice"
 const ChangeAccount = () => {
-    const accounts = useSelector(state => state.plaid.transactions.accounts)
+    const accounts = useSelector(state => state.plaid.accounts)
     const dispatch = useDispatch()
 
     const accountsMapped = accounts.map(({account_id, balances, name, subtype}, index) => (

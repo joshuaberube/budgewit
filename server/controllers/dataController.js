@@ -6,6 +6,9 @@ const getData = async (req, res) => {
     const data = await db[tableName].where("user_id=$1", [user_id])
     .catch(err => {console.log(err); res.status(500).send(err)})
 
+    const tableId = tableName.replace(/s$/g, "_id")
+    data.sort((a, b) => a[tableId] - b[tableId])
+
 	res.status(200).send(data)
 }
 

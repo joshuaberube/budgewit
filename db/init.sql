@@ -41,10 +41,12 @@ CREATE TABLE bills (
 
 CREATE TABLE budgets (
     budget_id SERIAL PRIMARY KEY,
-    budget_name VARCHAR(250) NOT NULL,
+    budget_title VARCHAR(65) NOT NULL,
+    budget_description VARCHAR(150),
     budget_category VARCHAR(100) NOT NULL,
-    budget_max INT NOT NULL,
-    budget_current INT NOT NULL,
+    budget_amount INT NOT NULL,
+    budget_frequency VARCHAR(10) NOT NULL,
+    budget_current INT DEFAULT 0,
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
 
@@ -62,8 +64,8 @@ CREATE TABLE transactions (
 );
 
 
-CREATE TABLE resource_links (
-    resource_link_id SERIAL PRIMARY KEY,
+CREATE TABLE resources (
+    resource_id SERIAL PRIMARY KEY,
     resource_title VARCHAR(250),
     resource_desc VARCHAR(500),
     resource_link VARCHAR(500),

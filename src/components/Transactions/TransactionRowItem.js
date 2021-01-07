@@ -9,7 +9,7 @@ const TransactionRowItem = ({transaction: {amount, category, date, iso_currency_
             <span>{formattedDate}</span>
             <span>{category[0]}</span>
             {pending ? <span>pending</span> : null}
-            <span>${amount}</span>
+            <span>${amount.toFixed(2)}</span>
         </li>
     )
 }
