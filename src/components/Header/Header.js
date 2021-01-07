@@ -4,9 +4,7 @@ const Header = () => {
 	return (
 		<header>
 			<nav>
-				<NavLink to="/">Overview</NavLink>
-				<NavLink to="/transactions">Transactions</NavLink>
-				<NavLink to="/apptransactions">App Transactions</NavLink>
+				<NavLink to="/">Transactions</NavLink>
 				<NavLink to="/goals">Goals</NavLink>
 				<NavLink to="/bills">Bills</NavLink>
 				<NavLink to="/budget">Budget</NavLink>
