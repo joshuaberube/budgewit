@@ -1,4 +1,3 @@
-
 import { Route, Switch, useLocation, useRouteMatch } from "react-router";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,14 +11,14 @@ import AddTransactions from "../Transactions/AddTransactions";
 import DBTransactions from "../Transactions/DBTransactions";
 import Bills from "../Bills/Bills";
 import AddBill from "../Bills/AddBill";
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import ResetPassword from "../ResetPassword/ResetPassword";
+import ForgotPassword from "../Auth/ForgotPassword/ForgotPassword";
+import ResetPassword from "../Auth/ResetPassword/ResetPassword";
 import { selectUserState } from '../../redux/slices/userSlice'
 import { getTransactions } from '../../redux/slices/plaidSlice'
+import Calculator from "../../components/Calculators/Mortgage_Calculator"
 import Budget from '../Budget/Budget'
 import history from "../../history"
 import './App.scss'
-import Calculator from "../../components/Calculators/Mortgage_Calculator"
 
 
 const App = () => {
@@ -49,47 +48,21 @@ const App = () => {
 		<>
 			{location.pathname !== "/auth" ? <Header /> : null}
 			<Switch>
-
-				<Route exact path="/">
-					<Overview />
-				</Route>
-				<Route path="/auth">
-					<Auth />
-				</Route>
-				<Route path="/transactions">
-					<Transactions />
-				</Route>
-				<Route path="/apptransactions">
-					<DBTransactions />
-				</Route>
-				<Route path="/addtransactions">
-					<AddTransactions />
-				</Route>
-				<Route path="/resources">
-					<Resources />
-				</Route>
-				<Route path="/budget">
-					<Budget />
-				</Route>
-				<Route path="/bills">
-					<Bills />
-				</Route>
-				<Route path="/addbill">
-					<AddBill />
-				</Route>
-				<Route path="/forgotpassword">
-					<ForgotPassword />
-				</Route>
-				<Route path="/reset/:resetPasswordToken">
-					<ResetPassword />
-				</Route>
-				<Route>
-					<PageNotFound />
-				</Route>
-
+				<Route exact path="/"><Overview /></Route>
+				<Route path="/auth"><Auth /></Route>
+				<Route path="/transactions"><Transactions /></Route>
+				<Route path="/apptransactions"><DBTransactions /></Route>
+				<Route path="/addtransactions"><AddTransactions /></Route>
+				<Route path="/resources"><Resources /></Route>
+				<Route path="/budget"><Budget /></Route>
+				<Route path="/bills"><Bills /></Route>
+				<Route path="/addbill"><AddBill /></Route>
+				<Route path="/forgotpassword"><ForgotPassword /></Route>
+				<Route path="/reset/:resetPasswordToken"><ResetPassword /></Route>
+				<Route><PageNotFound /></Route>
 			</Switch>
 		</>
 	);
 };
 
-export default App;
+export default App
