@@ -40,7 +40,7 @@ const ResetPassword = () => {
           <div className="mx-80 py-48">
             <div className="flex flex-row justify-between items-baseline">
               <h1 className="text-3xl text-gray-600 font-extrabold">
-                Password Reset Form
+                Reset Your Password
               </h1>
               <Link to="/auth">
                 <button className="bg-transparent cursor-pointer font-bold text-gray-600">
@@ -49,9 +49,9 @@ const ResetPassword = () => {
               </Link>
             </div>
 
-            <form className="flex flex-col border-t border-gray-400 pt-16 mt-2">
+            <form className="flex flex-col  border-t border-gray-400 pt-16 mt-2">
               <input
-                className="rounded-5 h-40 w-256 mb-16 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+                className="rounded-5  h-40 w-256 mb-16 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide mx-auto"
                 type="password"
                 name="password"
                 placeholder="Insert your new password"
@@ -60,7 +60,7 @@ const ResetPassword = () => {
                 }
               />
               <input
-                className="rounded-5 h-40 w-256 mb-16 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+                className="rounded-5 h-40 w-256 mb-16 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide mx-auto"
                 type="password"
                 name="passwordmatch"
                 placeholder="Type in your password again"
@@ -70,14 +70,14 @@ const ResetPassword = () => {
               />
               {passwordsMatch ? (
                 <button
-                  className="py-8 px-12 h-40 w-256 rounded-10 bg-green-400 text-gray-50 cursor-pointer text-center"
+                  className="py-8 px-12 h-40 w-256 rounded-10 bg-green-400 text-gray-50 cursor-pointer text-center mx-auto"
                   type="submit"
                   onClick={handleButton}
                 >
                   Reset Password
                 </button>
               ) : (
-                <p className="py-8 h-40 w-256 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer text-center">
+                <p className="py-8 h-40 w-256 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer text-center mx-auto">
                   Passwords must match.
                 </p>
               )}
@@ -85,15 +85,16 @@ const ResetPassword = () => {
           </div>
         </div>
       ) : (
-        <>
-          <h1>Your password has been reset!</h1>
-
-          <Link to="/auth">
-            <button className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer">
-              Return to Login
-            </button>
-          </Link>
-        </>
+        <div className="flex flex-row justify-between items-baseline">
+              <h1 className="text-3xl text-gray-600 font-extrabold">
+                Your Password Has Been Reset!
+              </h1>
+              <Link to="/auth">
+                <button className="bg-transparent cursor-pointer font-bold text-gray-600">
+                  Return to Login
+                </button>
+              </Link>
+            </div>
       )}
     </>
   );
