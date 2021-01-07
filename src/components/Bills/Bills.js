@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AddBill from "./AddBill";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Bills = () => {
@@ -18,8 +18,7 @@ const Bills = () => {
 			{bills.map((bill, index) => (
 				<div key={index}>
 					{bill.bill_name}
-					<b>Amt: </b>
-					{bill.bill_amount}
+					<b>Amt: </b>S{parseFloat(bill.bill_amount, 2).toFixed(2)}
 					<b>Bill Category: </b>
 					{bill.bill_category}
 					<b>Bill Interval: </b>
@@ -28,7 +27,11 @@ const Bills = () => {
 					{bill.bill_due.slice(0, 10)}
 				</div>
 			))}
-			<AddBill />
+			<Link to={`/addbill`}>
+				<button className="bg-green-600 text-white font-sans text-xl">
+					Add bill
+				</button>
+			</Link>
 		</div>
 	);
 };
