@@ -1,0 +1,13 @@
+authEmailer=budgewit@gmail.com
+authEmailerPassword=ao87ewfaekur3
+SERVER_PORT=4673
+CONNECTION_STRING = postgres://kdjzliampqlmam:f5ccfccb2fe86be28c81b69851ba07f3c07f321fc153416b1893e309bfa5a878@ec2-34-197-141-7.compute-1.amazonaws.com:5432/d7koteeled82d
+SESSION_SECRET = dadnvcaklsjdcn
+
+
+PLAID_CLIENT_ID=5fdcaba9df1def001398654a \
+PLAID_SECRET=0c75712ab37866aebe121278a47035 \
+PLAID_PRODUCTS=transactions \
+PLAID_COUNTRY_CODES=US \
+PLAID_ENV=sandbox \
+ENCRYPTION_KEY = Q8SjNyZrn0sdkvmFGbJyacj4

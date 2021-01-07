@@ -3,10 +3,10 @@ import axios from "axios";
 
 const AddResources = (props) => {
   const [resourceState, setResourceState] = useState({
-    title: '',
-    description: '',
-    source: '',
-    category: '',
+    title: "",
+    description: "",
+    source: "",
+    category: "",
   });
   const handleButton = (e) => {
     e.preventDefault();
@@ -15,14 +15,14 @@ const AddResources = (props) => {
         resource_title: resourceState.title,
         resource_desc: resourceState.description,
         resource_link: resourceState.source,
-        resource_category: resourceState.category
+        resource_category: resourceState.category,
       });
       console.log(response);
     } catch (err) {
       console.log(err);
     }
-    console.log(props)
-    props.toggler(false)
+    console.log(props);
+    props.toggler(false);
   };
 
   return (
@@ -83,7 +83,12 @@ const AddResources = (props) => {
           }}
         />
       </label>
-      <button type="submit" name="submitbutton" onClick={handleButton}>
+      <button
+        className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
+        type="submit"
+        name="submitbutton"
+        onClick={handleButton}
+      >
         Add a Link
       </button>
     </form>
