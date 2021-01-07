@@ -67,7 +67,7 @@ const AddBudget = () => {
                     <form onSubmit={onSumbitHandler} className="flex flex-row border-t-2 border-gray-400 pt-16px mt-2">
                         <div className="flex flex-col">
                             {inputsMapped}
-                            <select className="mb-16px rounded-5px h-40px w-256 p-12 cursor-pointer text-sm bg-gray-50">
+                            <select className="mb-16px rounded-5px h-40px w-256 pl-12 cursor-pointer text-sm bg-gray-50">
                                 <option value="" disabled selected>Select Category</option>
                                 {categoriesMapped}
                             </select>
