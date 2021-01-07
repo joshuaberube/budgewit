@@ -1,4 +1,4 @@
-INSERT into resource_links (resource_title, resource_desc, resource_link, resource_category, user_id)
+INSERT into resources (resource_title, resource_desc, resource_link, resource_category, user_id)
 VALUES 
 -- General Resources
 ('Annual Credit Report', 'AnnualCreditReport.com is a website jointly operated by the three major U.S. credit reporting agencies, Equifax, Experian, and TransUnion. The site was created in order to comply with their obligations under the Fair and Accurate Credit Transactions Act (FACTA) to provide a mechanism for American consumers to receive up to three free credit reports per year.', 'https://www.annualcreditreport.com/', 'Credit Report', $1),
