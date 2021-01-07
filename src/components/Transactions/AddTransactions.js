@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react"
+import { useSelector } from "react-redux"
 import axios from "axios";
 import { useHistory } from "react-router";
 import CategoriesDropdown from "../shared/CategoriesDropdown/CategoriesDropdown";
@@ -7,33 +8,37 @@ const AddTransactions = () => {
 	let history = useHistory();
 	const [amount, setAmount] = useState(0);
 	const [account_id, setAccountId] = useState("");
-	const [category, setCategory] = useState([]);
+	const [category, setCategory] = useState();
+	const accounts = useSelector(state => state.plaid.accounts)
 
 	const [date, setDate] = useState("");
 	const [iso_currency_code, setCurrencyCode] = useState("USD");
-
 	const [merchant_name, setMerchantName] = useState("");
 
+	
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		async function fetchData() {
 			try {
-				let response = axios.post("/api/data/transactions", {
+				await axios.post("/api/data/transactions", {
 					amount,
 					account_id,
-					category,
+					category: `{"${category}"}`,
 					date,
 					iso_currency_code,
-					merchant_name,
-				});
-				console.log(response);
-				history.push("/apptransactions");
+					merchant_name
+				})
+				history.push("/apptransactions")
 			} catch (err) {
-				console.log(err);
+				console.log(err)
 			}
 		}
-		fetchData();
-	};
+		fetchData()
+	}
+
+	const accountsMapped = accounts.map(({account_id, name}) => (
+		<option key={account_id} value={account_id}>{name}</option>
+	))
 
 	return (
 		<div className="container max-h-full flex flex-col items-center content-center bg-gray-300 borderRadius-10 ">
@@ -50,14 +55,18 @@ const AddTransactions = () => {
 					value={amount}
 					onChange={(e) => setAmount(e.target.value)}
 				/>
-				<label>Account ID</label>
-				<input
+				<label>Account</label>
+				<select onChange={e => setAccountId(e.target.value)}>
+					<option value="" disabled>Select Account</option>
+					{accountsMapped}
+				</select>
+				{/* <input
 					className="bg-white"
 					type="text"
 					placeholder="Account Id"
 					value={account_id}
 					onChange={(e) => setAccountId(e.target.value)}
-				/>
+				/> */}
 
 				{/* <input
 					className="bg-white"
@@ -68,7 +77,7 @@ const AddTransactions = () => {
 				/> */}
 				<label>Categories</label>
 				<CategoriesDropdown
-					setState={(e) => setCategory(...category, e.target.value)}
+					setState={(e) => setCategory(e.target.value)}
 				/>
 				<label>Date</label>
 				<input
