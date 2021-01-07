@@ -9,11 +9,13 @@ const Transactions = () => {
     const transactionsMapped = transactions.map(transaction => <TransactionRowItem key={transaction.transaction_id} transaction={transaction} />)
 
     return (
-        <div>
+        <div className="bg-gray-50">
             <ChangeAccount />
-            <ul className="bg-gray-300">
-                {transactionsMapped}
-            </ul>
+            <div className="w-768 bg-gray-300 p-12 rounded-10">
+                <ul className="bg-gray-50 rounded-10">
+                    {transactionsMapped}
+                </ul>
+            </div>
         </div>
     )
 }

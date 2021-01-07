@@ -9,10 +9,11 @@ module.exports = {
         'proxima-nova': ["Proxima Nova"]
       },
       width: {
-        "768": "768px",
+        "96": "96px",
         "128": "128px",
         "152": "152px",
-        "256": "256px"
+        "256": "256px",
+        "768": "768px"
       },
       height: {
         "40": "40px",
@@ -46,7 +47,10 @@ module.exports = {
     }
   },
   variants: {
-    extend: {},
+    extend: {
+      borderRadius: ['hover'],
+      zIndex: ['hover']
+    },
   },
   plugins: [],
 }
