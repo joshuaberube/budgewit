@@ -15,7 +15,10 @@ const Budget = () => {
                 onClick={() => setIsAddBudget(!isAddBudget)} 
                 className="py-8 px-12 rounded-10px bg-green-400 text-gray-50 cursor-pointer"
             />
-            {isAddBudget ? <AddBudget setIsAddBudget={setIsAddBudget} /> : null}
+            <div className="">
+                {isAddBudget ? <AddBudget setIsAddBudget={setIsAddBudget} /> : null}
+
+            </div>
         </div>
 
     )
