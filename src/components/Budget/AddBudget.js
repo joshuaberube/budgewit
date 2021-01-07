@@ -63,7 +63,7 @@ const AddBudget = ({setIsAddBudget}) => {
 
     return (
             <div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl">
-                <div className="mx-80 py-48">
+                <div className="px-80 py-48">
                     <div className="flex flex-row justify-between items-baseline">
                         <h1 className="text-3xl text-gray-600 font-extrabold">Create A Budget</h1>
                         <input type="reset" value="Cancel" onClick={() => setIsAddBudget(false)} className="bg-transparent cursor-pointer font-bold text-gray-600" />
