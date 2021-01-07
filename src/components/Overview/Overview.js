@@ -1,9 +1,10 @@
 import PlaidBankLink from "../PlaidBankLink/PlaidBankLink"
 
+
 const Overview = () => {
     return(
         <>
-          <PlaidBankLink />
+         <PlaidBankLink />
           {/* //Transactions Summary
           //Goals Summary
           //Bills Summary     
