@@ -1,6 +1,6 @@
-
-import AddTransactions from "./AddTransactions";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import axios from "axios";
 
 const DBTransactions = () => {
@@ -20,7 +20,7 @@ const DBTransactions = () => {
 				<div key={index}>
 					{transaction.transaction_date.slice(0, 10)}
 					<b>Amt: </b>
-					{transaction.transaction_amount}
+					{parseFloat(transaction.transaction_amount, 10).toFixed(2)}
 					<b>Transaction Category: </b>
 					{transaction.transaction_category}
 					<b>Transaction Title: </b>
@@ -29,7 +29,11 @@ const DBTransactions = () => {
 					{transaction.transaction_desc}
 				</div>
 			))}
-			<AddTransactions />
+			<Link to={`/addtransactions`}>
+				<button className="bg-green-600 text-white font-sans text-xl">
+					Add transaction
+				</button>
+			</Link>
 		</div>
 	);
 };
