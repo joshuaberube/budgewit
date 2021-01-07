@@ -83,9 +83,14 @@ const getPlaidTransactions = async (req, res) => {
         const startDate = moment().subtract(60, "days").format("YYYY-MM-DD")
         const endDate = moment().format("YYYY-MM-DD")
         
-        const response = await client.getTransactions(decrypted, startDate, endDate)
+        const plaidTransactions = await client.getTransactions(decrypted, startDate, endDate)
+        const dbTransactions = await db.transactions.where("user_id=$1", [user_id])
 
-        res.status(200).send(response)
+        const allTransactions = [...plaidTransactions.transactions, ...dbTransactions]
+
+        plaidTransactions.transactions = allTransactions
+
+        res.status(200).send(plaidTransactions)
     } catch (err) {
         res.sendStatus(500)
         console.log(err)

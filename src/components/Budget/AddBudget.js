@@ -1,8 +1,21 @@
-import { useSelector } from 'react-redux'
 import { useState, useRef, useEffect } from "react"
 import "./AddBudget.scss"
 import CustomRadioButton from './CustomRadioButton'
 import axios from "axios"
+import CategoriesDropdown from '../shared/CategoriesDropdown/CategoriesDropdown'
+
+const inputsArr = [
+    {type: "text", placeholder: "Title", name: "title"},
+    {type: "text", placeholder: "Description (optional)", name: "description"},
+    {type: "number", placeholder: "Amount", name: "amount"}
+]
+
+const radioArr = [
+    {title: "MONTHLY", desc: "Starts the first day of the month", value: "monthly", checked: "checked"},
+    {title: "QUARTERLY", desc: "Follows the US Quarters", value: "quarterly"},
+    {title: "YEARLY", desc: "Starts the first day of the year", value: "yearly"},
+    {title: "ONCE", desc: "Starts the first day of the next month", value: "once"}
+]
 
 const AddBudget = ({setIsAddBudget}) => {
     const [budget, setBudget] = useState({budget_title: "", budget_description: "", budget_amount: 0, budget_category: ""})
@@ -20,23 +33,9 @@ const AddBudget = ({setIsAddBudget}) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [ref, setIsAddBudget])
 
-    const categories = useSelector(state => state.plaid.categories)
-
-    const inputsArr = [
-        {type: "text", placeholder: "Title", name: "title"},
-        {type: "text", placeholder: "Description (optional)", name: "description"},
-        {type: "number", placeholder: "Amount", name: "amount"}
-    ]
-
-    const radioArr = [
-        {title: "MONTHLY", desc: "Starts the first day of the month", value: "monthly", checked: "checked"},
-        {title: "QUARTERLY", desc: "Follows the US Quarters", value: "quarterly"},
-        {title: "YEARLY", desc: "Starts the first day of the year", value: "yearly"},
-        {title: "ONCE", desc: "Starts the first day of the next month", value: "once"}
-    ]
-
-    const inputsMapped = inputsArr.map(({type, placeholder, name}) => (
-        <input 
+    const inputsMapped = inputsArr.map(({type, placeholder, name}, index) => (
+        <input
+            key={index}
             type={type} 
             name={name}
             placeholder={placeholder} 
@@ -53,12 +52,6 @@ const AddBudget = ({setIsAddBudget}) => {
             setBudgetFrequency={setBudgetFrequency} 
         />
     ))
-
-    const parentCategories = categories.reduce((acc, {hierarchy}) => (
-        hierarchy.length === 1 ? [...acc, hierarchy[0]] : acc
-    ), [])
-
-    const categoriesMapped = parentCategories.map(category => <option key={category} value={category}>{category}</option>)
 
     const onSumbitHandler = async e => {
         e.preventDefault()
@@ -78,15 +71,7 @@ const AddBudget = ({setIsAddBudget}) => {
                     <form onSubmit={onSumbitHandler} className="flex flex-row border-t border-gray-400 pt-16 mt-2">
                         <div className="flex flex-col">
                             {inputsMapped}
-                            <select 
-                                name="category" 
-                                required 
-                                onChange={e => setBudget({...budget, [`budget_${e.target.name}`]: e.target.value})}
-                                className="mb-16 rounded-5 h-40 w-256 pl-12 cursor-pointer text-sm bg-gray-50 font-semibold tracking-wide" 
-                            >
-                                <option value="" disabled selected>Select Category</option>
-                                {categoriesMapped}
-                            </select>
+                            <CategoriesDropdown setState={e => setBudget({...budget, [`budget_${e.target.name}`]: e.target.value})}/>
                             <button type="submit" className="bg-green-500 rounded-5 h-40 w-256 text-gray-50">Create Budget</button>
                         </div>
                         <div className="ml-16 flex flex-col justify-between">

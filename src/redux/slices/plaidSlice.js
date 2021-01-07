@@ -47,10 +47,12 @@ export const { changeSelectedAccount } = plaidSlice.actions
 
 export const transactionsFilteredSelector = createSelector(
     [state => state.plaid.transactions, state => state.plaid.selectedAccount],
-    (transactions, selectedAccount) => (
-        selectedAccount === "all" ? transactions
+    (transactions, selectedAccount) => {
+        const transactionsFiltered = selectedAccount === "all" ? transactions
         : transactions.filter(({account_id}) => account_id === selectedAccount)
-    )
+
+        return transactionsFiltered.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+    }
 )
 
 export const categoriesFilteredSelector = createSelector(
@@ -62,4 +64,13 @@ export const categoriesFilteredSelector = createSelector(
             })
         })
     }
+)
+
+export const categoriesOptionSelector = createSelector(
+    [state => state.plaid.categories],
+    categories => (
+        categories.reduce((acc, {hierarchy}) => (
+            hierarchy.length === 1 ? [...acc, hierarchy[0]] : acc
+        ), [])
+    )
 )
