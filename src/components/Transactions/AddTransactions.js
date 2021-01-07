@@ -1,19 +1,31 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useHistory } from "react-router";
 import CategoriesDropdown from "../shared/CategoriesDropdown/CategoriesDropdown";
 
-const AddTransactions = () => {
+const AddTransactions = ({setIsAddTransaction}) => {
 	let history = useHistory();
 	const [amount, setAmount] = useState(0);
 	const [account_id, setAccountId] = useState("");
 	const [category, setCategory] = useState();
 	const accounts = useSelector((state) => state.plaid.accounts);
-
+	const ref = useRef(null)
 	const [date, setDate] = useState("");
 	const [iso_currency_code, setCurrencyCode] = useState("USD");
 	const [merchant_name, setMerchantName] = useState("");
+	
+	useEffect(() => {
+        const handleClickOutside = e => {
+            if (ref.current && !ref.current.contains(e.target)) {
+                setIsAddTransaction(false)
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [ref, setIsAddTransaction])
+	
 
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
