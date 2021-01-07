@@ -18,15 +18,13 @@ const DBTransactions = () => {
 		<div>
 			{dbTransactions.map((transaction, index) => (
 				<div key={index}>
-					{transaction.transaction_date.slice(0, 10)}
+					{transaction.date.slice(0, 10)}
 					<b>Amt: </b>
-					{parseFloat(transaction.transaction_amount, 10).toFixed(2)}
+					{parseFloat(transaction.amount, 10).toFixed(2)}
 					<b>Transaction Category: </b>
-					{transaction.transaction_category}
-					<b>Transaction Title: </b>
-					{transaction.transaction_title}
-					<b>Transaction Description: </b>
-					{transaction.transaction_desc}
+					{transaction.category}
+					<b>Merchant Name: </b>
+					{transaction.merchant_name}
 				</div>
 			))}
 			<Link to={`/addtransactions`}>
