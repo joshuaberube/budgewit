@@ -43,15 +43,15 @@ const ResetPassword = () => {
                 Password Reset Form
               </h1>
               <Link to="/auth">
-              <button className="bg-transparent cursor-pointer font-bold text-gray-600">
-                Return to Login
-              </button>
-            </Link>
+                <button className="bg-transparent cursor-pointer font-bold text-gray-600">
+                  Return to Login
+                </button>
+              </Link>
             </div>
 
-            <form className="flex flex-row border-t border-gray-400 pt-16 mt-2">
+            <form className="flex flex-col border-t border-gray-400 pt-16 mt-2">
               <input
-                className="rounded-5 h-40 w-256 mx-4 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+                className="rounded-5 h-40 w-256 mb-16 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
                 type="password"
                 name="password"
                 placeholder="Insert your new password"
@@ -60,7 +60,7 @@ const ResetPassword = () => {
                 }
               />
               <input
-                className="rounded-5 h-40 w-256 mx-4 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+                className="rounded-5 h-40 w-256 mb-16 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
                 type="password"
                 name="passwordmatch"
                 placeholder="Type in your password again"
@@ -70,14 +70,16 @@ const ResetPassword = () => {
               />
               {passwordsMatch ? (
                 <button
-                  className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
+                  className="py-8 px-12 h-40 w-256 rounded-10 bg-green-400 text-gray-50 cursor-pointer text-center"
                   type="submit"
                   onClick={handleButton}
                 >
                   Reset Password
                 </button>
               ) : (
-                <p className="py-8 h-40 w-256 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer">Passwords must match.</p>
+                <p className="py-8 h-40 w-256 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer text-center">
+                  Passwords must match.
+                </p>
               )}
             </form>
           </div>
