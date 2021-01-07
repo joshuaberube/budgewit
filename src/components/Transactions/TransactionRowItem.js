@@ -7,7 +7,7 @@ const TransactionRowItem = ({transaction: {amount, category, date, iso_currency_
     const test = Math.sign(amount) === -1
     //hover:rounded-10 hover:shadow-lg hover:z-10 hover:bg-gray-50
     return (
-        <li className="flex flex-row justify-between items-center py-8 px-32 mx-8 transform">
+        <li className="flex flex-row justify-between items-center py-8 px-32 mx-8">
             <div className="flex flex-col">
                 <span className="text-xl">
                     {category[0] === "Transfer" ? "Transfer" 
