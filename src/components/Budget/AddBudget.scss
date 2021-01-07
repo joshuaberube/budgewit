@@ -1,0 +1,14 @@
+select,
+select option {
+  color: #1E293B;
+}
+
+select:invalid,
+select option[value=""] {
+  color: #94A3B8;
+}
+
+/*Added for browser compatibility*/
+[hidden] {
+  display: none;
+}

@@ -1,13 +1,32 @@
 import { useSelector } from 'react-redux'
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
+import "./AddBudget.scss"
+import CustomRadioButton from './CustomRadioButton'
+import axios from "axios"
 
-const AddBudget = () => {
-    const [budget, setBudget] = useState({name: "", description: "", category: "", amount: 0})
+const AddBudget = ({setIsAddBudget}) => {
+    const [budget, setBudget] = useState({budget_title: "", budget_description: "", budget_amount: 0, budget_category: ""})
+    const [budget_frequency, setBudgetFrequency] = useState("monthly")
+    const ref = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = e => {
+            if (ref.current && !ref.current.contains(e.target)) {
+                setIsAddBudget(false)
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [ref, setIsAddBudget])
+
+
+
     const categories = useSelector(state => state.plaid.categories)
 
     const inputsArr = [
-        {type: "text", placeholder: "Name", name: "name"},
-        {type: "text", placeholder: "Description", name: "description"},
+        {type: "text", placeholder: "Title", name: "title"},
+        {type: "text", placeholder: "Description (optional)", name: "description"},
         {type: "number", placeholder: "Amount", name: "amount"}
     ]
 
@@ -23,64 +42,64 @@ const AddBudget = () => {
             type={type} 
             name={name}
             placeholder={placeholder} 
-            onChange={e => setBudget({...budget, [e.target.name]: e.target.value})}
-            className="rounded-5px mb-16px h-40px w-256 p-12 text-sm text-gray-400 bg-gray-50"
+            onChange={e => setBudget({...budget, [`budget_${e.target.name}`]: e.target.value})}
+            className="rounded-5px mb-16px h-40px w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
         />
     ))
 
-    const radioMapped = radioArr.map(({title, desc, value, checked}) => (
-        <label>
-            {title}
-            <input 
-                type="radio"
-                value={value}
-                name="budget"
-                checked={checked}
-            />
-        </label>
+    const radioMapped = radioArr.map(radio => (
+        <CustomRadioButton 
+            key={radio.title} 
+            radio={radio} 
+            budgetFrequency={budget_frequency} 
+            setBudgetFrequency={setBudgetFrequency} 
+        />
     ))
 
     const parentCategories = categories.reduce((acc, {hierarchy}) => (
-        hierarchy.length === 1 ? [...acc, hierarchy[0]]
-        : acc
+        hierarchy.length === 1 ? [...acc, hierarchy[0]] : acc
     ), [])
 
-    const categoriesMapped = parentCategories.map((category, index) => (
-        <option key={`${index}:${category}`} value={category}>
-            {category}
-        </option>
-    ))
+    const categoriesMapped = parentCategories.map(category => <option key={category} value={category}>{category}</option>)
 
-    const onSumbitHandler = e => {
+    const onSumbitHandler = async e => {
         e.preventDefault()
-        console.log(e)
+        await axios.post("/api/data/budgets", {...budget, budget_frequency})
+        .catch(err => console.log(err))
+
+        setIsAddBudget(false)
     }
 
     return (
-        <div className="w-screen h-screen absolute top-0 left-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
-            <div className="w-768px bg-gray-300 rounded-10px flex flex-col shadow-2xl">
-                <div className="mx-64px py-48px">
+            <div ref={ref} className="w-768px bg-gray-300 rounded-10px flex flex-col shadow-2xl font-proxima-nova">
+                <div className="mx-80 py-48px">
                     <div className="flex flex-row justify-between items-baseline">
-                        <h1 className="text-4xl text-gray-800">Create A Budget</h1>
-                        <input type="reset" value="Cancel" className="bg-transparent cursor-pointer" />
+                        <h1 className="text-3xl text-gray-600 font-extrabold">Create A Budget</h1>
+                        <input type="reset" value="Cancel" onClick={() => setIsAddBudget(false)} className="bg-transparent cursor-pointer font-bold text-gray-600" />
                     </div>
-                    <form onSubmit={onSumbitHandler} className="flex flex-row border-t-2 border-gray-400 pt-16px mt-2">
+                    <form onSubmit={onSumbitHandler} className="flex flex-row border-t border-gray-400 pt-16px mt-2">
                         <div className="flex flex-col">
                             {inputsMapped}
-                            <select className="mb-16px rounded-5px h-40px w-256 pl-12 cursor-pointer text-sm bg-gray-50">
+                            <select 
+                                name="category" 
+                                required 
+                                onChange={e => setBudget({...budget, [`budget_${e.target.name}`]: e.target.value})}
+                                className="mb-16px rounded-5px h-40px w-256 pl-12 cursor-pointer text-sm bg-gray-50 font-semibold tracking-wide" 
+                            >
                                 <option value="" disabled selected>Select Category</option>
                                 {categoriesMapped}
                             </select>
                             <button type="submit" className="bg-green-500 rounded-5px h-40px w-256 text-gray-50">Create Budget</button>
                         </div>
-                        <div className="pl-32px">
-                            {radioMapped}
+                        <div className="ml-16px flex flex-col justify-between">
+                            <h2 className="ml-16px font-bold text-2xl text-gray-600 pt-8">Frequency</h2>
+                            <div className="flex flex-row flex-wrap">
+                                {radioMapped}
+                            </div>
                         </div>
                     </form>
-
                 </div>
             </div>
-        </div>
     )
 }
 
