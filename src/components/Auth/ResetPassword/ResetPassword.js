@@ -39,12 +39,19 @@ const ResetPassword = () => {
         <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova">
           <div className="mx-80 py-48">
             <div className="flex flex-row justify-between items-baseline">
-              <h1>Password Reset Form</h1>
+              <h1 className="text-3xl text-gray-600 font-extrabold">
+                Password Reset Form
+              </h1>
+              <Link to="/auth">
+              <button className="bg-transparent cursor-pointer font-bold text-gray-600">
+                Return to Login
+              </button>
+            </Link>
             </div>
 
-            <form className="">
+            <form className="flex flex-row border-t border-gray-400 pt-16 mt-2">
               <input
-                className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+                className="rounded-5 h-40 w-256 mx-4 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
                 type="password"
                 name="password"
                 placeholder="Insert your new password"
@@ -53,7 +60,7 @@ const ResetPassword = () => {
                 }
               />
               <input
-                className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+                className="rounded-5 h-40 w-256 mx-4 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
                 type="password"
                 name="passwordmatch"
                 placeholder="Type in your password again"
@@ -70,14 +77,9 @@ const ResetPassword = () => {
                   Reset Password
                 </button>
               ) : (
-                <p>Passwords must match.</p>
+                <p className="py-8 h-40 w-256 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer">Passwords must match.</p>
               )}
             </form>
-            <Link to="/auth">
-              <button className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer">
-                Return to Login
-              </button>
-            </Link>
           </div>
         </div>
       ) : (
