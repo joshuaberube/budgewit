@@ -1,11 +1,21 @@
 import { useSelector } from 'react-redux'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { categoriesFilteredSelector } from '../../redux/slices/plaidSlice'
 import AddBudget from './AddBudget'
+import axios from "axios"
 
 const Budget = () => {
     const categories = useSelector(categoriesFilteredSelector)
     const [isAddBudget, setIsAddBudget] = useState(false)
+    const [goals, setGoals] = useState([])
+
+    useEffect(() => {
+        const budget = async () => {
+            const goals = await axios.get("/api/data/budgets")
+            setGoals(goals.data)
+        }
+        budget()
+    }, [])
 
     return (
         <div>

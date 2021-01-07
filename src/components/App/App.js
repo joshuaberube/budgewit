@@ -45,7 +45,7 @@ const App = () => {
 	}, [isLoggedIn, dispatch, location.pathname, match, api_key, status]);
 
 	return (
-		<>
+		<main className="font-proxima-nova">
 			{location.pathname !== "/auth" ? <Header /> : null}
 			<Switch>
 				<Route exact path="/"><Overview /></Route>
@@ -61,7 +61,7 @@ const App = () => {
 				<Route path="/reset/:resetPasswordToken"><ResetPassword /></Route>
 				<Route><PageNotFound /></Route>
 			</Switch>
-		</>
+		</main>
 	);
 };
 

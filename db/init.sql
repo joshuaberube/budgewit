@@ -50,17 +50,14 @@ CREATE TABLE budgets (
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-
-
 CREATE TABLE transactions (
     transaction_id SERIAL PRIMARY KEY,
-    transaction_amount INT NOT NULL,
-    transaction_category TEXT NOT NULL,
-    transaction_date DATE DEFAULT CURRENT_DATE,
+    amount INT NOT NULL,
+    account_id VARCHAR(200),
+    category TEXT ARRAY NOT NULL,
+    date DATE DEFAULT CURRENT_DATE,
     iso_currency_code VARCHAR(50) NOT NULL,
-    pending BOOLEAN NOT NULL,
-    transaction_title VARCHAR(250) NOT NULL,
-    transaction_desc VARCHAR(500),
+    merchant_name VARCHAR (80) NOT NULL,
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE
 );
 

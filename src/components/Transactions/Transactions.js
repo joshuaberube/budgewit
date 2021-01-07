@@ -11,7 +11,7 @@ const Transactions = () => {
     return (
         <div>
             <ChangeAccount />
-            <ul>
+            <ul className="bg-gray-300">
                 {transactionsMapped}
             </ul>
         </div>
