@@ -89,6 +89,7 @@ const AddBudget = ({setIsAddBudget}) => {
 export default AddBudget
 
 
+
 //# An array of objects. Each object has the hierarchy, the [0] represents the parent category whereas [1], etc. represent sub categories.
 
 //# But what if the data was structured like this: [{parentCategory: "Bank Fees", subCategories: ["Overdraft", "ATM", "Late Payment"]}]
