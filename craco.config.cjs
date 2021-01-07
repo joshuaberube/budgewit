@@ -2,7 +2,7 @@ module.exports = {
     style: {
         postcss: {
             plugins: [
-                require("tailwindcss"), 
+                require("tailwindcss")("./tailwindcss.config.cjs"), 
                 require("autoprefixer")
             ]
         }

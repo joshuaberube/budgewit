@@ -11,7 +11,12 @@ const AddBudget = () => {
         {type: "number", placeholder: "Amount", name: "amount"}
     ]
 
-    // console.log(categories)
+    const radioArr = [
+        {title: "MONTHLY", desc: "Starts the first day of the month", value: "monthly", checked: "checked"},
+        {title: "QUARTERLY", desc: "Follows the US Quarters", value: "quarterly"},
+        {title: "YEARLY", desc: "Starts the first day of the year", value: "yearly"},
+        {title: "ONCE", desc: "Starts the first day of the next month", value: "once"}
+    ]
 
     const inputsMapped = inputsArr.map(({type, placeholder, name}) => (
         <input 
@@ -19,16 +24,32 @@ const AddBudget = () => {
             name={name}
             placeholder={placeholder} 
             onChange={e => setBudget({...budget, [e.target.name]: e.target.value})}
+            className="rounded-5px mb-16px h-40px w-256 p-12 text-sm text-gray-400 bg-gray-50"
         />
     ))
 
-    const parentCategories = categories.reduce((acc, {hierarchy}) => {
-        return hierarchy.length === 1 ? [...acc, hierarchy[0]]
-        // // : hierarchy.includes(acc[0]?.parentCategory) && hierarchy.length > 1 ? acc[0]?.subCategory.push(hierarchy[1])
-        : acc
-    }, [])
+    const radioMapped = radioArr.map(({title, desc, value, checked}) => (
+        <label>
+            {title}
+            <input 
+                type="radio"
+                value={value}
+                name="budget"
+                checked={checked}
+            />
+        </label>
+    ))
 
-    const categoriesMapped = parentCategories.map((category, index) => <option key={`${index}:${category}`} value={category}>{category}</option>)
+    const parentCategories = categories.reduce((acc, {hierarchy}) => (
+        hierarchy.length === 1 ? [...acc, hierarchy[0]]
+        : acc
+    ), [])
+
+    const categoriesMapped = parentCategories.map((category, index) => (
+        <option key={`${index}:${category}`} value={category}>
+            {category}
+        </option>
+    ))
 
     const onSumbitHandler = e => {
         e.preventDefault()
@@ -36,20 +57,29 @@ const AddBudget = () => {
     }
 
     return (
-        <div className="w-768px bg-gray-400">
-            <form onSubmit={onSumbitHandler} className="flex flex-row">
-                <div className="flex flex-col">
-                    {inputsMapped}
-                    <select>
-                        {categoriesMapped}
-                    </select>
-                    <button type="submit" className="bg-green-500">Create Budget</button>
+        <div className="w-screen h-screen absolute top-0 left-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
+            <div className="w-768px bg-gray-300 rounded-10px flex flex-col shadow-2xl">
+                <div className="mx-64px py-48px">
+                    <div className="flex flex-row justify-between items-baseline">
+                        <h1 className="text-4xl text-gray-800">Create A Budget</h1>
+                        <input type="reset" value="Cancel" className="bg-transparent cursor-pointer" />
+                    </div>
+                    <form onSubmit={onSumbitHandler} className="flex flex-row border-t-2 border-gray-400 pt-16px mt-2">
+                        <div className="flex flex-col">
+                            {inputsMapped}
+                            <select className="mb-16px rounded-5px h-40px w-256 p-12 cursor-pointer text-sm bg-gray-50">
+                                <option value="" disabled selected>Select Category</option>
+                                {categoriesMapped}
+                            </select>
+                            <button type="submit" className="bg-green-500 rounded-5px h-40px w-256 text-gray-50">Create Budget</button>
+                        </div>
+                        <div className="pl-32px">
+                            {radioMapped}
+                        </div>
+                    </form>
 
                 </div>
-                <div>
-
-                </div>
-            </form>
+            </div>
         </div>
     )
 }
