@@ -17,10 +17,6 @@ const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 app.use(express.static(`${__dirname}/build`))
 app.use(express.json())
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/build/index.html"))
-})
-
 app.use(session({
     resave: false,
     saveUninitialized: true,
@@ -63,5 +59,9 @@ app.post("/api/plaid/create-link-token", checkSession, createPlaidLinkToken)
 app.post("/api/plaid/create-access-token", checkSession, createAccessToken)
 app.post("/api/plaid/transactions", checkSession, getPlaidTransactions)
 app.get("/api/plaid/categories", checkSession, getCategories)
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/build/index.html"))
+})
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}.`))
