@@ -42,10 +42,10 @@ const AddTransactions = () => {
 	));
 
 	return (
-		<div className="container max-h-full flex flex-col items-center content-center bg-gray-300 borderRadius-10 ">
-			<h1 className="font-sans text-xl">Add Transaction</h1>
+		<div className="container max-h-full flex flex-col items-center content-center bg-gray-400 borderRadius-10 ">
+			<h1 className="font-sans text-3xl">Add Transaction</h1>
 			<form
-				className="flex flex-col border-solid border-4 border-light-blue-1200 bg-gray-300 rounded-md w-1/2"
+				className="flex flex-col border-solid border-4 border-light-blue-1200 bg-green-400 rounded-md w-1/2"
 				onSubmit={handleSubmit}
 			>
 				<label>Amount</label>
@@ -92,7 +92,7 @@ const AddTransactions = () => {
 				/>
 
 				<input
-					className="bg-green-600 text-white font-sans text-xl"
+					className="bg-green-600 text-gray-50 font-sans text-xl"
 					type="submit"
 					value="Submit"
 				/>

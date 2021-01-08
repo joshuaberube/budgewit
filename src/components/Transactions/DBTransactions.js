@@ -6,12 +6,17 @@ import axios from "axios";
 const DBTransactions = () => {
 	const [dbTransactions, setDBTransactions] = useState([]);
 
-	useEffect(async () => {
+	useEffect(() => {
 		try {
-			const response = await axios.get("/api/data/transactions");
-			setDBTransactions(response.data);
-			console.log(response.data);
-		} catch (err) {}
+			async function fetchData() {
+				const response = await axios.get("/api/data/transactions");
+				setDBTransactions(response.data);
+			}
+
+			fetchData();
+		} catch (err) {
+			console.log(err);
+		}
 	}, []);
 
 	return (

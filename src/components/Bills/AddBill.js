@@ -42,46 +42,46 @@ const AddBill = () => {
 				className="flex flex-col content-center border-solid border-4 border-light-blue-1200 bg-green-300 rounded-md w-1/2"
 				onSubmit={handleSubmit}
 			>
-				<label className="text-white text-2xl">Bill Name</label>
+				<label className="text-gray-100 text-2xl">Bill Name</label>
 				<input
-					className="bg-white text-2xl"
+					className="bg-gray-50 text-2xl"
 					type="text"
 					placeholder="Bill Name"
 					value={bill_name}
 					onChange={(e) => setName(e.target.value)}
 				/>
-				<label className="text-white text-2xl">Bill Amount</label>
+				<label className="text-gray-50 text-2xl">Bill Amount</label>
 				<input
-					className="bg-white text-2xl"
+					className="bg-gray-50 text-2xl"
 					type="number"
 					placeholder="Bill Amount"
 					value={bill_amount}
 					onChange={(e) => setAmount(e.target.value)}
 				/>
-				<label className="text-white text-2xl">Bill pending?</label>
+				<label className="text-gray-50 text-2xl">Bill pending?</label>
 				<select className="text-2xl">
 					<option value="true">true</option>
 					<option value={bill_status}>false</option>
 					onChange={(e) => setStatus(e.target.value)}
 				</select>
-				<label className="text-white text-2xl">Bill Category</label>
+				<label className="text-gray-50 text-2xl">Bill Category</label>
 				<input
 					type="text"
 					value={bill_category}
 					placeholder="Bill Category"
 					onChange={(e) => setCategory(e.target.value)}
 				/>
-				<label className="text-white text-2xl">Bill Interval</label>
+				<label className="text-gray-50 text-2xl">Bill Interval</label>
 				<input
-					className="bg-white text-2xl"
+					className="bg-gray-50 text-2xl"
 					type="number"
 					value={bill_interval}
 					placeholder="Bill Interval"
 					onChange={(e) => setInterval(e.target.value)}
 				/>
-				<label className="text-white text-2xl"> Bill Due Date</label>
+				<label className="text-gray-50 text-2xl"> Bill Due Date</label>
 				<input
-					className="bg-white text-2xl"
+					className="bg-gray-50 text-2xl"
 					type="date"
 					value={bill_due}
 					placeholder="Bill Due"
@@ -89,7 +89,7 @@ const AddBill = () => {
 				/>
 
 				<input
-					className="bg-green-600 text-white font-sans text-3xl borderRadius-10"
+					className="bg-green-600 text-gray-50 font-sans text-3xl border-radius-10"
 					type="submit"
 					value="Submit"
 				/>
