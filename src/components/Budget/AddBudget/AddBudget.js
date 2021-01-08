@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import "./AddBudget.scss"
-import CustomRadioButton from './CustomRadioButton'
-import axios from "axios"
-import CategoriesDropdown from '../shared/CategoriesDropdown/CategoriesDropdown'
+import CustomRadioButton from '../CustomRadioButton'
+import CategoriesDropdown from '../../shared/CategoriesDropdown/CategoriesDropdown'
 
 const inputsArr = [
     {type: "text", placeholder: "Title", name: "title"},

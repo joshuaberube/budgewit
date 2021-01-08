@@ -35,7 +35,7 @@ const ResetPassword = () => {
   }, [passState]);
 
   return (
-    <div className="bg-gray-200 h-screen w-screen">
+    <div className="bg-gray-200 h-screen w-screen pt-64">
       {!resetState ? (
         <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova mx-auto">
           <div className="mx-80 py-48">
