@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import history from "../../history"
 import axios from 'axios'
+import { getTransactions } from './plaidSlice'
 
 const initialState = {
     isLoggingIn : true,
@@ -14,6 +15,7 @@ export const login = createAsyncThunk("user/login", async (userCredentials, thun
     const {isLoggingIn} = thunkAPI.getState().user
     try {
         const user = await axios.post(`/api/user/${isLoggingIn ? "login" : "register"}`, userCredentials)
+        if (user.data.api_key) thunkAPI.dispatch(getTransactions())
         history.push("/")
         return user.data
     } catch (err) {
@@ -24,6 +26,7 @@ export const login = createAsyncThunk("user/login", async (userCredentials, thun
 export const getUserSession = createAsyncThunk("user/getUserSession", async (_, thunkAPI) => {
     try {
         const user = await axios.post("/api/user/session")
+        if (user.data.api_key) thunkAPI.dispatch(getTransactions())
         history.push("/")
         return user.data
     } catch (err) {

@@ -8,7 +8,6 @@ import TransactionRowItem from "./TransactionRowItem";
 const Transactions = () => {
   const transactions = useSelector(transactionsFilteredSelector)
   const [isAddTransaction, setIsAddTransaction] = useState(false)
-  const {status, accounts} = useSelector(state => state.plaid)
 
   const transactionsMapped = transactions.map(transaction => (
     <TransactionRowItem
@@ -20,7 +19,7 @@ const Transactions = () => {
     return (
         <div className="bg-gray-200 p-24 ">
             <div className="flex flex-row">
-                {status === "success" || accounts.account_id ? <ChangeAccount/> : null }
+                <ChangeAccount/>
                 <div className="mx-auto pr-210">
                     <div className="mb-12">
                         <input

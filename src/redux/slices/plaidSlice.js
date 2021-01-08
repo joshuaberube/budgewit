@@ -45,6 +45,8 @@ export const plaidSlice = createSlice({
 export default plaidSlice.reducer
 export const { changeSelectedAccount } = plaidSlice.actions
 
+export const selectAccounts = state => state.plaid.accounts
+
 export const transactionsFilteredSelector = createSelector(
     [state => state.plaid.transactions, state => state.plaid.selectedAccount],
     (transactions, selectedAccount) => {

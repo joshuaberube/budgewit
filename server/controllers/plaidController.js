@@ -88,7 +88,15 @@ const getPlaidTransactions = async (req, res) => {
 
         const allTransactions = [...plaidTransactions.transactions, ...dbTransactions]
 
+        const current = plaidTransactions.accounts.slice(0, 4).reduce((acc, curVal) => {
+            return acc += curVal.balances.current
+        }, 0)
+
+        const allAccounts = {account_id: "all", balances: {current: current}, name: "All Accounts", subtype: "combined"}
+        const allAccountsCombined = [allAccounts, ...plaidTransactions.accounts.slice(0, 4)]
+
         plaidTransactions.transactions = allTransactions
+        plaidTransactions.accounts = allAccountsCombined
 
         res.status(200).send(plaidTransactions)
     } catch (err) {
