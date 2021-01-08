@@ -19,7 +19,7 @@ const Transactions = () => {
 
     return (
 
-        <div className="bg-gray-200 p-24 ">
+        <div className="bg-gray-200 p-24">
             <div className="flex flex-row">
                 <ChangeAccount/>
                 <div className="mx-auto pr-210">
@@ -39,7 +39,7 @@ const Transactions = () => {
                             ) : null}
                         </div>                            
                     </div>
-                    <div className="w-768 bg-gray-300 rounded-10 shadow-3xl">
+                    <div className="w-768 bg-gray-300 rounded-10 shadow-2xl">
                         <div className="mx-8 px-32 py-8 flex justify-between font-bold text-gray-500">
                             <span>Name</span>
                             <div className="flex flex-row">
