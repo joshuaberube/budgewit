@@ -18,7 +18,7 @@ const radioArr = [
 ]
 
 
-const AddBudget = ({setIsAddBudget}) => {
+const AddBudget = ({onSubmitHandler, setIsAddBudget}) => {
     const [budget, setBudget] = useState({budget_title: "", budget_description: "", budget_amount: 0, budget_category: ""})
     const [budget_frequency, setBudgetFrequency] = useState("monthly")
     const ref = useRef(null)
@@ -54,22 +54,14 @@ const AddBudget = ({setIsAddBudget}) => {
         />
     ))
 
-    const onSubmitHandler = async e => {
-        e.preventDefault()
-        await axios.post("/api/data/budgets", {...budget, budget_frequency})
-        .catch(err => console.log(err))
-
-        setIsAddBudget(false)
-    }
-
     return (
-        <div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl">
+        <div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl absolute z-50">
             <div className="px-80 py-48">
                 <div className="flex flex-row justify-between items-baseline">
                     <h1 className="text-3xl text-gray-600 font-extrabold">Create A Budget</h1>
                     <input type="reset" value="Cancel" onClick={() => setIsAddBudget(false)} className="bg-transparent cursor-pointer font-bold text-gray-600" />
                 </div>
-                <form onSubmit={onSubmitHandler} className="flex flex-row border-t border-gray-400 pt-16 mt-2">
+                <form onSubmit={e => onSubmitHandler(e, {...budget, budget_frequency})} className="flex flex-row border-t border-gray-400 pt-16 mt-2">
                     <div className="flex flex-col">
                         {inputsMapped}
                         <CategoriesDropdown setState={e => setBudget({...budget, [`budget_${e.target.name}`]: e.target.value})}/>

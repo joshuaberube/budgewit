@@ -26,7 +26,7 @@ const App = () => {
 
 	useEffect(() => {
 		if (isLoggedIn && api_key) {
-			dispatch(getTransactions());
+			dispatch(getTransactions())
 		} else if (
 			!isLoggedIn &&
 			status !== "pending" &&
