@@ -1,5 +1,35 @@
 const colors = require("tailwindcss/colors")
 
+const values  = {
+  "neg210": "-210px",
+  "neg105": "-105px",
+  "2": "2px",
+  "4": "4px",
+  "6": "6px",
+  "8": "8px",
+  "10": "10px",
+  "12": "12px",
+  "16": "16px",
+  "19": "19px",
+  "32": "32px",
+  "40": "40px",
+  "48": "48px",
+  "64": "64px",
+  "80": "80px",
+  "96": "96px",
+  "105": "105px",
+  "128": "128px",
+  "152": "152px",
+  "192": "192px",
+  "210": "210px",
+  "256": "256px",
+  "384": "384px",
+  "512": "512px",
+  "640": "640px",
+  "768": "768px",
+  "full": "100%",
+}
+
 module.exports = {
   purge: ['./src/**/*.{js}', './public/index.html'],
   darkMode: 'media',
@@ -8,6 +38,8 @@ module.exports = {
       fontFamily: {
         'proxima-nova': ["Proxima Nova"]
       },
+
+
       width: {
         "96": "96px",
         "128": "128px",
@@ -21,24 +53,12 @@ module.exports = {
         "208": "208px",
         "264": "264px"
       },
+
       borderRadius: {
         "5": "5px",
         "10": "10px"
       },
-      spacing: {
-        "2": "2px",
-        "4": "4px",
-        "8": "8px",
-        "10": "10px",
-        "12": "12px",
-        "16": "16px",
-        "32": "32px",
-        "48": "48px",
-        "64": "64px",
-        "80": "80px",
-        "96": "96px",
-        "152": "152px"
-      }
+      spacing: values,
     },
     colors: {
       transparent: "transparent",

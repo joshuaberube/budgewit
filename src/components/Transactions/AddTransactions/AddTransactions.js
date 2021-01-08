@@ -1,11 +1,9 @@
 import { useState, useRef, useEffect } from "react"
 import { useSelector } from "react-redux"
 import axios from "axios"
-import { useHistory } from "react-router"
 import CategoriesDropdown from "../../shared/CategoriesDropdown/CategoriesDropdown"
 
 const AddTransactions = ({setIsAddTransaction}) => {
-	const history = useHistory()
 	const [amount, setAmount] = useState(0)
 	const [account_id, setAccountId] = useState("")
 	const [category, setCategory] = useState()
@@ -26,9 +24,9 @@ const AddTransactions = ({setIsAddTransaction}) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [ref, setIsAddTransaction])
 
-	const handleSubmit = (evt) => {
-		evt.preventDefault()
-		async function fetchData() {
+	const onSubmitHandler = e => {
+		e.preventDefault()
+		const fetchData = async () => {
 			try {
 				await axios.post("/api/data/transactions", {
 					amount,
@@ -36,13 +34,14 @@ const AddTransactions = ({setIsAddTransaction}) => {
 					category: `{"${category}"}`,
 					date,
 					iso_currency_code,
-					merchant_name,
+					merchant_name
 				})
-				history.push("/apptransactions")
+				setIsAddTransaction(false)
 			} catch (err) {
 				console.log(err)
 			}
 		}
+
 		fetchData()
 	}
 
@@ -52,63 +51,43 @@ const AddTransactions = ({setIsAddTransaction}) => {
 		</option>
 	))
 
+
+	const inputsArr = [
+		{type: "text", placeholder: "Title", setState: setMerchantName},
+		{type: "date", placeholder: "Transaction date", setState: setDate},
+		{type: "number", placeholder: "Amount", setState: setAmount}
+	]
+	
+	const inputsMapped = inputsArr.map(({type, placeholder, setState}, index) => (
+        <input
+            key={index}
+            type={type} 
+            placeholder={placeholder} 
+            onChange={e => setState(e.target.value)}
+            className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+        />
+    ))
+
 	return (
-		<div className="container max-h-full flex flex-col items-center content-center bg-gray-300 borderRadius-10 ">
-			<h1 className="font-sans text-xl">Add Transaction</h1>
-			<form
-				className="flex flex-col border-solid border-4 border-light-blue-1200 bg-gray-300 rounded-md w-1/2"
-				onSubmit={handleSubmit}
-			>
-				<label>Amount</label>
-				<input
-					className="bg-white"
-					type="number"
-					placeholder="Amount"
-					value={amount}
-					onChange={(e) => setAmount(e.target.value)}
-				/>
-				<label>Account</label>
-				<select accountsMapped onChange={(e) => setAccountId(e.target.value)}>
-					<option value="" disabled>
-						Select Account
-					</option>
-					{accountsMapped}
-				</select>
-
-				<label>Categories</label>
-				<CategoriesDropdown setState={(e) => setCategory(e.target.value)} />
-				<label>Date</label>
-				<input
-					className="bg-white"
-					type="date"
-					placeholder="Date"
-					value={date}
-					onChange={(e) => setDate(e.target.value)}
-				/>
-				<label>ISO Currency Code</label>
-				<input
-					className="bg-white"
-					type="text"
-					placeholder="Currency Code"
-					value={iso_currency_code}
-					onChange={(e) => setCurrencyCode(e.target.value)}
-				/>
-				<label>Merchant Name</label>
-				<input
-					className="bg-white"
-					type="text"
-					placeholder="Transaction Merchant Name"
-					value={merchant_name}
-					onChange={(e) => setMerchantName(e.target.value)}
-				/>
-
-				<input
-					className="bg-green-600 text-white font-sans text-xl"
-					type="submit"
-					value="Submit"
-				/>
-			</form>
-		</div>
-	);
-};
+		<div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl absolute z-50">
+            <div className="px-80 py-48">
+                <div className="flex flex-row justify-between items-baseline">
+                    <h1 className="text-3xl text-gray-600 font-extrabold">Create A Transaction</h1>
+                    <input type="reset" value="Cancel" onClick={() => setIsAddTransaction(false)} className="bg-transparent cursor-pointer font-bold text-gray-600" />
+                </div>
+                <form onSubmit={onSubmitHandler} className="flex flex-row border-t border-gray-400 pt-16 mt-2">
+                    <div className="flex flex-col  mx-auto">
+                        {inputsMapped}
+                        <CategoriesDropdown setState={e => setCategory(e.target.value)} />
+						<select onChange={e => setAccountId(e.target.value)} className="mb-16 rounded-5 h-40 w-256 pl-12 cursor-pointer text-sm bg-gray-50 font-semibold tracking-wide">
+							<option value="" disabled>Select Account</option>
+							{accountsMapped}
+						</select>
+                        <button type="submit" className="bg-green-500 rounded-5 h-40 w-256 text-gray-50">Create Transaction</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+	)
+}
 export default AddTransactions;
