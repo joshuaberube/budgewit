@@ -40,7 +40,7 @@ export default function ({ resource }) {
   return (
     <>
       {edit ? (
-        <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova">
+        <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl">
           <form className="flex flex-row border-t border-gray-400 pt-16 mt-2">
             <label>
               Title:
@@ -121,7 +121,7 @@ export default function ({ resource }) {
           >
             {resourceState.title}
           </a>
-          <p className= 'text-center'>{resourceState.description}</p>
+          <p>{resourceState.description}</p>
           <span className="text-sm text-gray-400">Category: {resourceState.category}</span>
           <div className="flex flex-row ">
             <button

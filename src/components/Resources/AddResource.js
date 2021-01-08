@@ -9,7 +9,7 @@ const AddResources = ({ setToggle }) => {
     category: "",
   });
   const ref = useRef(null);
-  
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -38,7 +38,7 @@ const AddResources = ({ setToggle }) => {
   };
 
   return (
-    <form>
+    <form className = "flex flex-col" ref={ref}>
       <label>
         Title:
         <input
