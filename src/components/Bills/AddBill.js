@@ -1,100 +1,79 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { useRef, useState, useEffect } from "react"
 import axios from "axios";
+import CategoriesDropdown from "../shared/CategoriesDropdown/CategoriesDropdown";
 
-const AddBill = () => {
-	let history = useHistory();
+const AddBill = ({setIsAddBill}) => {
 	const [bill_name, setName] = useState("");
 	const [bill_amount, setAmount] = useState(0);
-	const [bill_status, setStatus] = useState(false);
+	// const [bill_status, setStatus] = useState(false);
 
 	const [bill_category, setCategory] = useState("");
-
-	const [bill_interval, setInterval] = useState(0);
-
+	// const [bill_interval, setInterval] = useState(0);
 	const [bill_due, setDue] = useState("");
+	
+	const ref = useRef(null)
 
-	const handleSubmit = (evt) => {
-		evt.preventDefault();
-		async function fetchData() {
-			try {
-				let response = axios.post("/api/data/bills", {
-					bill_name,
-					bill_amount,
-					bill_status,
-					bill_category,
-					bill_interval,
-					bill_due,
-				});
-				console.log(response);
-				history.push("/bills");
-			} catch (err) {
-				console.log(err);
-			}
+	useEffect(() => {
+        const handleClickOutside = e => {
+            if (ref.current && !ref.current.contains(e.target)) {
+                setIsAddBill(false)
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, [ref, setIsAddBill])
+	
+
+	const handleSubmit = async e => {
+		e.preventDefault()
+		try {
+			await axios.post("/api/data/bills", {
+				bill_name,
+				bill_amount,
+				bill_category,
+				bill_due
+			})
+			setIsAddBill(false)
+		} catch (err) {
+			console.log(err)
 		}
-		fetchData();
-	};
+	}
 
+	const inputsArr = [
+		{type: "text", placeholder: "Title", setState: setName},
+		{type: "number", placeholder: "Amount", setState: setAmount},
+		{type: "date", placeholder: "Due Date", setState: setDue}
+	]
+
+
+	const inputsMapped = inputsArr.map(({type, placeholder, setState}, index) => (
+        <input
+            key={index}
+            type={type} 
+            placeholder={placeholder} 
+            onChange={e => setState(e.target.value)}
+            className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+        />
+	))
+	
 	return (
-		<div className="container max-h-full flex flex-col items-center content-center bg-gray-300 borderRadius-10 ">
-			<h1 className="font-sans font-bold text-4xl box-border">Add Bill</h1>
-			<form
-				className="flex flex-col content-center border-solid border-4 border-light-blue-1200 bg-green-300 rounded-md w-1/2"
-				onSubmit={handleSubmit}
-			>
-				<label className="text-gray-300 text-2xl">Bill Name</label>
-				<input
-					className="bg-gray-50 text-2xl"
-					type="text"
-					placeholder="Bill Name"
-					value={bill_name}
-					onChange={(e) => setName(e.target.value)}
-				/>
-				<label className="text-gray-300 text-2xl">Bill Amount</label>
-				<input
-					className="bg-gray-50 text-2xl"
-					type="number"
-					placeholder="Bill Amount"
-					value={bill_amount}
-					onChange={(e) => setAmount(e.target.value)}
-				/>
-				<label className="text-gray-300 text-2xl">Bill pending?</label>
-				<select className="text-2xl">
-					<option value="true">true</option>
-					<option value={bill_status}>false</option>
-					onChange={(e) => setStatus(e.target.value)}
-				</select>
-				<label className="text-gray-300 text-2xl">Bill Category</label>
-				<input
-					type="text"
-					value={bill_category}
-					placeholder="Bill Category"
-					onChange={(e) => setCategory(e.target.value)}
-				/>
-				<label className="text-gray-300 text-2xl">Bill Interval</label>
-				<input
-					className="bg-gray-50 text-2xl"
-					type="number"
-					value={bill_interval}
-					placeholder="Bill Interval"
-					onChange={(e) => setInterval(e.target.value)}
-				/>
-				<label className="text-gray-300 text-2xl"> Bill Due Date</label>
-				<input
-					className="bg-gray-50 text-2xl"
-					type="date"
-					value={bill_due}
-					placeholder="Bill Due"
-					onChange={(e) => setDue(e.target.value)}
-				/>
+		<div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl absolute z-50">
+            <div className="px-80 py-48">
+                <div className="flex flex-row justify-between items-baseline">
+                    <h1 className="text-3xl text-gray-600 font-extrabold">Add A Bill</h1>
+                    <input type="reset" value="Cancel" onClick={() => setIsAddBill(false)} className="bg-transparent cursor-pointer font-bold text-gray-600" />
+                </div>
+				<form className="flex flex-row border-t border-gray-400 pt-16 mt-2" onSubmit={handleSubmit}>
+					<div className="flex flex-col mx-auto">
+						{inputsMapped}
+						<CategoriesDropdown setState={e => setCategory(e.target.value)} />
+						<button type="submit" className="bg-green-500 rounded-5 h-40 w-256 text-gray-50">Add Bill</button>
+					</div>
+				</form>
+			</div>
+        </div>
+	)
+}
 
-				<input
-					className="bg-green-600 text-gray-50 font-sans text-3xl border-radius-10"
-					type="submit"
-					value="Submit"
-				/>
-			</form>
-		</div>
-	);
-};
 export default AddBill;

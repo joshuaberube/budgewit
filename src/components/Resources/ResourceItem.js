@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-export default function ({ resource }) {
+
+const ResourceItem = ({ resource }) => {
   const [edit, setEdit] = useState(false);
   const [resourceState, setResourceState] = useState({
     title: resource.resource_title,
@@ -24,7 +25,7 @@ export default function ({ resource }) {
   };
   const editResource = async () => {
     try {
-      const res = await axios.put(
+      await axios.put(
         `/api/data/resources/${resource.resource_id}`,
         {
           resource_title: resourceState.title,
@@ -109,6 +110,7 @@ export default function ({ resource }) {
           <a
             href={resourceState.source}
             target="_blank"
+            rel="noreferrer"
             className=" text-xl hover:underline"
           >
             {resourceState.title}
@@ -136,3 +138,5 @@ export default function ({ resource }) {
     </>
   );
 }
+
+export default ResourceItem

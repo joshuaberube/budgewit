@@ -1,21 +1,24 @@
-import { useSelector } from 'react-redux'
 import { useState, useEffect, useCallback } from "react"
-import { categoriesFilteredSelector } from '../../redux/slices/plaidSlice'
-import AddBudget from './AddBudget'
+import AddBudget from './AddBudget/AddBudget'
 import axios from "axios"
+import BudgetRowItem from './BudgetRowItem/BudgetRowItem'
 
 const Budget = () => {
-    const categories = useSelector(categoriesFilteredSelector)
     const [isAddBudget, setIsAddBudget] = useState(false)
     const [goals, setGoals] = useState([])
 
-    const onSubmitHandler = useCallback(async (e, data) => {
+    const onSubmitHandler = async (e, data) => {
         e.preventDefault()
         await axios.post("/api/data/budgets", data)
         .catch(err => console.log(err))
 
         setIsAddBudget(false)
-    }, [])
+    }
+
+    const deleteBudget = async id => {
+        await axios.delete(`/api/data/budgets/${id}`)
+        .catch(err => console.log(err))
+    }
 
     useEffect(() => {
         const budget = async () => {
@@ -23,7 +26,8 @@ const Budget = () => {
             setGoals(goals.data)
         }
         budget()
-    }, [onSubmitHandler])
+    }, [onSubmitHandler, deleteBudget])
+
 
     const createBudgetButton = () => (
         <div>
@@ -41,26 +45,19 @@ const Budget = () => {
                     </>
                 ) : null}
             </div>
-
         </div>
     )
 
-    const goalsMapped = goals.map(({budget_id, budget_title, budget_description, budget_category, budget_amount, budget_frequency, budget_current}) => {
-        const percentComplete = `${(budget_current / budget_amount) * 100}%`
-        return (
-            <div key={`${budget_id}:${budget_title}`}>
-                {budget_title}
-                <div className="relative w-512 h-16 rounded-5 overflow-hidden">
-                    <div className="w-full h-full bg-gray-200 absolute"></div>
-                    <div className="h-full bg-green-400 absolute relative" style={{width: percentComplete}}></div>
-                </div>
-            </div>
-        )
-    })
+    const goalsMapped = goals.map(goal => <BudgetRowItem key={goal.budget_id} goal={goal} deleteBudget={deleteBudget} />)
 
     return (
-        <div>
-            {goalsMapped}
+        <div className="mx-auto mt-64 w-768">
+            <div className="mb-16">
+                {createBudgetButton()}
+            </div>
+            <div className="bg-gray-50 rounded-10 p-16">
+                {goalsMapped}
+            </div>
         </div>
     )
 }

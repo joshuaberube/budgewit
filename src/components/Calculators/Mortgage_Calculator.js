@@ -102,7 +102,7 @@ function Calculator() {
   };
 
   return (
-    <div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova">
+    <div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova mx-auto mt-64">
                 <div className="mx-80 py-48">
                     <div className="flex flex-row justify-between items-baseline">
                         <h1 className="text-3xl text-gray-600 font-extrabold">Mortgage Calculator</h1>
@@ -129,7 +129,7 @@ function Calculator() {
                   className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
                 />
               </div>
-              <span>Click <a href ="https://www.valuepenguin.com/mortgages/average-mortgage-rates#avg" target="_blank"><span className="underline">here</span></a> to check the current national mortgage rate.</span>
+              <span>Click <a href ="https://www.valuepenguin.com/mortgages/average-mortgage-rates#avg" target="_blank" rel="noreferrer"><span className="underline">here</span></a> to check the current national mortgage rate.</span>
               
               <br>
               </br>

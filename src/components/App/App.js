@@ -7,7 +7,6 @@ import PageNotFound from "../shared/PageNotFound/PageNotFound";
 import Resources from "../Resources/Resources";
 import Transactions from "../Transactions/Transactions";
 import Bills from "../Bills/Bills";
-import AddBill from "../Bills/AddBill";
 import ForgotPassword from "../Auth/ForgotPassword/ForgotPassword";
 import ResetPassword from "../Auth/ResetPassword/ResetPassword";
 import { selectUserState } from '../../redux/slices/userSlice'
@@ -29,7 +28,7 @@ const App = () => {
 	}, [isLoggedIn, location.pathname, match, status])
 
 	return (
-		<main className="font-proxima-nova">
+		<main className="font-proxima-nova h-full bg-gray-200 h-100vh">
 			{isLoggedIn && <Header/> }
 			<Switch>
 				<Route exact path="/"><Transactions /></Route>
@@ -38,7 +37,6 @@ const App = () => {
 				<Route path="/resources"><Resources /></Route>
 				<Route path="/budget"><Budget /></Route>
 				<Route path="/bills"><Bills /></Route>
-				<Route path="/addbill"><AddBill /></Route>
 				<Route path='/calculator'><Calculator/></Route>
 				<Route path="/forgotpassword"><ForgotPassword /></Route>
 				<Route path="/reset/:resetPasswordToken"><ResetPassword /></Route>

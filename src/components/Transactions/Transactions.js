@@ -1,25 +1,36 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {useState} from 'react'
-import { transactionsFilteredSelector } from "../../redux/slices/plaidSlice";
+import { getTransactions, transactionsFilteredSelector } from "../../redux/slices/plaidSlice";
 import AddTransactions from "./AddTransactions/AddTransactions";
 import PlaidBankLink from '../PlaidBankLink/PlaidBankLink';
 import ChangeAccount from "./ChangeAccount/ChangeAccount";
 import TransactionRowItem from "./TransactionRowItem";
+import axios from "axios";
 
 const Transactions = () => {
-  const transactions = useSelector(transactionsFilteredSelector)
-  const [isAddTransaction, setIsAddTransaction] = useState(false)
+    const transactions = useSelector(transactionsFilteredSelector)
+    const [isAddTransaction, setIsAddTransaction] = useState(false)
+    const dispatch = useDispatch()
 
-  const transactionsMapped = transactions.map(transaction => (
-    <TransactionRowItem
-      key={transaction.transaction_id}
-      transaction={transaction}
-    />
-  ))
+    const deleteTransaction = async id => {
+        await axios.delete(`/api/data/transactions/${id}`)
+        .catch(err => console.log(err))
+
+        dispatch(getTransactions())
+    }
+
+    const transactionsMapped = transactions.map(transaction => (
+        <TransactionRowItem
+            key={transaction.transaction_id}
+            transaction={transaction}
+            deleteTransaction={deleteTransaction}
+        />
+    ))
+
+    
 
     return (
-
-        <div className="bg-gray-200 p-24">
+        <div className="bg-gray-200 p-64">
             <div className="flex flex-row">
                 <ChangeAccount/>
                 <div className="mx-auto pr-210">
@@ -28,7 +39,7 @@ const Transactions = () => {
                             type="button"
                             value="Create Transaction"
                             onClick={() => setIsAddTransaction(!isAddTransaction)}
-                            className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
+                            className="py-8 px-12 rounded-10 bg-green-500 text-gray-50 cursor-pointer"
                         />
                         <div className="">
                             {isAddTransaction ? (
@@ -51,7 +62,6 @@ const Transactions = () => {
                             {transactionsMapped}
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>

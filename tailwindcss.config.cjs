@@ -3,6 +3,7 @@ const colors = require("tailwindcss/colors")
 const values  = {
   "neg210": "-210px",
   "neg105": "-105px",
+  "0": "0",
   "2": "2px",
   "4": "4px",
   "6": "6px",
@@ -11,6 +12,7 @@ const values  = {
   "12": "12px",
   "16": "16px",
   "19": "19px",
+  "24": "24px",
   "32": "32px",
   "40": "40px",
   "48": "48px",
@@ -28,6 +30,8 @@ const values  = {
   "640": "640px",
   "768": "768px",
   "full": "100%",
+  "100vw": "100vw",
+  "100vh": "100vh"
 }
 
 module.exports = {
@@ -38,27 +42,13 @@ module.exports = {
       fontFamily: {
         'proxima-nova': ["Proxima Nova"]
       },
-
-
-      width: {
-        "96": "96px",
-        "128": "128px",
-        "152": "152px",
-        "256": "256px",
-        "348":"348px",
-        "512": "512px",
-        "648": "648px",
-        "768": "768px"
-      },
-      height: {
-        "40": "40px",
-        "208": "208px",
-        "264": "264px"
-      },
-
+      width: values,
+      height: values,
       borderRadius: {
         "5": "5px",
-        "10": "10px"
+        "10": "10px",
+        "50%": "50%",
+        "full": "9999px"
       },
       spacing: values,
     },
@@ -67,6 +57,8 @@ module.exports = {
       gray: colors.blueGray,
       red: colors.red,
       green: colors.emerald,
+      yellow: colors.yellow,
+      orange: colors.orange
     },
     boxShadow: {
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
