@@ -56,7 +56,7 @@ const Auth = () => {
 
   return (
     <div className="bg-gray-200 h-screen w-screen">
-      <div className="h-512 w-768 bg-gray-300  rounded-10 flex flex-col justify-between mx-auto shadow-2xl">
+      <div className="w-768 bg-gray-300  rounded-10 flex flex-col justify-between mx-auto shadow-2xl">
       <Link className ='p-4 ' to="/forgotpassword">
             <button className="bg-transparent cursor-pointer font-bold text-gray-600 hover:underline">
               forgot password?
