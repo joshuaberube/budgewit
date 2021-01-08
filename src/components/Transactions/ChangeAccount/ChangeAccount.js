@@ -1,32 +1,20 @@
-import { useDispatch, useSelector } from "react-redux"
-import { changeSelectedAccount } from "../../../redux/slices/plaidSlice"
+import { useSelector } from "react-redux"
+import Account from "./Account/Account"
+
 const ChangeAccount = () => {
     const accounts = useSelector(state => state.plaid.accounts)
-    const dispatch = useDispatch()
+    const firstTwoAccounts = accounts.slice(0, 2)
+    const creditCardAcc = accounts[3]
+    const allAccounts = {account_id: "all", balances: {current: 0}, name: "All Accounts", subtype: "combined"}
 
-    const accountsMapped = accounts.map(({account_id, balances, name, subtype}, index) => (
-        <label key={account_id}>
-            <div>
-                {name}
-            </div>
-            <input 
-                type="radio" 
-                name="account" 
-                value={account_id} 
-                onChange={e => dispatch(changeSelectedAccount(e.target.value))}
-            />
-        </label>
+    const hackyFix = [allAccounts, ...firstTwoAccounts, creditCardAcc]
+
+    const accountsMapped = hackyFix.map((account, index) => (
+        <Account key={index} account={account} />
     ))
+
     return (
         <div>
-            <label>
-                All Accounts
-                <input 
-                    type="radio" 
-                    name="account" 
-                    value="all" 
-                    onChange={e => dispatch(changeSelectedAccount(e.target.value))}/>
-            </label>
             {accountsMapped}
         </div>
     )

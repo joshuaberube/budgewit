@@ -17,6 +17,7 @@ const radioArr = [
     {title: "ONCE", desc: "Starts the first day of the next month", value: "once"}
 ]
 
+
 const AddBudget = ({setIsAddBudget}) => {
     const [budget, setBudget] = useState({budget_title: "", budget_description: "", budget_amount: 0, budget_category: ""})
     const [budget_frequency, setBudgetFrequency] = useState("monthly")
@@ -53,7 +54,7 @@ const AddBudget = ({setIsAddBudget}) => {
         />
     ))
 
-    const onSumbitHandler = async e => {
+    const onSubmitHandler = async e => {
         e.preventDefault()
         await axios.post("/api/data/budgets", {...budget, budget_frequency})
         .catch(err => console.log(err))
@@ -62,27 +63,27 @@ const AddBudget = ({setIsAddBudget}) => {
     }
 
     return (
-            <div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl">
-                <div className="px-80 py-48">
-                    <div className="flex flex-row justify-between items-baseline">
-                        <h1 className="text-3xl text-gray-600 font-extrabold">Create A Budget</h1>
-                        <input type="reset" value="Cancel" onClick={() => setIsAddBudget(false)} className="bg-transparent cursor-pointer font-bold text-gray-600" />
-                    </div>
-                    <form onSubmit={onSumbitHandler} className="flex flex-row border-t border-gray-400 pt-16 mt-2">
-                        <div className="flex flex-col">
-                            {inputsMapped}
-                            <CategoriesDropdown setState={e => setBudget({...budget, [`budget_${e.target.name}`]: e.target.value})}/>
-                            <button type="submit" className="bg-green-500 rounded-5 h-40 w-256 text-gray-50">Create Budget</button>
-                        </div>
-                        <div className="ml-16 flex flex-col justify-between">
-                            <h2 className="ml-16 font-bold text-2xl text-gray-600 pt-8">Frequency</h2>
-                            <div className="flex flex-row flex-wrap">
-                                {radioMapped}
-                            </div>
-                        </div>
-                    </form>
+        <div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl">
+            <div className="px-80 py-48">
+                <div className="flex flex-row justify-between items-baseline">
+                    <h1 className="text-3xl text-gray-600 font-extrabold">Create A Budget</h1>
+                    <input type="reset" value="Cancel" onClick={() => setIsAddBudget(false)} className="bg-transparent cursor-pointer font-bold text-gray-600" />
                 </div>
+                <form onSubmit={onSubmitHandler} className="flex flex-row border-t border-gray-400 pt-16 mt-2">
+                    <div className="flex flex-col">
+                        {inputsMapped}
+                        <CategoriesDropdown setState={e => setBudget({...budget, [`budget_${e.target.name}`]: e.target.value})}/>
+                        <button type="submit" className="bg-green-500 rounded-5 h-40 w-256 text-gray-50">Create Budget</button>
+                    </div>
+                    <div className="ml-16 flex flex-col justify-between">
+                        <h2 className="ml-16 font-bold text-2xl text-gray-600 pt-8">Frequency</h2>
+                        <div className="flex flex-row flex-wrap">
+                            {radioMapped}
+                        </div>
+                    </div>
+                </form>
             </div>
+        </div>
     )
 }
 

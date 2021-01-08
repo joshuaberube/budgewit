@@ -8,6 +8,7 @@ import TransactionRowItem from "./TransactionRowItem";
 const Transactions = () => {
   const transactions = useSelector(transactionsFilteredSelector)
   const [isAddTransaction, setIsAddTransaction] = useState(false)
+  const {status, accounts} = useSelector(state => state.plaid)
 
   const transactionsMapped = transactions.map(transaction => (
     <TransactionRowItem
@@ -17,32 +18,40 @@ const Transactions = () => {
   ))
 
     return (
-        <div className="bg-gray-200">
-            <ChangeAccount />
-            <div>
-                <input
-                    type="button"
-                    value="Create Transaction"
-                    onClick={() => setIsAddTransaction(!isAddTransaction)}
-                    className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
-                />
-                <div className="">
-                    {isAddTransaction ? (
-                        <AddTransactions setIsAddTransaction={setIsAddTransaction} />
-                    ) : null}
-                </div>                            
-            </div>
-            <div className="w-768 bg-gray-300 rounded-10 shadow-3xl mx-auto mb-48">
-                <div className="mx-8 px-32 py-8 flex justify-between font-bold text-gray-500">
-                    <span>Name</span>
-                    <div className="flex flex-row">
-                        <div className="w-128 text-center">Type</div>
-                        <div className="w-128 text-right">Amount</div>
+        <div className="bg-gray-200 p-24 ">
+            <div className="flex flex-row">
+                {status === "success" || accounts.account_id ? <ChangeAccount/> : null }
+                <div className="mx-auto pr-210">
+                    <div className="mb-12">
+                        <input
+                            type="button"
+                            value="Create Transaction"
+                            onClick={() => setIsAddTransaction(!isAddTransaction)}
+                            className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
+                        />
+                        <div className="">
+                            {isAddTransaction ? (
+                                <>
+                                    <AddTransactions setIsAddTransaction={setIsAddTransaction} />
+                                    <div className="absolute w-full h-full top-0 left-0 bg-gray-800 opacity-50"></div>
+                                </>
+                            ) : null}
+                        </div>                            
                     </div>
+                    <div className="w-768 bg-gray-300 rounded-10 shadow-3xl">
+                        <div className="mx-8 px-32 py-8 flex justify-between font-bold text-gray-500">
+                            <span>Name</span>
+                            <div className="flex flex-row">
+                                <div className="w-128 text-center">Type</div>
+                                <div className="w-128 text-right">Amount</div>
+                            </div>
+                        </div>
+                        <ul className="bg-gray-50 rounded-b-10">
+                            {transactionsMapped}
+                        </ul>
+                    </div>
+
                 </div>
-                <ul className="bg-gray-50 rounded-b-10">
-                    {transactionsMapped}
-                </ul>
             </div>
         </div>
     )
