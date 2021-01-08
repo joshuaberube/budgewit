@@ -6,8 +6,6 @@ import Header from "../Header/Header";
 import PageNotFound from "../shared/PageNotFound/PageNotFound";
 import Resources from "../Resources/Resources";
 import Transactions from "../Transactions/Transactions";
-import AddTransactions from "../Transactions/AddTransactions";
-import DBTransactions from "../Transactions/DBTransactions";
 import Bills from "../Bills/Bills";
 import AddBill from "../Bills/AddBill";
 import ForgotPassword from "../Auth/ForgotPassword/ForgotPassword";
@@ -22,11 +20,7 @@ import './App.scss'
 
 const App = () => {
 	const location = useLocation();
-	const {
-		isLoggedIn,
-		user: { api_key },
-		status,
-	} = useSelector(selectUserState);
+	const { isLoggedIn, user: { api_key }, status} = useSelector(selectUserState);
 	const dispatch = useDispatch();
 	const match = useRouteMatch("/reset/:resetPasswordToken");
 
@@ -49,8 +43,6 @@ const App = () => {
 			<Switch>
 				<Route exact path="/"><Transactions /></Route>
 				<Route path="/auth"><Auth /></Route>
-				<Route path="/apptransactions"><DBTransactions /></Route>
-				<Route path="/addtransactions"><AddTransactions /></Route>
 				<Route path="/goals"><Calculator /></Route>
 				<Route path="/resources"><Resources /></Route>
 				<Route path="/budget"><Budget /></Route>

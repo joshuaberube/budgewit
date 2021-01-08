@@ -1,19 +1,19 @@
-import { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { useHistory } from "react-router";
-import CategoriesDropdown from "../shared/CategoriesDropdown/CategoriesDropdown";
+import { useState, useRef, useEffect } from "react"
+import { useSelector } from "react-redux"
+import axios from "axios"
+import { useHistory } from "react-router"
+import CategoriesDropdown from "../../shared/CategoriesDropdown/CategoriesDropdown"
 
 const AddTransactions = ({setIsAddTransaction}) => {
-	let history = useHistory();
-	const [amount, setAmount] = useState(0);
-	const [account_id, setAccountId] = useState("");
-	const [category, setCategory] = useState();
-	const accounts = useSelector((state) => state.plaid.accounts);
+	const history = useHistory()
+	const [amount, setAmount] = useState(0)
+	const [account_id, setAccountId] = useState("")
+	const [category, setCategory] = useState()
+	const accounts = useSelector(state => state.plaid.accounts)
 	const ref = useRef(null)
-	const [date, setDate] = useState("");
-	const [iso_currency_code, setCurrencyCode] = useState("USD");
-	const [merchant_name, setMerchantName] = useState("");
+	const [date, setDate] = useState("")
+	const [iso_currency_code, setCurrencyCode] = useState("USD")
+	const [merchant_name, setMerchantName] = useState("")
 	
 	useEffect(() => {
         const handleClickOutside = e => {
@@ -25,10 +25,9 @@ const AddTransactions = ({setIsAddTransaction}) => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [ref, setIsAddTransaction])
-	
 
 	const handleSubmit = (evt) => {
-		evt.preventDefault();
+		evt.preventDefault()
 		async function fetchData() {
 			try {
 				await axios.post("/api/data/transactions", {
@@ -38,20 +37,20 @@ const AddTransactions = ({setIsAddTransaction}) => {
 					date,
 					iso_currency_code,
 					merchant_name,
-				});
-				history.push("/apptransactions");
+				})
+				history.push("/apptransactions")
 			} catch (err) {
-				console.log(err);
+				console.log(err)
 			}
 		}
-		fetchData();
-	};
+		fetchData()
+	}
 
 	const accountsMapped = accounts.map(({ account_id, name }) => (
 		<option key={account_id} value={account_id}>
 			{name}
 		</option>
-	));
+	))
 
 	return (
 		<div className="container max-h-full flex flex-col items-center content-center bg-gray-300 borderRadius-10 ">
