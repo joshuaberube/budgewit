@@ -40,70 +40,62 @@ export default function ({ resource }) {
   return (
     <>
       {edit ? (
-        <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova">
-          <form className="flex flex-row border-t border-gray-400 pt-16 mt-2">
-            <label>
-              Title:
-              <input
-                type="text"
-                className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
-                value={resourceState.title}
-                onChange={(e) => {
-                  const state = resourceState;
-                  setResourceState({
-                    ...state,
-                    title: e.target.value,
-                  });
-                }}
-              />
-            </label>
-            <label>
-              Source:
-              <input
-                type="text"
-                className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
-                value={resourceState.source}
-                onChange={(e) => {
-                  const state = resourceState;
-                  setResourceState({
-                    ...state,
-                    source: e.target.value,
-                  });
-                }}
-              />
-            </label>
-            <label>
-              Description:
-              <input
-                type="text"
-                className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
-                value={resourceState.description}
-                onChange={(e) => {
-                  const state = resourceState;
-                  setResourceState({
-                    ...state,
-                    description: e.target.value,
-                  });
-                }}
-              />
-            </label>
-            <label>
-              Category:
-              <input
-                className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
-                type="text"
-                value={resourceState.category}
-                onChange={(e) => {
-                  const state = resourceState;
-                  setResourceState({
-                    ...state,
-                    category: e.target.value,
-                  });
-                }}
-              />
-            </label>
+        <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl">
+          <form className="flex flex-col border-gray-400 pt-16 mt-2 mx-auto">
+            <input
+              type="text"
+              className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+              value={resourceState.title}
+              onChange={(e) => {
+                const state = resourceState;
+                setResourceState({
+                  ...state,
+                  title: e.target.value,
+                });
+              }}
+            />
+
+            <input
+              type="text"
+              className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+              value={resourceState.source}
+              onChange={(e) => {
+                const state = resourceState;
+                setResourceState({
+                  ...state,
+                  source: e.target.value,
+                });
+              }}
+            />
+
+            <input
+              type="text"
+              className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+              value={resourceState.description}
+              onChange={(e) => {
+                const state = resourceState;
+                setResourceState({
+                  ...state,
+                  description: e.target.value,
+                });
+              }}
+            />
+
+            <input
+              className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
+              type="text"
+              value={resourceState.category}
+              onChange={(e) => {
+                const state = resourceState;
+                setResourceState({
+                  ...state,
+                  category: e.target.value,
+                });
+              }}
+            />
+
             <button
-              className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
+              className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer mx-auto"
               type="submit"
               name="submitbutton"
               onClick={handleButton}
@@ -113,24 +105,32 @@ export default function ({ resource }) {
           </form>
         </div>
       ) : (
-        <li>
-          <span>{resourceState.title}</span>
-          <span>{resourceState.description}</span>
-          <span>{resourceState.source}</span>
-          <span>{resourceState.category}</span>
-
-          <button
-            className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
-            onClick={() => setEdit(true)}
+        <li className="w-768 flex flex-col justify-between items-center py-8 px-32 mx-8 transform">
+          <a
+            href={resourceState.source}
+            target="_blank"
+            className=" text-xl hover:underline"
           >
-            Edit
-          </button>
-          <button
-            className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
-            onClick={(e) => deleteResource()}
-          >
-            Delete
-          </button>
+            {resourceState.title}
+          </a>
+          <p>{resourceState.description}</p>
+          <span className="text-sm text-gray-400">
+            Category: {resourceState.category}
+          </span>
+          <div className="flex flex-row ">
+            <button
+              className="py-8 h-40 mx-4 w-128 px-12 rounded-10 bg-gray-400 text-gray-50 cursor-pointer text-center"
+              onClick={() => setEdit(true)}
+            >
+              Edit
+            </button>
+            <button
+              className="py-8 h-40 mx-4 w-128 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer text-center"
+              onClick={(e) => deleteResource()}
+            >
+              Delete
+            </button>
+          </div>
         </li>
       )}
     </>

@@ -38,8 +38,24 @@ module.exports = {
       fontFamily: {
         'proxima-nova': ["Proxima Nova"]
       },
-      width: values,
-      height: values,
+
+
+      width: {
+        "96": "96px",
+        "128": "128px",
+        "152": "152px",
+        "256": "256px",
+        "348":"348px",
+        "512": "512px",
+        "648": "648px",
+        "768": "768px"
+      },
+      height: {
+        "40": "40px",
+        "208": "208px",
+        "264": "264px"
+      },
+
       borderRadius: {
         "5": "5px",
         "10": "10px"

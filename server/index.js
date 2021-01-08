@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import express from "express"
 import massive from "massive"
 import session from "express-session"
+import path from "path"
 import { editUser, getUserSession, loginUser, logoutUser, registerUser, emailUser, resetUserPassword } from "./controllers/authController.js"
 import { getData, addData, deleteData, editData } from "./controllers/dataController.js"
 import { createPlaidLinkToken, getPlaidTransactions, createAccessToken, getCategories } from "./controllers/plaidController.js"
@@ -10,9 +11,16 @@ import { checkSession } from "./middleware.js"
 const app = express()
 dotenv.config()
 
+const __dirname = path.resolve(path.dirname(''))
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 
+app.use(express.static(`${__dirname}/build`))
 app.use(express.json())
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/build/index.html"))
+})
+
 app.use(session({
     resave: false,
     saveUninitialized: true,
