@@ -39,7 +39,7 @@ const App = () => {
 
 	return (
 		<main className="font-proxima-nova">
-			{location.pathname !== "/auth" ? <Header /> : null}
+			{isLoggedIn && <Header/> }
 			<Switch>
 				<Route exact path="/"><Transactions /></Route>
 				<Route path="/auth"><Auth /></Route>

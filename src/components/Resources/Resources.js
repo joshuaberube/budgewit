@@ -24,7 +24,7 @@ const Resources = () => {
           className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
           type="button"
           onClick={() => setToggle(true)}
-          value="Add a new link!"
+          value="Add a new source to your Resource Library"
         />
       )}
       {toggle ? <AddResource  setToggle={setToggle} /> : null}
