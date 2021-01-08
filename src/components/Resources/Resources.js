@@ -18,23 +18,26 @@ const Resources = () => {
   }, [resources, toggle]);
 
   return (
-    <>
-      <div>
-        <ul>
+    <div className="bg-gray-200">
+      {toggle ? null : (
+        <input
+          className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
+          type="button"
+          onClick={() => setToggle(true)}
+          value="Add a new link!"
+        />
+      )}
+      {toggle ? <AddResource  setToggle={setToggle} /> : null}
+      <div className="w-768 bg-gray-300 p-12 rounded-10 mx-auto">
+      <ul className="bg-gray-50 rounded-10">
         {resources !== [] &&
           resources.map((resource) => (
-            <ResourceItem key={resource.resource_link_id} resource={resource} />
+            <ResourceItem key={resource.resource_id} resource={resource} />
           ))}
-        </ul>  
+      </ul>
       </div>
-      <input
-        className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
-        type="button"
-        onClick={() => setToggle(true)}
-        value={toggle ? null : "Add a new link!"}
-      />
-      {toggle ? <AddResource toggler={setToggle} /> : null}
-    </>
+      
+    </div>
   );
 };
 

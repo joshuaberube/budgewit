@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-const AddResources = (props) => {
+const AddResources = ({ setToggle }) => {
   const [resourceState, setResourceState] = useState({
     title: "",
     description: "",
     source: "",
     category: "",
   });
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setToggle(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [ref, setToggle]);
+
   const handleButton = (e) => {
     e.preventDefault();
     try {
@@ -21,17 +34,17 @@ const AddResources = (props) => {
     } catch (err) {
       console.log(err);
     }
-    console.log(props);
-    props.toggler(false);
+    setToggle(false);
   };
 
   return (
-    <form>
-      <label>
-        Title:
+    <div className="w-768 bg-gray-300  rounded-10 flex flex-row mx-auto shadow-2xl">
+      <form className="flex flex-col border-gray-400 pt-16 mt-2 mx-auto" ref={ref}>
         <input
           type="text"
+          className="rounded-5 mb-16 h-40 w-256 p-12 placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
           value={resourceState.title}
+          placeholder="Title"
           onChange={(e) => {
             const state = resourceState;
             setResourceState({
@@ -40,12 +53,11 @@ const AddResources = (props) => {
             });
           }}
         />
-      </label>
-      <label>
-        Source:
         <input
           type="text"
+          className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
           value={resourceState.source}
+          placeholder="Source"
           onChange={(e) => {
             const state = resourceState;
             setResourceState({
@@ -54,12 +66,11 @@ const AddResources = (props) => {
             });
           }}
         />
-      </label>
-      <label>
-        Description:
         <input
           type="text"
+          className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
           value={resourceState.description}
+          placeholder="Description"
           onChange={(e) => {
             const state = resourceState;
             setResourceState({
@@ -68,12 +79,11 @@ const AddResources = (props) => {
             });
           }}
         />
-      </label>
-      <label>
-        Category:
         <input
           type="text"
+          className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
           value={resourceState.category}
+          placeholder="Category"
           onChange={(e) => {
             const state = resourceState;
             setResourceState({
@@ -82,16 +92,16 @@ const AddResources = (props) => {
             });
           }}
         />
-      </label>
-      <button
-        className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
-        type="submit"
-        name="submitbutton"
-        onClick={handleButton}
-      >
-        Add a Link
-      </button>
-    </form>
+        <button
+          className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
+          type="submit"
+          name="submitbutton"
+          onClick={handleButton}
+        >
+          Add a Link
+        </button>
+      </form>
+    </div>
   );
 };
 export default AddResources;

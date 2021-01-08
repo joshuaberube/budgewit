@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import {useState} from 'react'
 import { transactionsFilteredSelector } from "../../redux/slices/plaidSlice";
 import AddTransactions from "./AddTransactions/AddTransactions";
+import PlaidBankLink from '../PlaidBankLink/PlaidBankLink';
 import ChangeAccount from "./ChangeAccount/ChangeAccount";
 import TransactionRowItem from "./TransactionRowItem";
 
@@ -18,6 +19,7 @@ const Transactions = () => {
   ))
 
     return (
+
         <div className="bg-gray-200 p-24 ">
             <div className="flex flex-row">
                 {status === "success" || accounts.account_id ? <ChangeAccount/> : null }
