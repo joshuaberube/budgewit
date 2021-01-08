@@ -43,6 +43,7 @@ const App = () => {
 			<Switch>
 				<Route exact path="/"><Transactions /></Route>
 				<Route path="/auth"><Auth /></Route>
+				<Route path="/goals"><Calculator /></Route>
 				<Route path="/resources"><Resources /></Route>
 				<Route path="/budget"><Budget /></Route>
 				<Route path="/bills"><Bills /></Route>
