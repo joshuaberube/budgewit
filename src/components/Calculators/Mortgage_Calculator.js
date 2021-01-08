@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 function Calculator() {
   // state to storage the values given by the user when filling the input fields
+  const ref = useRef(null)
   const [userValues, setUserValues] = useState({
     amount: '',
     interest: '',
@@ -59,7 +60,8 @@ function Calculator() {
   // Calculation
   const calculateResults = ({ amount, interest, years }) => {
     const userAmount = Number(amount);
-    const calculatedInterest = Number(interest) / 100 / 12;
+    const interestRate = (interest.replace(/%$/, ""))
+    const calculatedInterest = Number(interestRate) / 100 / 12;
     const calculatedPayments = Number(years) * 12;
     const x = Math.pow(1 + calculatedInterest, calculatedPayments);
     const monthly = (userAmount * x * calculatedInterest) / (x - 1);
@@ -100,49 +102,60 @@ function Calculator() {
   };
 
   return (
-    <div className='calculator'>
-      <div className='form'>
-        <h1>Mortgage Calculator</h1>
-        <h2> Buying a home can improve your credit, improve your investment portfolio, as well as decreasing your annual tax load and long-term buills. If you eventually pay off your home, it is yours, and typically that investment only gains in value. This calculator will help you figure out if you can afford to buy a home right now.</h2>
+    <div ref={ref} className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova">
+                <div className="mx-80 py-48">
+                    <div className="flex flex-row justify-between items-baseline">
+                        <h1 className="text-3xl text-gray-600 font-extrabold">Mortgage Calculator</h1>
+                    </div>
+        <h2> Buying a home can improve your credit, improve your investment portfolio, as well as decreasing your annual tax load and long-term bills. If you eventually pay off your home, it is yours, and typically that investment only gains in value. This calculator will help you figure out if you can afford to buy a home right now.</h2>
         {/* Display the error when it exists */}
-        <p className='error'>{error}</p>
+        <br>
+              </br>
+              <p className='error'>{error}</p>
         <form onSubmit={handleSubmitValues}>
           {/* ternary operator manages when the calculator and results will be displayed to the user */}
           {!results.isResult ? (
             //   Form to collect data from the user
             <div className='form-items'>
               <div>
-                <label id='label'>Amount:</label>
+                <label id='label'>Amount: </label>
                 <input
                   type='text'
                   name='amount'
-                  placeholder='Loan amount'
+                  placeholder='Sale price minus down payment'
                   value={userValues.amount}
                   // onChange method sets the values given by the user as input to the userValues state
                   onChange={handleInputChange}
+                  className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
                 />
               </div>
-              <div>
-                <label id='label'>Interest:</label>
+              <span>Click <a href ="https://www.valuepenguin.com/mortgages/average-mortgage-rates#avg" target="_blank"><span className="underline">here</span></a> to check the current national mortgage rate.</span>
+              
+              <br>
+              </br>
+              
+                <label id='label'> Interest rate: </label>
                 <input
                   type='text'
                   name='interest'
-                  placeholder='Interest'
+                  placeholder='Typically 3.125 - 5.25'
                   value={userValues.interest}
                   onChange={handleInputChange}
+                  className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
                 />
-              </div>
+              
               <div>
-                <label id='label'>Years:</label>
+                <label id='label'>Loan duration:</label>
                 <input
                   type='text'
                   name='years'
-                  placeholder='Years to repay'
+                  placeholder='Typically 30, 20, or 15'
                   value={userValues.years}
                   onChange={handleInputChange}
+                  className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
                 />
               </div>
-              <input type='submit' className='button' />
+              <button type="submit" className="bg-green-500 rounded-5 h-40 w-256 text-gray-50">Submit </button>
             </div>
           ) : (
             //   Form to display the results to the user
@@ -152,24 +165,25 @@ function Calculator() {
                 {userValues.interest}% <br /> Years to repay: {userValues.years}
               </h4>
               <div>
-                <label id='label'>Monthly Payment:</label>
-                <input type='text' value={results.monthlyPayment} disabled />
+                <h4 >Monthly Payment: ${results.monthlyPayment}</h4>
+               
               </div>
               <div>
-                <label id='label'>Total Payment: </label>
-                <input type='text' value={results.totalPayment} disabled />
+                <h4>Total Payment: ${results.totalPayment}</h4>
+                
               </div>
               <div>
-                <label id='label'>Total Interest:</label>
-                <input type='text' value={results.totalInterest} disabled />
+                <h4>Total Interest paid if min payment made for the entire loan: ${results.totalInterest}</h4>
+                
               </div>
               {/* Button to clear fields */}
               <input
-                className='button'
+                className="mb-16 rounded-5 h-40 w-95 pl-12 cursor-pointer text-sm bg-gray-50 font-semibold tracking-wide" 
                 value='Calculate again'
-                type='button'
+                type='recalculating'
                 onClick={clearFields}
               />
+               
             </div>
           )}
         </form>
