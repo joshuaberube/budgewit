@@ -41,8 +41,8 @@ export default function ({ resource }) {
     <>
       {edit ? (
         <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl">
-          <form className="flex flex-row border-t border-gray-400 pt-16 mt-2">
-            <label>
+          <form className="flex flex-col border-gray-400 pt-16 mt-2">
+            <label className="text-lg mx-auto">
               Title:
               <input
                 type="text"
@@ -57,7 +57,7 @@ export default function ({ resource }) {
                 }}
               />
             </label>
-            <label>
+            <label className="text-lg mx-auto">
               Source:
               <input
                 type="text"
@@ -72,7 +72,7 @@ export default function ({ resource }) {
                 }}
               />
             </label>
-            <label>
+            <label className="text-lg mx-auto">
               Description:
               <input
                 type="text"
@@ -87,7 +87,7 @@ export default function ({ resource }) {
                 }}
               />
             </label>
-            <label>
+            <label className="text-lg mx-auto">
               Category:
               <input
                 className="rounded-5 mb-16 h-40 w-256 p-12 text-sm placeholder-gray-400 text-gray-800 bg-gray-50 font-semibold tracking-wide"
@@ -103,7 +103,7 @@ export default function ({ resource }) {
               />
             </label>
             <button
-              className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
+              className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer mx-auto"
               type="submit"
               name="submitbutton"
               onClick={handleButton}
