@@ -38,7 +38,7 @@ const AddResources = ({ setToggle }) => {
   };
 
   return (
-    <div className="w-768 bg-gray-300  rounded-10 flex flex-row mx-auto shadow-2xl">
+    <div className="w-512 bg-gray-300  rounded-10 flex flex-row mx-auto shadow-2xl">
       <form className="flex flex-col border-gray-400 pt-16 mt-2 mx-auto" ref={ref}>
         <input
           type="text"
