@@ -77,7 +77,7 @@ const ResetPassword = () => {
                   Reset Password
                 </button>
               ) : (
-                <p className="py-8 h-40 w-256 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer text-center mx-auto">
+                <p  >
                   Passwords must match.
                 </p>
               )}
