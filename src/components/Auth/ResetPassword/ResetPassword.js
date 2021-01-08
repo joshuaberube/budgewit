@@ -22,6 +22,7 @@ const ResetPassword = () => {
       }
     } catch (error) {
       console.log(error);
+      alert('Token is either incorrect or expired.')
     }
   };
 
@@ -34,9 +35,9 @@ const ResetPassword = () => {
   }, [passState]);
 
   return (
-    <>
+    <div className="bg-gray-200 h-screen w-screen">
       {!resetState ? (
-        <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova">
+        <div className="w-768 bg-gray-300 rounded-10 flex flex-col shadow-2xl font-proxima-nova mx-auto">
           <div className="mx-80 py-48">
             <div className="flex flex-row justify-between items-baseline">
               <h1 className="text-3xl text-gray-600 font-extrabold">
@@ -77,7 +78,7 @@ const ResetPassword = () => {
                   Reset Password
                 </button>
               ) : (
-                <p  >
+                <p  className="py-8 h-40 mx-4 w-256 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer text-center mx-auto">
                   Passwords must match.
                 </p>
               )}
@@ -96,7 +97,7 @@ const ResetPassword = () => {
               </Link>
             </div>
       )}
-    </>
+    </div>
   );
 };
 
