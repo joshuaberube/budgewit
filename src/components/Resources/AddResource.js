@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-const AddResources = (props) => {
+const AddResources = ({ setToggle }) => {
   const [resourceState, setResourceState] = useState({
     title: "",
     description: "",
     source: "",
     category: "",
   });
+  const ref = useRef(null);
+  
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setToggle(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [ref, setToggle]);
+
   const handleButton = (e) => {
     e.preventDefault();
     try {
@@ -21,8 +34,7 @@ const AddResources = (props) => {
     } catch (err) {
       console.log(err);
     }
-    console.log(props);
-    props.toggler(false);
+    setToggle(false);
   };
 
   return (

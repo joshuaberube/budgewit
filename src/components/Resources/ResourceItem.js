@@ -113,24 +113,30 @@ export default function ({ resource }) {
           </form>
         </div>
       ) : (
-        <li>
-          <span>{resourceState.title}</span>
-          <span>{resourceState.description}</span>
-          <span>{resourceState.source}</span>
-          <span>{resourceState.category}</span>
-
-          <button
-            className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
-            onClick={() => setEdit(true)}
+        <li className="w-768 flex flex-col justify-between items-center py-8 px-32 mx-8 transform">
+          <a
+            href={resourceState.source}
+            target="_blank"
+            className=" text-xl hover:underline"
           >
-            Edit
-          </button>
-          <button
-            className="py-8 px-12 rounded-10 bg-green-400 text-gray-50 cursor-pointer"
-            onClick={(e) => deleteResource()}
-          >
-            Delete
-          </button>
+            {resourceState.title}
+          </a>
+          <p className= 'text-center'>{resourceState.description}</p>
+          <span className="text-sm text-gray-400">Category: {resourceState.category}</span>
+          <div className="flex flex-row ">
+            <button
+              className="py-8 h-40 mx-4 w-128 px-12 rounded-10 bg-gray-400 text-gray-50 cursor-pointer text-center"
+              onClick={() => setEdit(true)}
+            >
+              Edit
+            </button>
+            <button
+              className="py-8 h-40 mx-4 w-128 px-12 rounded-10 bg-red-400 text-gray-50 cursor-pointer text-center"
+              onClick={(e) => deleteResource()}
+            >
+              Delete
+            </button>
+          </div>
         </li>
       )}
     </>
