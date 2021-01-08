@@ -36,7 +36,7 @@ const Auth = () => {
     ))
 
     return (
-      <div>
+      <div className="bg-gray-200 h-screen w-screen">
         <form onSubmit={e => { dispatch(login(authState)); e.preventDefault() }}>
           {inputsMapped}
           <div>
