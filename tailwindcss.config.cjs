@@ -35,7 +35,7 @@ const values  = {
 }
 
 module.exports = {
-  purge: ['./src/**/*.{js}', './public/index.html'],
+  // purge: ['./src/**/*.{js}', './public/index.html'],
   darkMode: 'media',
   theme: {
     extend: {
