@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {useState} from 'react'
 import { getTransactions, transactionsFilteredSelector } from "../../redux/slices/plaidSlice";
 import AddTransactions from "./AddTransactions/AddTransactions";
-import PlaidBankLink from '../PlaidBankLink/PlaidBankLink';
+// import PlaidBankLink from '../PlaidBankLink/PlaidBankLink';
 import ChangeAccount from "./ChangeAccount/ChangeAccount";
 import TransactionRowItem from "./TransactionRowItem";
 import axios from "axios";

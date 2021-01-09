@@ -7,18 +7,18 @@ const Budget = () => {
     const [isAddBudget, setIsAddBudget] = useState(false)
     const [goals, setGoals] = useState([])
 
-    const onSubmitHandler = async (e, data) => {
+    const onSubmitHandler = useCallback(async (e, data) => {
         e.preventDefault()
         await axios.post("/api/data/budgets", data)
         .catch(err => console.log(err))
 
         setIsAddBudget(false)
-    }
+    }, [])
 
-    const deleteBudget = async id => {
+    const deleteBudget = useCallback(async id => {
         await axios.delete(`/api/data/budgets/${id}`)
         .catch(err => console.log(err))
-    }
+    }, [])
 
     useEffect(() => {
         const budget = async () => {
