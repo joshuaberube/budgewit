@@ -5,6 +5,7 @@ import AddResource from "./AddResource";
 const Resources = () => {
   const [resources, setResources] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [reload, setReload] = useState(0)
   useEffect(() => {
     const getMyResources = async () => {
       try {
@@ -32,7 +33,7 @@ const Resources = () => {
       <ul className="bg-gray-50 rounded-10">
         {resources !== [] &&
           resources.map((resource) => (
-            <ResourceItem key={resource.resource_id} resource={resource} />
+            <ResourceItem key={resource.resource_id} resource={resource} setReload = {setReload} reload={reload} />
           ))}
       </ul>
       </div>
