@@ -14,7 +14,8 @@ const ResourceItem = ({ resource, setReload, reload }) => {
     e.preventDefault();
     editResource();
     setEdit(false);
-    setReload(reload++)
+   let state = () => reload++;
+    setReload(state)
   };
 
   const deleteResource = async () => {
@@ -23,7 +24,8 @@ const ResourceItem = ({ resource, setReload, reload }) => {
     } catch (err) {
       console.log(err);
     }
-    setReload(reload++)
+    let state = () => reload++;
+    setReload(state)
   };
   const editResource = async () => {
     try {

@@ -16,7 +16,7 @@ const Resources = () => {
       }
     };
     getMyResources();
-  }, [toggle]);
+    }, [toggle, reload]);
 
   return (
     <div className="bg-gray-200">
