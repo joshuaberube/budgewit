@@ -68,24 +68,24 @@ const Auth = () => {
               {inputsMapped}
             </div>
           </div>
-          <div className = 'flex flex-col w-648 my-4'> 
-          <div className="flex flex-row items-center justify-between">
-            <input
-              type="button"
-              className=" bg-transparent cursor-pointer font-semibold text-gray-600 mx-auto hover:underline text-sm leading-none mr-8"
-              onClick={() => dispatch(changeIsLoggingIn())}
-              value={isLoggingIn ? "Create An Account?" : "Already Have an Account?"}
-            />
-            <span>|</span>
-            <Link className='leading-none ml-8' to="/forgotpassword">
-              <button className="bg-transparent cursor-pointer font-semibold text-gray-600 text-sm hover:underline ">
-                 Forgot Password?
-              </button>
-            </Link>
-          </div>
+          <div className = 'flex flex-col w-648 my-4'>
             <button className="py-8 px-12 h-40 w-256 rounded-10 bg-green-400 font-bold text-gray-50 cursor-pointer mx-auto mb-12" type="submit">
               {isLoggingIn ? "Login" : "Create Account"}
             </button>
+            <div className="flex flex-row items-center justify-between">
+              <input
+                type="button"
+                className=" bg-transparent cursor-pointer font-semibold text-gray-600 mx-auto hover:underline text-sm leading-none mr-8"
+                onClick={() => dispatch(changeIsLoggingIn())}
+                value={isLoggingIn ? "Create An Account?" : "Already Have an Account?"}
+              />
+              <span>|</span>
+              <Link className='leading-none ml-8' to="/forgotpassword">
+                <button type="button" className="bg-transparent cursor-pointer font-semibold text-gray-600 text-sm hover:underline ">
+                  Forgot Password?
+                </button>
+              </Link>
+            </div>
           </div>
         </form>
       </div>
