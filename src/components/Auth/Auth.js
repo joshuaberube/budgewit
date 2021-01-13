@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const inputsArr = [
   // login inputs
-  { label: "Email", type: "text", name: "email" },
+  { label: "Email", type: "email", name: "email" },
   { label: "Password", type: "password", name: "password" },
 
   // register inputs
@@ -20,6 +20,7 @@ const inputsArr = [
     type: "tel",
     name: "phoneNum",
     pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}",
+    title: "123-456-7890"
   },
 ];
 
@@ -49,6 +50,7 @@ const Auth = () => {
           setAuthState({ ...authState, [e.target.name]: e.target.value })
         }
         pattern={input.type === "tel" ? input.pattern : null}
+        title={input.type === "tel" ? input.title : null}
       />
   ))
 
