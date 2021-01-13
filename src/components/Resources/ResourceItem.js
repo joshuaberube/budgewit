@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const ResourceItem = ({ resource, setReload, reload }) => {
+const ResourceItem = ({ resource, setEditReload, editReload, deleteReload, setDeleteReload }) => {
   const [edit, setEdit] = useState(false);
   const [resourceState, setResourceState] = useState({
     title: resource.resource_title,
@@ -14,8 +14,7 @@ const ResourceItem = ({ resource, setReload, reload }) => {
     e.preventDefault();
     editResource();
     setEdit(false);
-   let state = () => reload++;
-    setReload(state)
+    
   };
 
   const deleteResource = async () => {
@@ -24,8 +23,9 @@ const ResourceItem = ({ resource, setReload, reload }) => {
     } catch (err) {
       console.log(err);
     }
-    let state = () => reload++;
-    setReload(state)
+    let state = () => deleteReload++;
+    console.log(deleteReload)
+     setDeleteReload(state)
   };
   const editResource = async () => {
     try {
@@ -41,6 +41,9 @@ const ResourceItem = ({ resource, setReload, reload }) => {
     } catch (err) {
       console.log(err);
     }
+   let state = () => editReload++;
+   console.log(editReload)
+   setEditReload(state)
   };
   return (
     <>
